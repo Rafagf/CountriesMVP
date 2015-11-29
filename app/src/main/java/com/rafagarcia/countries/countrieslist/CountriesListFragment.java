@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,7 @@ import butterknife.ButterKnife;
 
 public class CountriesListFragment extends Fragment implements CountriesListFragmentInterface {
 
-    @Bind(R.id.recyclerView)
-    android.support.v7.widget.RecyclerView recyclerView;
-
+    RecyclerView recyclerView;
     private CountriesListPresenter presenter;
     private CountriesListInteractor interactor;
     private OnFragmentInteractionListener mListener;
@@ -57,7 +56,7 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     }
 
     private void initViews(View view) {
-        ButterKnife.bind(view);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         countryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
