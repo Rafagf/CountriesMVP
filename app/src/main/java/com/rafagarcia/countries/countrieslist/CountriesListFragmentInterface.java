@@ -10,4 +10,6 @@ import java.util.List;
 public interface CountriesListFragmentInterface {
 
     List<Country> getCountryList();
+    void updateAdapter(List<Country> countryList);
+    void goToSelectedCountry(String name);
 }

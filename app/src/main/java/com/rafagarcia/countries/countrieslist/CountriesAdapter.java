@@ -23,9 +23,12 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
     private List<Country> countries;
     private Context context;
     private static final String COUNTRY_POSITION = "country_position";
+    CountriesAdapterInterface listener;
 
-    public CountriesAdapter(List<Country> countries) {
+    public CountriesAdapter(List<Country> countries, Context context, CountriesAdapterInterface listener ) {
         this.countries = countries;
+        this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -49,10 +52,10 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
                 .placeholder(R.drawable.interrogation)
                 .into(holder.countryFlag);
 
-//        holder.rootView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.countrySelected(country.getName());
 //                int pos = ((MyApplication)context.getApplicationContext())
 //                        .getCountryPosByName(country.getName());
 //
@@ -61,8 +64,8 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
 //                    intent.putExtra(COUNTRY_POSITION, pos);
 //                    context.startActivity(intent);
 //                }
-//            }
-//        });
+            }
+        });
     }
 
     @Override

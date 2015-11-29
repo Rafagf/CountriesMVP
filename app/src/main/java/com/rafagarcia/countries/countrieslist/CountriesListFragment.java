@@ -1,6 +1,7 @@
 package com.rafagarcia.countries.countrieslist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,15 +56,23 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
         return view;
     }
 
+    //todo add butterknife
     private void initViews(View view) {
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         countryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        adapter = new CountriesAdapter(countryList);
+        adapter = new CountriesAdapter(countryList, getContext(), countriesAdapterListener);
         recyclerView.setAdapter(adapter);
         presenter.loadCountries();
     }
+
+    CountriesAdapterInterface countriesAdapterListener = new CountriesAdapterInterface() {
+        @Override
+        public void countrySelected(String name) {
+           presenter.countrySelected(name);
+        }
+    };
 
     private void init() {
         interactor = new CountriesListInteractor();
@@ -92,7 +101,18 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
         return countryList;
     }
 
+    @Override
+    public void updateAdapter(List<Country> countries) {
+        countryList.addAll(countries);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void goToSelectedCountry(String name){
+        mListener.goToSelectedCountry(name);
+    }
+
     public interface OnFragmentInteractionListener {
-        void goToSelectedCountry();
+        void goToSelectedCountry(String name);
     }
 }

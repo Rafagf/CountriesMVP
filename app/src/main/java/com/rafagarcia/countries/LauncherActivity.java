@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.Utilities.Utilities;
+import com.rafagarcia.countries.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -92,7 +93,7 @@ public class LauncherActivity extends Activity {
             if(mActivity != null) {
                 if (code.startsWith("20")) {
                     ((MyApplication)getApplicationContext()).loadCountries(parseCountriesJson(response));
-                    Intent intent = new Intent(LauncherActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LauncherActivity.this, CountriesListActivity.class);
                     startActivity(intent);
                 }
                 else {
