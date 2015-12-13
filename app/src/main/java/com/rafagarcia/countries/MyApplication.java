@@ -103,6 +103,16 @@ public class MyApplication extends Application{
         return -1;
     }
 
+    public Country getCountryByName(String name){
+        for (int i = 0; i < countries.size(); i++) {
+
+            if(countries.get(i).getName().equals(name)){
+                return countries.get(i);
+            }
+        }
+        return null;
+    }
+
     /**
      * Gets a list of countries filtering by region
      * @param region the region

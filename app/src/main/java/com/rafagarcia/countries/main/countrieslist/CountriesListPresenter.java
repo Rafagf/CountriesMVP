@@ -1,6 +1,4 @@
-package com.rafagarcia.countries.countrieslist;
-
-import android.content.Intent;
+package com.rafagarcia.countries.main.countrieslist;
 
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.model.Country;

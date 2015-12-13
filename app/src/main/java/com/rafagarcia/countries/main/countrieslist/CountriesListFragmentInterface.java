@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.countrieslist;
+package com.rafagarcia.countries.main.countrieslist;
 
 import com.rafagarcia.countries.model.Country;
 

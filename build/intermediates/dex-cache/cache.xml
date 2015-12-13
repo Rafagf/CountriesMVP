@@ -9,18 +9,32 @@
         <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/picasso-2.4.0-201ae10d2a206b8070ff345b35025363cee621ef.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/jars/classes.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-58ac62c1003bf0c1c508d83493d1f0574919a5a8.jar" />
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-c9857c4f80f4532864615d3ff3cc1edf0f425408.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-67bd9b850246ec46f288e4119bd1fd8d1a017f96.jar" />
+        sha1="1ccbc26be2c465c622a48310e8092241b01abe80">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-038668f532ef4f03151a119feb96a64f8147568f.jar" />
+    </item>
+    <item
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-d6ae72feac5f7c7aa5546aea9b9a6be6459e73ac.jar" />
+    </item>
+    <item
+        jar="/Users/rafagarcia/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1-5ccd367717c803b1158e451fa4b4267ab907aeec.jar" />
     </item>
     <item
         jar="/Users/rafagarcia/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
@@ -37,20 +51,6 @@
         <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-3b4bcfbd9991631d6d1f083fc44edc89c0187bbb.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-a0fe6b81c95191d05149bd083721f0c4b87b88b0.jar" />
-    </item>
-    <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-8e6bbac18963649efbb1e7f4d0a8cdfa2fbcb86e.jar" />
-    </item>
-    <item
         jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
@@ -58,32 +58,32 @@
         <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-b854311bd4355315bddefc8ebf30c34ec814e158.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.0/jars/classes.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="1ccbc26be2c465c622a48310e8092241b01abe80">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-038668f532ef4f03151a119feb96a64f8147568f.jar" />
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-67bd9b850246ec46f288e4119bd1fd8d1a017f96.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.1.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1-5ccd367717c803b1158e451fa4b4267ab907aeec.jar" />
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-a0fe6b81c95191d05149bd083721f0c4b87b88b0.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-d6ae72feac5f7c7aa5546aea9b9a6be6459e73ac.jar" />
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-58ac62c1003bf0c1c508d83493d1f0574919a5a8.jar" />
     </item>
     <item
-        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jar="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
-        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/classes-c9857c4f80f4532864615d3ff3cc1edf0f425408.jar" />
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/rafagarcia/Development/androidworkspace/androidstudio/CountriesMVP/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-8e6bbac18963649efbb1e7f4d0a8cdfa2fbcb86e.jar" />
     </item>
 
 </items>

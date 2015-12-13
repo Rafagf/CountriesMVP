@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.countrieslist;
+package com.rafagarcia.countries.main.countrieslist;
 
 /**
  * Created by rafagarcia on 29/11/2015.

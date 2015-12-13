@@ -8,7 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.Utilities.Utilities;
-import com.rafagarcia.countries.countrieslist.CountriesListActivity;
+import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
 import org.json.JSONArray;
 import org.json.JSONObject;

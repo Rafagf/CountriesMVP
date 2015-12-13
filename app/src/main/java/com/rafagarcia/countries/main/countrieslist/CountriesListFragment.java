@@ -1,7 +1,6 @@
-package com.rafagarcia.countries.countrieslist;
+package com.rafagarcia.countries.main.countrieslist;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,9 +14,6 @@ import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class CountriesListFragment extends Fragment implements CountriesListFragmentInterface {
 
