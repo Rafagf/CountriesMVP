@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
@@ -43,10 +44,21 @@ public class LauncherActivity extends Activity {
             workerThread = new GetCountriesAsyncTask(this);
             workerThread.execute();
         }
-        //Todo get the json from a file stored in the device, so the app works offline
         else{
-            Snackbar.make(this.findViewById(R.id.recyclerView), "There is not an internet connection",
-                    Snackbar.LENGTH_LONG).show();
+            String countriesJson = Utilities.getCountriesJsonFromSharedPreferences(getApplicationContext());
+            if(countriesJson != null){
+                Toast.makeText(getApplicationContext(), "From cache", Toast.LENGTH_LONG).show();
+                ((MyApplication)getApplicationContext()).loadCountries(parseCountriesJson(countriesJson));
+                Intent intent = new Intent(LauncherActivity.this, CountriesListActivity.class);
+                startActivity(intent);
+//                Snackbar.make(this.findViewById(R.id.recyclerView), "Loading from cache",
+//                        Snackbar.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "No internet connection", Toast.LENGTH_LONG).show();
+//                Snackbar.make(this.findViewById(R.id.recyclerView), "There is not an internet connection",
+//                        Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -92,13 +104,15 @@ public class LauncherActivity extends Activity {
         protected void onPostExecute(String code) {
             if(mActivity != null) {
                 if (code.startsWith("20")) {
-                    ((MyApplication)getApplicationContext()).loadCountries(parseCountriesJson(response));
+                    Utilities.saveCountriesJsonInSharedPreferences(response, getApplicationContext());
+                            ((MyApplication) getApplicationContext()).loadCountries(parseCountriesJson(response));
                     Intent intent = new Intent(LauncherActivity.this, CountriesListActivity.class);
                     startActivity(intent);
                 }
                 else {
-                    Snackbar.make(mActivity.findViewById(R.id.recyclerView), "Sorry, there is an internet connection problem",
-                            Snackbar.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "no internet connection", Toast.LENGTH_LONG).show();
+//                    Snackbar.make(mActivity.findViewById(R.id.recyclerView), "Sorry, there is an internet connection problem",
+//                            Snackbar.LENGTH_LONG).show();
                 }
             }
         }
