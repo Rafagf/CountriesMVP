@@ -34,4 +34,10 @@ public class CountryActivity extends AppCompatActivity implements CountryFragmen
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+    }
 }

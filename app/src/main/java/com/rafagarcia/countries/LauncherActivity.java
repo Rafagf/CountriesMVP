@@ -50,7 +50,9 @@ public class LauncherActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "From cache", Toast.LENGTH_LONG).show();
                 ((MyApplication)getApplicationContext()).loadCountries(parseCountriesJson(countriesJson));
                 Intent intent = new Intent(LauncherActivity.this, CountriesListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
 //                Snackbar.make(this.findViewById(R.id.recyclerView), "Loading from cache",
 //                        Snackbar.LENGTH_LONG).show();
             }
@@ -107,7 +109,9 @@ public class LauncherActivity extends Activity {
                     Utilities.saveCountriesJsonInSharedPreferences(response, getApplicationContext());
                             ((MyApplication) getApplicationContext()).loadCountries(parseCountriesJson(response));
                     Intent intent = new Intent(LauncherActivity.this, CountriesListActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "no internet connection", Toast.LENGTH_LONG).show();

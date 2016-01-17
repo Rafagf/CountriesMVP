@@ -23,5 +23,6 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
         Intent intent = new Intent(this, CountryActivity.class);
         intent.putExtra(COUNTRY_NAME, name);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 }
