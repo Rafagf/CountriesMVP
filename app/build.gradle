@@ -30,4 +30,8 @@ dependencies {
     compile "com.squareup.picasso:picasso:2.4.0"
     compile "com.google.android.gms:play-services-maps:8.1.0"
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    compile 'com.squareup.okhttp:okhttp:2.7.0'
 }
