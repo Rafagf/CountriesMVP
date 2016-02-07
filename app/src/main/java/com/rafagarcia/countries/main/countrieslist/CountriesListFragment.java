@@ -18,6 +18,9 @@ import java.util.List;
 public class CountriesListFragment extends Fragment implements CountriesListFragmentInterface {
 
     RecyclerView recyclerView;
+    private View flagToAnimate;
+    private View nameToAnimate;
+    private View regionToAnimate;
     private CountriesListPresenter presenter;
     private CountriesListInteractor interactor;
     private OnFragmentInteractionListener mListener;
@@ -65,8 +68,12 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
 
     CountriesAdapterInterface countriesAdapterListener = new CountriesAdapterInterface() {
         @Override
-        public void countrySelected(String name) {
-           presenter.countrySelected(name);
+        public void countrySelected(String name, View flagView, View nameView,
+                                    View regionView) {
+            flagToAnimate = flagView;
+            nameToAnimate = nameView;
+            regionToAnimate = regionView;
+            presenter.countrySelected(name);
         }
     };
 
@@ -105,10 +112,11 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
 
     @Override
     public void goToSelectedCountry(String name){
-        mListener.goToSelectedCountry(name);
+        mListener.goToSelectedCountry(name, flagToAnimate, nameToAnimate, regionToAnimate);
     }
 
     public interface OnFragmentInteractionListener {
-        void goToSelectedCountry(String name);
+        void goToSelectedCountry(String name, View flagView, View nameView,
+                                 View regionView);
     }
 }

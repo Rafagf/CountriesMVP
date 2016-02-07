@@ -39,7 +39,7 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
     }
 
     @Override
-    public void onBindViewHolder(CountryViewHolder holder, final int position) {
+    public void onBindViewHolder(final CountryViewHolder holder, final int position) {
 
         final Country country = countries.get(position);
         holder.countryName.setText(country.getName());
@@ -54,7 +54,8 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.countrySelected(country.getName());
+                listener.countrySelected(country.getName(), holder.countryFlag, holder.countryName,
+                        holder.countryRegion);
 //                int pos = ((MyApplication)context.getApplicationContext())
 //                        .getCountryPosByName(country.getName());
 //
@@ -73,7 +74,6 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
     }
 
     public static class CountryViewHolder extends RecyclerView.ViewHolder{
-
         View rootView;
         ImageView countryFlag;
         TextView countryName;

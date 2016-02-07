@@ -1,4 +1,4 @@
-package com.rafagarcia.countries;
+package com.rafagarcia.countries.main;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.rafagarcia.countries.MyApplication;
+import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
@@ -23,20 +25,28 @@ import java.util.List;
 /**
  * Created by rafagarcia on 29/11/2015.
  */
-public class LauncherActivity extends Activity {
+public class LauncherActivity extends Activity implements LauncherActivityInterface{
 
     GetCountriesAsyncTask workerThread;
+    LauncherPresenter presenter;
+    LauncherInteractor interactor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
+        init();
+    }
+
+    private void init() {
+        interactor = new LauncherInteractor();
+        presenter = new LauncherPresenter(this, interactor);
+        fetchCountriesInfo();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadCountriesInformation();
+    public void fetchCountriesInfo() {
+        presenter.fetchCountriesInfo();
     }
 
     public void loadCountriesInformation(){
