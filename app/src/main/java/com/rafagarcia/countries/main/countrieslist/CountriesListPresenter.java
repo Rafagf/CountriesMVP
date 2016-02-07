@@ -10,20 +10,15 @@ import java.util.List;
  */
 public class CountriesListPresenter {
 
-    CountriesListInteractor interactor;
     CountriesListFragmentInterface view;
 
-    public CountriesListPresenter(CountriesListFragmentInterface view, CountriesListInteractor interactor){
+    public CountriesListPresenter(CountriesListFragmentInterface view){
         this.view = view;
-        this.interactor = interactor;
     }
 
     public void loadCountries(){
-        interactor.loadCountries(this);
-    }
-
-    public void onCountriesReady(List<Country> countryList){
-        view.updateAdapter(countryList);
+        List<Country> countriesList = MyApplication.getInstance().getCountries();
+        view.updateAdapter(countriesList);
     }
 
     public void countrySelected(String name) {

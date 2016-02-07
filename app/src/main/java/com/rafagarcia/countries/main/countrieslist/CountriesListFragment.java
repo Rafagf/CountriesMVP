@@ -22,7 +22,6 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     private View nameToAnimate;
     private View regionToAnimate;
     private CountriesListPresenter presenter;
-    private CountriesListInteractor interactor;
     private OnFragmentInteractionListener mListener;
     private CountriesAdapter adapter;
     private List<Country> countryList;
@@ -78,8 +77,7 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     };
 
     private void init() {
-        interactor = new CountriesListInteractor();
-        presenter = new CountriesListPresenter(this, interactor);
+        presenter = new CountriesListPresenter(this);
     }
 
     @Override
