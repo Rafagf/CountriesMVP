@@ -1,4 +1,4 @@
-package com.rafagarcia;
+package com.rafagarcia.countries.backend;
 
 import com.rafagarcia.countries.model.Country;
 import com.squareup.okhttp.ResponseBody;
