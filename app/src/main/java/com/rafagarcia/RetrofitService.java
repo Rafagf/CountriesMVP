@@ -1,8 +1,10 @@
 package com.rafagarcia;
 
+import com.rafagarcia.countries.model.Country;
 import com.squareup.okhttp.ResponseBody;
 
 import retrofit.Call;
+import retrofit.Response;
 import retrofit.http.GET;
 
 /**
@@ -12,5 +14,5 @@ public interface RetrofitService {
     String BASE_URL = "https://restcountries.eu/rest/v1/";
 
     @GET("all")
-    Call<ResponseBody> getAllCountries();
+    Call<Response<Country>> getAllCountries();
 }

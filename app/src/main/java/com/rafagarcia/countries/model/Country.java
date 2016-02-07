@@ -20,14 +20,14 @@ public class Country implements Comparable<Country>{
     private String population;
     private String area;
     private String demonym;
-    private LatLng latLng;
+    private LatLng latlng;
     private List<String> borders;
     private String flagUrl;
 
     public Country(String name, String englishName, String frenchName, String spanishName,
                    String germanName, String japaneseName, String italianName, String nativeName,
                    String alpha2Code, String alpha3Code, String region, String subregion, String capital,
-                   String population, String area, String demonym, LatLng latLng, List<String> borders) {
+                   String population, String area, String demonym, LatLng latlng, List<String> borders) {
         this.name = name;
         this.translations = new Translations(englishName, frenchName, spanishName, germanName,
                 japaneseName, italianName);
@@ -40,7 +40,7 @@ public class Country implements Comparable<Country>{
         this.population = population;
         this.area = area;
         this.demonym = demonym;
-        this.latLng = latLng;
+        this.latlng = latlng;
         this.borders = borders;
         this.flagUrl = "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
     }
@@ -138,12 +138,12 @@ public class Country implements Comparable<Country>{
         this.nativeName = nativeName;
     }
 
-    public LatLng getLatLng() {
-        return latLng;
+    public LatLng getLatlng() {
+        return latlng;
     }
 
-    public void setLatLng(LatLng latLng) {
-        this.latLng = latLng;
+    public void setLatlng(LatLng latlng) {
+        this.latlng = latlng;
     }
 
     public String getAlpha3Code() {

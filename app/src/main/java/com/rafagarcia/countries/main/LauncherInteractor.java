@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.rafagarcia.RetrofitService;
+import com.rafagarcia.countries.model.Country;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
@@ -31,25 +32,22 @@ public class LauncherInteractor {
                 .build();
 
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-        Call<ResponseBody> call = retrofitService.getAllCountries();
+        Call<Response<Country>> call = retrofitService.getAllCountries();
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<Response<Country>>() {
             @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
-                Log.d("Retrofit", "Success");
+            public void onResponse(Response<Response<Country>> response, Retrofit retrofit) {
                 Log.d("Retrofit", String.valueOf(response.code()));
-                try {
-                    Log.d("Retrofit", response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                Response<Country> countryResponse = response.body();
+                Country country = countryResponse.body();
+                Log.d("Country", country.getName());
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Log.d("Retrofit", "Failed");
+
             }
         });
+
     }
 }
