@@ -14,5 +14,5 @@ public interface RetrofitService {
     String BASE_URL = "https://restcountries.eu/rest/v1/";
 
     @GET("all")
-    Call<Response<Country>> getAllCountries();
+    Call<ResponseBody> getAllCountries();
 }
