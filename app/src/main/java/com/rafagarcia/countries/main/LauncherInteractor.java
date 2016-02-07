@@ -3,6 +3,7 @@ package com.rafagarcia.countries.main;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.rafagarcia.RetrofitService;
 import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
@@ -20,19 +21,17 @@ import retrofit.http.Path;
  */
 public class LauncherInteractor {
 
-    interface GitHubService {
-        @GET("all")
-        Call<ResponseBody> getAllCountries();
-    }
+
 
     public void fetchCountriesInfo(LauncherPresenter launcherPresenter) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://restcountries.eu/rest/v1/")
+                .baseUrl(RetrofitService.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        GitHubService gitHubService = retrofit.create(GitHubService.class);
-        Call<ResponseBody> call = gitHubService.getAllCountries();
+        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        Call<ResponseBody> call = retrofitService.getAllCountries();
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -50,7 +49,6 @@ public class LauncherInteractor {
             @Override
             public void onFailure(Throwable t) {
                 Log.d("Retrofit", "Failed");
-
             }
         });
     }
