@@ -1,10 +1,14 @@
 package com.rafagarcia.countries.main.country;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
@@ -19,7 +33,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CountryFragment extends Fragment implements CountryFragmentInterface{
+public class CountryFragment extends Fragment implements CountryFragmentInterface {
 
     @Bind(R.id.nameTextView) TextView nameTextView;
     @Bind(R.id.flagImageView) ImageView flagImageView;
@@ -35,9 +49,10 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
     private String countryName;
     private CountryPresenter presenter;
-    private Country country;
     private static final String COUNTRY_NAME = "country_name";
     private OnFragmentInteractionListener mListener;
+    private GoogleMap mMap;
+    private SupportMapFragment mapFragment;
 
     public static CountryFragment newInstance(String countryName) {
         CountryFragment fragment = new CountryFragment();
@@ -64,18 +79,17 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_country, container, false);
-        init();
         initViews(view);
+        init();
         return view;
     }
 
     private void init() {
         presenter = new CountryPresenter(this);
-        country = presenter.getCountryByName(countryName);
+        presenter.getCountryInformation(countryName);
     }
 
-    private void initViews(View view) {
-        ButterKnife.bind(this, view);
+    public void showCountryInformation(Country country){
         Picasso.with(getContext())
                 .load(country.getFlagUrl())
                 .placeholder(R.drawable.interrogation)
@@ -92,6 +106,14 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         nativeNameTextView.setText(resources.getString(R.string.native_name) + country.getNativeName());
         borderCountriesTextView.setText(resources.getString(R.string.border_countries));
         displayBorders();
+    }
+
+    private void initViews(View view) {
+        ButterKnife.bind(this, view);
+        //Loading map fragment
+        FragmentManager fm = getChildFragmentManager();
+        fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance()).commit();
+
     }
 
     private void displayBorders() {
@@ -115,12 +137,59 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         mListener = null;
     }
 
-    @Override
-    public Country getCountry() {
-        return country;
-    }
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+
+    public static class MapFragment extends Fragment {
+
+        GoogleMap googleMap;
+        Country country;
+
+        public static MapFragment newInstance() {
+            MapFragment fragment = new MapFragment();
+            Bundle args = new Bundle();
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        public MapFragment() {
+            // Required empty public constructor
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+            View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+            int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
+            if(resultCode != ConnectionResult.SUCCESS)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Google Play Services not available");
+                builder.setCancelable(true);
+                builder.setPositiveButton("OK", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                googleMap = (((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getMap());
+                initMap();
+            }
+
+            return view;
+        }
+
+        private void initMap() {
+
+            // Add a marker in Sydney, Australia, and move the camera.
+            LatLng sydney = new LatLng(-34, 151);
+            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        }
     }
 }

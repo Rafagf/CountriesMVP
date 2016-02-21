@@ -14,7 +14,8 @@ public class CountryPresenter {
         view = countryView;
     }
 
-    public Country getCountryByName(String name){
-        return MyApplication.getInstance().getCountryByName(name);
+    public void getCountryInformation(String name){
+        Country country =  MyApplication.getInstance().getCountryByName(name);
+        view.showCountryInformation(country);
     }
 }

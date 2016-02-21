@@ -7,5 +7,5 @@ import com.rafagarcia.countries.model.Country;
  */
 public interface CountryFragmentInterface {
 
-    Country getCountry();
+    void showCountryInformation(Country country);
 }
