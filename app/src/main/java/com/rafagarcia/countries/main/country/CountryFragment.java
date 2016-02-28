@@ -76,33 +76,10 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         presenter.showCountryInformation(country);
     }
 
-    public void showCountryInformation(Country country){
-        Picasso.with(getContext())
-                .load(country.getFlagUrl())
-                .placeholder(R.drawable.interrogation)
-                .into(flagImageView);
-
-        Resources resources = getResources();
-        nameTextView.setText(country.getName());
-        regionTextView.setText(country.getRegion());
-        subregionTextView.setText(country.getSubregion());
-        capitalTextView.setText(resources.getString(R.string.capital) + country.getCapital());
-        populationTextView.setText(resources.getString(R.string.population) + country.getPopulation());
-        areaTextView.setText(resources.getString(R.string.area) + country.getArea());
-        denonymTextView.setText(resources.getString(R.string.demonym) + country.getDemonym());
-        nativeNameTextView.setText(resources.getString(R.string.native_name) + country.getNativeName());
-        borderCountriesTextView.setText(resources.getString(R.string.border_countries));
-        displayBorders();
-    }
-
     private void initViews(View view) {
         ButterKnife.bind(this, view);
         FragmentManager fm = getChildFragmentManager();
         fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance()).commit();
-    }
-
-    private void displayBorders() {
-
     }
 
     @Override
@@ -120,6 +97,61 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void showFlag(String flagUrl) {
+        Picasso.with(getContext())
+                .load(country.getFlagUrl())
+                .placeholder(R.drawable.interrogation)
+                .into(flagImageView);
+    }
+
+    @Override
+    public void showName(String name) {
+        nameTextView.setText(country.getName());
+    }
+
+    @Override
+    public void showRegion(String region) {
+        regionTextView.setText(country.getRegion());
+    }
+
+    @Override
+    public void showSubregion(String subregion) {
+        subregionTextView.setText(country.getSubregion());
+    }
+
+    @Override
+    public void showCapital(String capital) {
+        capitalTextView.setText(getResources().getString(R.string.capital) + country.getCapital());
+    }
+
+    @Override
+    public void showPopulation(String population) {
+        populationTextView.setText(getResources().getString(R.string.population) + country.getPopulation());
+    }
+
+    @Override
+    public void showArea(String area) {
+        areaTextView.setText(getResources().getString(R.string.area) + country.getArea());
+    }
+
+    @Override
+    public void showDenonym(String denonym) {
+        denonymTextView.setText(getResources().getString(R.string.demonym) + country.getDemonym());
+    }
+
+    @Override
+    public void showNativeName(String nativeName) {
+        nativeNameTextView.setText(getResources().getString(R.string.native_name) + country.getNativeName());
+    }
+
+    @Override
+    public void showBorderCountries() {
+        borderCountriesTextView.setText(getResources().getString(R.string.border_countries));
+        //todo show borders
+
     }
 
     public interface OnFragmentInteractionListener {

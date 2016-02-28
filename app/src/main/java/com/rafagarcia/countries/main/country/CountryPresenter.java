@@ -15,6 +15,15 @@ public class CountryPresenter {
     }
 
     public void showCountryInformation(Country country){
-        view.showCountryInformation(country);
+        view.showFlag(country.getFlagUrl());
+        view.showName(country.getName());
+        view.showNativeName(country.getNativeName());
+        view.showRegion(country.getRegion());
+        view.showSubregion(country.getSubregion());
+        view.showArea(country.getArea());
+        view.showCapital(country.getCapital());
+        view.showDenonym(country.getDemonym());
+        view.showPopulation(country.getPopulation());
+        view.showBorderCountries();
     }
 }
