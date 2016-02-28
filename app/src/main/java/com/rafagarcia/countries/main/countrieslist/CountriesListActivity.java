@@ -8,12 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.main.country.CountryActivity;
+import com.rafagarcia.countries.model.Country;
 
 public class CountriesListActivity extends AppCompatActivity implements CountriesListFragment.OnFragmentInteractionListener {
 
-    public static final String COUNTRY_NAME = "country_name";
+    public static final String COUNTRY = "country";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
     public void goToSelectedCountry(String name, View flagView, View nameView,
                                     View regionView) {
         Intent intent = new Intent(this, CountryActivity.class);
-        intent.putExtra(COUNTRY_NAME, name);
+        intent.putExtra(COUNTRY, MyApplication.getInstance().getCountryByName(name));
 
         // Get the transition name from the string
         String flagTransition = getString(R.string.flag_transition);

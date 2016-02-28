@@ -39,15 +39,15 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     @Bind(R.id.capitalTextView) TextView capitalTextView;
     @Bind(R.id.bordersLinearLayout) LinearLayout bordersLinearLayout;
     @Bind(R.id.borderCountriesTextView) TextView borderCountriesTextView;
-    private String countryName;
+    private Country country;
     private CountryPresenter presenter;
-    private static final String COUNTRY_NAME = "country_name";
+    private static final String COUNTRY = "country_name";
     private OnFragmentInteractionListener mListener;
 
-    public static CountryFragment newInstance(String countryName) {
+    public static CountryFragment newInstance(Country country) {
         CountryFragment fragment = new CountryFragment();
         Bundle args = new Bundle();
-        args.putString(COUNTRY_NAME, countryName);
+        args.putParcelable(COUNTRY, country);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,7 +58,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            countryName = getArguments().getString(COUNTRY_NAME);
+            country = getArguments().getParcelable(COUNTRY);
         }
     }
 
@@ -73,7 +73,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
     private void init() {
         presenter = new CountryPresenter(this);
-        presenter.getCountryInformation(countryName);
+        presenter.showCountryInformation(country);
     }
 
     public void showCountryInformation(Country country){
@@ -148,12 +148,9 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
             View view = inflater.inflate(R.layout.fragment_map, container, false);
-
             int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
-            if(resultCode != ConnectionResult.SUCCESS)
-            {
+            if(resultCode != ConnectionResult.SUCCESS) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage("Google Play Services not available");
                 builder.setCancelable(true);

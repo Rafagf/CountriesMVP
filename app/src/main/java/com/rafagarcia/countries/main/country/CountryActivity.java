@@ -20,10 +20,9 @@ public class CountryActivity extends AppCompatActivity implements CountryFragmen
         setContentView(R.layout.activity_country);
         Intent intent = getIntent();
         try {
-            String countryName = intent.getStringExtra(CountriesListActivity.COUNTRY_NAME);
+            Country country = intent.getParcelableExtra(CountriesListActivity.COUNTRY);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment, CountryFragment.newInstance(countryName)).commit();
-
+                    .add(R.id.fragment, CountryFragment.newInstance(country)).commit();
         }
         catch (Exception e){
             Log.e("Error", e.getMessage());
