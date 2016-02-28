@@ -41,13 +41,8 @@ public class MyApplication extends Application{
 
         String deviceLanguage = Locale.getDefault().getLanguage().toUpperCase();
 
-        try {
-            localisedLanguage = Languages.valueOf(deviceLanguage);
-        }
-
-        catch (Exception e){
-            localisedLanguage = Languages.EN;
-        }
+        //todo support different languages
+        localisedLanguage = Languages.EN;
     }
 
     /**

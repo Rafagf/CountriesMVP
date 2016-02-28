@@ -71,14 +71,6 @@ public class LauncherPresenter {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String englishName = jsonObject.getString("name");
-                    JSONObject translations = jsonObject.getJSONObject("translations");
-                    String frenchName = translations.getString("fr");
-                    String spanishName = translations.getString("es");
-                    String germanName = translations.getString("de");
-                    String japaneseName = translations.getString("ja");
-                    String italianName = translations.getString("it");
-                    String name = getLocalisedName(englishName, frenchName, spanishName,
-                            germanName, japaneseName, italianName);
                     String nativeName = jsonObject.getString("nativeName");
                     String alpha2Code = jsonObject.getString("alpha2Code");
                     String alpha3Code = jsonObject.getString("alpha3Code");
@@ -97,8 +89,7 @@ public class LauncherPresenter {
                         borders.add(bordersArray.getString(j));
                     }
 
-                    countryList.add(new Country(name, englishName, frenchName, spanishName, germanName,
-                            japaneseName, italianName, nativeName, alpha2Code, alpha3Code,
+                    countryList.add(new Country(englishName, nativeName, alpha2Code, alpha3Code,
                             region, subregion, capital, population, area, denonym, latLng, borders));
                 }
 
@@ -113,35 +104,5 @@ public class LauncherPresenter {
         }
 
         return countryList;
-    }
-
-    private String getLocalisedName(String englishName, String frenchName, String spanishName,
-                                    String germanName, String japaneseName, String italianName) {
-        String localisedName = englishName;
-        MyApplication.Languages localisedLanguage =
-                MyApplication.getInstance().getLocalisedLanguage();
-
-        switch (localisedLanguage) {
-            case EN:
-                localisedName = englishName;
-                break;
-            case ES:
-                localisedName = spanishName;
-                break;
-            case FR:
-                localisedName = frenchName;
-                break;
-            case JA:
-                localisedName = japaneseName;
-                break;
-            case IT:
-                localisedName = italianName;
-                break;
-            case DE:
-                localisedName = germanName;
-                break;
-        }
-
-        return localisedName;
     }
 }

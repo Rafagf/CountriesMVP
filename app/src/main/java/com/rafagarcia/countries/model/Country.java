@@ -10,7 +10,6 @@ import java.util.List;
 public class Country implements Comparable<Country>{
 
     private String name;
-    private Translations translations;
     private String nativeName;
     private String alpha2Code;
     private String alpha3Code;
@@ -24,13 +23,10 @@ public class Country implements Comparable<Country>{
     private List<String> borders;
     private String flagUrl;
 
-    public Country(String name, String englishName, String frenchName, String spanishName,
-                   String germanName, String japaneseName, String italianName, String nativeName,
+    public Country(String name, String nativeName,
                    String alpha2Code, String alpha3Code, String region, String subregion, String capital,
                    String population, String area, String demonym, LatLng latlng, List<String> borders) {
         this.name = name;
-        this.translations = new Translations(englishName, frenchName, spanishName, germanName,
-                japaneseName, italianName);
         this.nativeName = nativeName;
         this.alpha2Code = alpha2Code;
         this.alpha3Code = alpha3Code;
@@ -80,14 +76,6 @@ public class Country implements Comparable<Country>{
 
     public void setFlagUrl(String flagUrl) {
         this.flagUrl = flagUrl;
-    }
-
-    public Translations getTranslations() {
-        return translations;
-    }
-
-    public void setTranslations(Translations translations) {
-        this.translations = translations;
     }
 
     public String getAlpha2Code() {
@@ -160,71 +148,5 @@ public class Country implements Comparable<Country>{
 
     public void setBorders(List<String> borders) {
         this.borders = borders;
-    }
-
-    private class Translations{
-        private String english;
-        private String french;
-        private String spanish;
-        private String german;
-        private String japanese;
-        private String italian;
-
-        public Translations(String english, String french, String spanish, String german, String japanese, String italian) {
-            this.english = english;
-            this.french = french;
-            this.spanish = spanish;
-            this.german = german;
-            this.japanese = japanese;
-            this.italian = italian;
-        }
-
-        public String getFrench() {
-            return french;
-        }
-
-        public void setFrench(String french) {
-            this.french = french;
-        }
-
-        public String getSpanish() {
-            return spanish;
-        }
-
-        public void setSpanish(String spanish) {
-            this.spanish = spanish;
-        }
-
-        public String getGerman() {
-            return german;
-        }
-
-        public void setGerman(String german) {
-            this.german = german;
-        }
-
-        public String getJapanese() {
-            return japanese;
-        }
-
-        public void setJapanese(String japanese) {
-            this.japanese = japanese;
-        }
-
-        public String getItalian() {
-            return italian;
-        }
-
-        public void setItalian(String italian) {
-            this.italian = italian;
-        }
-
-        public String getEnglish() {
-            return english;
-        }
-
-        public void setEnglish(String english) {
-            this.english = english;
-        }
     }
 }
