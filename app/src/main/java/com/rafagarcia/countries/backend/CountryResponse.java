@@ -1,11 +1,15 @@
 package com.rafagarcia.countries.backend;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by rafagarcia on 28/02/2016.
  */
-public class CountryResponse {
+public class CountryResponse implements Parcelable {
 
     private String name;
     private String nativeName;
@@ -72,4 +76,56 @@ public class CountryResponse {
     public TranslationsResponse getTranslations() {
         return translations;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.nativeName);
+        dest.writeString(this.alpha2Code);
+        dest.writeString(this.alpha3Code);
+        dest.writeString(this.region);
+        dest.writeString(this.subregion);
+        dest.writeString(this.capital);
+        dest.writeString(this.population);
+        dest.writeString(this.area);
+        dest.writeString(this.demonym);
+        dest.writeList(this.latlng);
+        dest.writeStringList(this.borders);
+        dest.writeParcelable(this.translations, flags);
+    }
+
+    public CountryResponse() {
+    }
+
+    protected CountryResponse(Parcel in) {
+        this.name = in.readString();
+        this.nativeName = in.readString();
+        this.alpha2Code = in.readString();
+        this.alpha3Code = in.readString();
+        this.region = in.readString();
+        this.subregion = in.readString();
+        this.capital = in.readString();
+        this.population = in.readString();
+        this.area = in.readString();
+        this.demonym = in.readString();
+        this.latlng = new ArrayList<Double>();
+        in.readList(this.latlng, List.class.getClassLoader());
+        this.borders = in.createStringArrayList();
+        this.translations = in.readParcelable(TranslationsResponse.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<CountryResponse> CREATOR = new Parcelable.Creator<CountryResponse>() {
+        public CountryResponse createFromParcel(Parcel source) {
+            return new CountryResponse(source);
+        }
+
+        public CountryResponse[] newArray(int size) {
+            return new CountryResponse[size];
+        }
+    };
 }
