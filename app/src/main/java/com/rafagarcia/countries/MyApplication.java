@@ -50,7 +50,6 @@ public class MyApplication extends Application{
      * @param countries list of countries
      */
     public void loadCountries(List<Country> countries){
-
         this.countries = countries;
         Collections.sort(this.countries);
     }

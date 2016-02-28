@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.MyApplication;
+import com.rafagarcia.countries.backend.CountryResponse;
 import com.rafagarcia.countries.main.launcher.LauncherActivityInterface;
 import com.rafagarcia.countries.main.launcher.LauncherInteractor;
 import com.rafagarcia.countries.model.Country;
@@ -31,27 +32,25 @@ public class LauncherPresenter {
     }
 
     public void fetchCountriesInfo(boolean networkAvailable, String jsonFromCache) {
-        if(jsonFromCache != null){
-            loadCountriesInApp(parseCountriesJson(jsonFromCache));
-            view.goToMainScreen();
+        if(networkAvailable){
+            interactor.fetchCountriesInfo(this);
+        }
+        else if(jsonFromCache != null){
+            //todo implement caching (app shoud work offline)
+            onErrorFetchingCountries();
         }
         else{
-            if(networkAvailable){
-                interactor.fetchCountriesInfo(this);
-            }
-            else{
-                onErrorFetchingCountries();
-            }
+            onErrorFetchingCountries();
         }
     }
 
-    public void countriesFetchedSuccessfully(Response<ResponseBody> response) {
-        try {
-            loadCountriesInApp(parseCountriesJson(response.body().string()));
-            view.goToMainScreen();
-        } catch (IOException e) {
-            view.showError();
+    public void countriesFetchedSuccessfully(List<CountryResponse> countriesResponse) {
+        List<Country> countryList = new ArrayList<>();
+        for(int i = 0; i < countriesResponse.size(); i++){
+            countryList.add(new Country(countriesResponse.get(i)));
         }
+        loadCountriesInApp(countryList);
+        view.goToMainScreen();
     }
 
     public void onErrorFetchingCountries() {
@@ -60,49 +59,5 @@ public class LauncherPresenter {
 
     public void loadCountriesInApp(List<Country> countries){
         MyApplication.getInstance().loadCountries(countries);
-    }
-
-
-    private List<Country> parseCountriesJson(String jsonString) {
-        List<Country> countryList = new ArrayList<>();
-        try{
-            JSONArray jsonArray = new JSONArray(jsonString);
-            for(int i = 0; i < jsonArray.length(); i++){
-                try {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String englishName = jsonObject.getString("name");
-                    String nativeName = jsonObject.getString("nativeName");
-                    String alpha2Code = jsonObject.getString("alpha2Code");
-                    String alpha3Code = jsonObject.getString("alpha3Code");
-                    String region = jsonObject.getString("region");
-                    String subregion = jsonObject.getString("subregion");
-                    String capital = jsonObject.getString("capital");
-                    String population = jsonObject.getString("population");
-                    String area = jsonObject.getString("area");
-                    String denonym = jsonObject.getString("demonym");
-                    JSONArray latLngArray = jsonObject.getJSONArray("latlng");
-                    LatLng latLng = new LatLng(latLngArray.getDouble(0), latLngArray.getDouble(1));
-                    JSONArray bordersArray = jsonObject.getJSONArray("borders");
-
-                    List<String> borders = new ArrayList<>();
-                    for(int j = 0; j < bordersArray.length(); j++){
-                        borders.add(bordersArray.getString(j));
-                    }
-
-                    countryList.add(new Country(englishName, nativeName, alpha2Code, alpha3Code,
-                            region, subregion, capital, population, area, denonym, latLng, borders));
-                }
-
-                catch (Exception e){
-                    Log.e("Error", "Error parsing particular country: " + e);
-                }
-            }
-        }
-
-        catch (Exception e){
-            Log.e("Error", "Error parsing countries json: " + e);
-        }
-
-        return countryList;
     }
 }

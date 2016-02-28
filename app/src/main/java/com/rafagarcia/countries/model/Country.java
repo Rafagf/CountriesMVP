@@ -1,6 +1,8 @@
 package com.rafagarcia.countries.model;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.rafagarcia.countries.backend.CountryResponse;
+import com.rafagarcia.countries.backend.TranslationsResponse;
 
 import java.util.List;
 
@@ -19,13 +21,35 @@ public class Country implements Comparable<Country>{
     private String population;
     private String area;
     private String demonym;
+    private String flagUrl;
     private LatLng latlng;
     private List<String> borders;
-    private String flagUrl;
+    private Translations translations;
+
+    public Country(CountryResponse response){
+        this.name = response.getName();
+        this.nativeName = response.getNativeName();
+        this.alpha2Code = response.getAlpha2Code();
+        this.alpha3Code = response.getAlpha3Code();
+        this.region = response.getRegion();
+        this.subregion = response.getSubregion();
+        this.capital = response.getCapital();
+        this.population = response.getPopulation();
+        this.area = response.getArea();
+        this.demonym = response.getDemonym();
+        this.borders = response.getBorders();
+        this.flagUrl = "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
+
+        if(response.getLatlng() != null && response.getLatlng().size() == 2) {
+            this.latlng = new LatLng(response.getLatlng().get(0), response.getLatlng().get(1));
+        }
+
+        this.translations = new Translations(response.getTranslations());
+    }
 
     public Country(String name, String nativeName,
                    String alpha2Code, String alpha3Code, String region, String subregion, String capital,
-                   String population, String area, String demonym, LatLng latlng, List<String> borders) {
+                   String population, String area, String demonym) {
         this.name = name;
         this.nativeName = nativeName;
         this.alpha2Code = alpha2Code;
@@ -36,8 +60,6 @@ public class Country implements Comparable<Country>{
         this.population = population;
         this.area = area;
         this.demonym = demonym;
-        this.latlng = latlng;
-        this.borders = borders;
         this.flagUrl = "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
     }
 
@@ -46,107 +68,81 @@ public class Country implements Comparable<Country>{
         return name.compareTo(another.name);
     }
 
+
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPopulation() {
         return population;
     }
 
-    public void setPopulation(String population) {
-        this.population = population;
-    }
-
     public String getRegion() {
         return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 
     public String getFlagUrl() {
         return flagUrl;
     }
 
-    public void setFlagUrl(String flagUrl) {
-        this.flagUrl = flagUrl;
-    }
-
     public String getAlpha2Code() {
         return alpha2Code;
-    }
-
-    public void setAlpha2Code(String alpha2Code) {
-        this.alpha2Code = alpha2Code;
     }
 
     public String getCapital() {
         return capital;
     }
 
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
-
     public String getSubregion() {
         return subregion;
-    }
-
-    public void setSubregion(String subregion) {
-        this.subregion = subregion;
     }
 
     public String getDemonym() {
         return demonym;
     }
 
-    public void setDemonym(String demonym) {
-        this.demonym = demonym;
-    }
-
     public String getArea() {
         return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
     }
 
     public String getNativeName() {
         return nativeName;
     }
 
-    public void setNativeName(String nativeName) {
-        this.nativeName = nativeName;
+    public String getAlpha3Code() {
+        return alpha3Code;
     }
 
     public LatLng getLatlng() {
         return latlng;
     }
 
-    public void setLatlng(LatLng latlng) {
-        this.latlng = latlng;
-    }
-
-    public String getAlpha3Code() {
-        return alpha3Code;
-    }
-
-    public void setAlpha3Code(String alpha3Code) {
-        this.alpha3Code = alpha3Code;
-    }
-
     public List<String> getBorders() {
         return borders;
     }
 
-    public void setBorders(List<String> borders) {
-        this.borders = borders;
+    private static class Translations{
+
+        private String german;
+        private String spanish;
+        private String french;
+        private String japanese;
+        private String italian;
+
+        public Translations(TranslationsResponse translationsResponse){
+            this.german = translationsResponse.getGerman();
+            this.spanish = translationsResponse.getSpanish();
+            this.french = translationsResponse.getFrench();
+            this.japanese = translationsResponse.getJapanese();
+            this.italian = translationsResponse.getItalian();
+        }
+
+        public Translations(String german, String spanish, String french, String japanese, String italian){
+            this.german = german;
+            this.spanish = spanish;
+            this.french = french;
+            this.japanese = japanese;
+            this.italian = italian;
+        }
     }
 }

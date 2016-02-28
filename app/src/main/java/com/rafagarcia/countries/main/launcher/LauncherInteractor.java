@@ -1,7 +1,14 @@
 package com.rafagarcia.countries.main.launcher;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.rafagarcia.countries.backend.CountryResponse;
 import com.rafagarcia.countries.backend.RetrofitService;
+import com.rafagarcia.countries.model.Country;
 import com.squareup.okhttp.ResponseBody;
+
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -24,13 +31,13 @@ public class LauncherInteractor {
                 .build();
 
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
-        Call<ResponseBody> call = retrofitService.getAllCountries();
+        Call<List<CountryResponse>> call = retrofitService.getAllCountries();
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<List<CountryResponse>>() {
             @Override
-            public void onResponse(Response<ResponseBody> response, Retrofit retrofit) {
+            public void onResponse(Response<List<CountryResponse>> response, Retrofit retrofit) {
                 if (response.code() == 200) {
-                    launcherPresenter.countriesFetchedSuccessfully(response);
+                    launcherPresenter.countriesFetchedSuccessfully(response.body());
                 } else {
                     launcherPresenter.onErrorFetchingCountries();
                 }
