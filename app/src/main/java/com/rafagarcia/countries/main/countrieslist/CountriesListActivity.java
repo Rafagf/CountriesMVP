@@ -1,42 +1,54 @@
 package com.rafagarcia.countries.main.countrieslist;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
+import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.country.CountryActivity;
 
 public class CountriesListActivity extends AppCompatActivity implements CountriesListFragment.OnFragmentInteractionListener {
 
+    private static final String COUNTRIES_LIST_FRAGMENT_TAG = "countries_list_fragment";
     public static final String COUNTRY = "country";
     private Toolbar mToolBar;
+    private CountriesListFragment mFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment, CountriesListFragment.newInstance()).commit();
+
+        FragmentManager fm = getSupportFragmentManager();
+        if(fm.findFragmentByTag(COUNTRIES_LIST_FRAGMENT_TAG) == null){
+            mFragment = CountriesListFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment, mFragment).commit();
+        }
+        else{
+            mFragment = (CountriesListFragment)fm.findFragmentByTag(COUNTRIES_LIST_FRAGMENT_TAG);
+        }
 
         setToolbar();
     }
 
+    /**
+     * There is a bug in the support library. The toolbar title won't
+     * show up inside the CollapsingToolbarLayout
+     */
     private void setToolbar() {
         mToolBar = (Toolbar) findViewById(R.id.toolBar);
-        if (mToolBar != null) {
-            mToolBar.setTitle(R.string.countries_title);
-            setSupportActionBar(mToolBar);
-            android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-                actionBar.setDisplayShowHomeEnabled(true);
-            }
+        if(mToolBar != null) {
+            Utilities.setToolbarTitle(this, mToolBar, getResources().getString(R.string.countries_title));
         }
     }
 

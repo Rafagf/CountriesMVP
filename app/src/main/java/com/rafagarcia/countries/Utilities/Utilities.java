@@ -4,7 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import com.rafagarcia.countries.R;
 
 /**
  * Created by rafagarcia on 29/11/2015.
@@ -33,5 +38,17 @@ public class Utilities {
     public static String getCountriesJsonFromSharedPreferences(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(COUNTRIES_JSON, null);
+    }
+
+    public static void setToolbarTitle(Context context, Toolbar toolbar, String title) {
+        TextView text = new TextView(context);
+        text.setText(title);
+        int currentapiVersion = Build.VERSION.SDK_INT;
+        if (currentapiVersion >= Build.VERSION_CODES.M){
+            text.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title_Inverse);
+        } else{
+            text.setTextAppearance(context, android.R.style.TextAppearance_Material_Widget_ActionBar_Title_Inverse);
+        }
+        toolbar.addView(text);
     }
 }
