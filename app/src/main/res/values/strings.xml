@@ -14,4 +14,5 @@
     <string name="flag_transition">flag_transition</string>
     <string name="country_name_transition">country_transition</string>
     <string name="region_transition">region_transition</string>
+    <string name="countries_title">Countries</string>
 </resources>

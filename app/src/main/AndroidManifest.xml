@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.countrieslist.CountriesListActivity" />
-        <activity android:name=".main.country.CountryActivity" >
+        <activity android:name=".main.country.CountryActivity"
+            android:parentActivityName=".main.countrieslist.CountriesListActivity">
         </activity>
 
         <meta-data
