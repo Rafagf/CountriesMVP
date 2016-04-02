@@ -2,15 +2,19 @@ package com.rafagarcia.countries.main.countrieslist;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.Utilities.Utilities;
@@ -18,10 +22,11 @@ import com.rafagarcia.countries.main.country.CountryActivity;
 
 public class CountriesListActivity extends AppCompatActivity implements CountriesListFragment.OnFragmentInteractionListener {
 
-    private static final String COUNTRIES_LIST_FRAGMENT_TAG = "countries_list_fragment";
     public static final String COUNTRY = "country";
+    private static final String COUNTRIES_LIST_FRAGMENT_TAG = "countries_list_fragment";
     private Toolbar mToolBar;
     private CountriesListFragment mFragment;
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
         }
 
         setToolbar();
+        setSearchView();
     }
 
     /**
@@ -47,9 +53,48 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
      */
     private void setToolbar() {
         mToolBar = (Toolbar) findViewById(R.id.toolBar);
-        if(mToolBar != null) {
-            Utilities.setToolbarTitle(this, mToolBar, getResources().getString(R.string.countries_title));
-        }
+        setSupportActionBar(mToolBar);
+    }
+
+    private void setSearchView() {
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mFragment.onQueryTextSubmit(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mFragment.onQueryTextChange(newText);
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            Window window = getWindow();
+            @Override
+            public void onSearchViewShown() {
+                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.plain_grey);
+                window.setStatusBarColor(color);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.colorPrimary);
+                window.setStatusBarColor(color);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+        return true;
     }
 
     @Override

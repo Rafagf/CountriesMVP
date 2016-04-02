@@ -54,7 +54,6 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
         return view;
     }
 
-    //todo add butterknife
     private void initViews(View view) {
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         countryList = new ArrayList<>();
@@ -104,6 +103,7 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
 
     @Override
     public void updateAdapter(List<Country> countries) {
+        countryList.clear();
         countryList.addAll(countries);
         adapter.notifyDataSetChanged();
     }
@@ -111,6 +111,14 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     @Override
     public void goToSelectedCountry(String name){
         mListener.goToSelectedCountry(name, flagToAnimate, nameToAnimate, regionToAnimate);
+    }
+
+    public void onQueryTextSubmit(String query) {
+        presenter.onQueryTextSubmit(query);
+    }
+
+    public void onQueryTextChange(String newText) {
+        presenter.onQueryTextChange(newText);
     }
 
     public interface OnFragmentInteractionListener {

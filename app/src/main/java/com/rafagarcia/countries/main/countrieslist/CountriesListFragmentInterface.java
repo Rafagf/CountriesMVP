@@ -12,4 +12,6 @@ public interface CountriesListFragmentInterface {
     List<Country> getCountryList();
     void updateAdapter(List<Country> countryList);
     void goToSelectedCountry(String name);
+    void onQueryTextSubmit(String query);
+    void onQueryTextChange(String newText);
 }

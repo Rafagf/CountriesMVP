@@ -3,6 +3,7 @@ package com.rafagarcia.countries.main.countrieslist;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.model.Country;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,14 +12,14 @@ import java.util.List;
 public class CountriesListPresenter {
 
     CountriesListFragmentInterface view;
-
+    List<Country> countryList;
     public CountriesListPresenter(CountriesListFragmentInterface view){
         this.view = view;
     }
 
     public void loadCountries(){
-        List<Country> countriesList = MyApplication.getInstance().getCountries();
-        view.updateAdapter(countriesList);
+        countryList = MyApplication.getInstance().getCountries();
+        view.updateAdapter(countryList);
     }
 
     public void countrySelected(String name) {
@@ -26,5 +27,23 @@ public class CountriesListPresenter {
         if(pos >= 0) {
             view.goToSelectedCountry(name);
         }
+    }
+
+    public void onQueryTextSubmit(String query) {
+        search(query);
+    }
+
+    public void onQueryTextChange(String newText) {
+        search(newText);
+    }
+
+    public void search(String query){
+        List<Country> filteredCountries = new ArrayList<>();
+        for (Country country : countryList) {
+            if(country.getName().startsWith(query)){
+                filteredCountries.add(country);
+            }
+        }
+        view.updateAdapter(filteredCountries);
     }
 }
