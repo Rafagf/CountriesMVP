@@ -69,15 +69,28 @@ public class MyApplication extends Application{
      * @return -1 if country doesn't exist, otherwise the country index
      */
     public int getCountryPositionByAlphaCode(String alphaCode){
-
         for(int i = 0; i < countries.size(); i++){
-
             if(countries.get(i).getAlpha3Code().equals(alphaCode)){
                 return i;
             }
         }
 
         return -1;
+    }
+
+    /**
+     * Gets the country by alphaCode
+     * @param alphaCode country alphaCode
+     * @return country or null if it doesn't exist
+     */
+    public Country getCountryByAlphaCode(String alphaCode){
+        for(int i = 0; i < countries.size(); i++){
+            if(countries.get(i).getAlpha3Code().equals(alphaCode)){
+                return countries.get(i);
+            }
+        }
+
+        return null;
     }
 
     /**

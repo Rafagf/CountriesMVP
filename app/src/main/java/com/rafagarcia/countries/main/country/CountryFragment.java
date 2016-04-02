@@ -2,11 +2,14 @@ package com.rafagarcia.countries.main.country;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.res.Resources;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +23,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
+import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
 import butterknife.Bind;
@@ -41,6 +46,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     @Bind(R.id.borderCountriesTextView) TextView borderCountriesTextView;
     private Country country;
     private CountryPresenter presenter;
+    private static final String COUNTRY_TAG = "country";
     private static final String COUNTRY = "country_name";
     private OnFragmentInteractionListener mListener;
 
@@ -79,7 +85,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     private void initViews(View view) {
         ButterKnife.bind(this, view);
         FragmentManager fm = getChildFragmentManager();
-        fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance()).commit();
+        fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance(country)).commit();
     }
 
     @Override
@@ -148,10 +154,37 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     }
 
     @Override
-    public void showBorderCountries() {
-        borderCountriesTextView.setText(getResources().getString(R.string.border_countries));
-        //todo show borders
+    public void showBorderCountry(final Country country) {
+        TextView textView = new TextView(getContext());
+        textView.setBackgroundResource(R.drawable.circle_shape);
+        textView.setTag(country.getName());
+        textView.setTextSize(14);
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        textView.setText(country.getName());
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(20, 5, 20, 5);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5, 20, 5, 10);
+        textView.setLayoutParams(layoutParams);
+        bordersLinearLayout.addView(textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), CountryActivity.class);
+                intent.putExtra(CountriesListActivity.COUNTRY, country);
+                startActivity(intent);
+            }
+        });
+    }
 
+    @Override
+    public void showBorderCountriesText() {
+        borderCountriesTextView.setText(getString(R.string.border_countries));
+    }
+
+    public void hideBorderCountriesText(){
+        borderCountriesTextView.setVisibility(View.GONE);
     }
 
     public interface OnFragmentInteractionListener {
@@ -162,9 +195,10 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         GoogleMap googleMap;
         Country country;
 
-        public static MapFragment newInstance() {
+        public static MapFragment newInstance(Country country) {
             MapFragment fragment = new MapFragment();
             Bundle args = new Bundle();
+            args.putParcelable(COUNTRY_TAG, country);
             fragment.setArguments(args);
             return fragment;
         }
@@ -176,6 +210,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            country = getArguments().getParcelable(COUNTRY_TAG);
         }
 
         @Override
@@ -198,10 +233,11 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         }
 
         private void initMap() {
-            // Add a marker in Sydney, Australia, and move the camera.
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            if(country != null) {
+                LatLng latLng = new LatLng(country.getLatlng().latitude, country.getLatlng().longitude);
+                googleMap.addMarker(new MarkerOptions().position(latLng).title(country.getName()));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
         }
     }
 }

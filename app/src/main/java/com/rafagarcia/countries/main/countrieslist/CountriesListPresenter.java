@@ -40,7 +40,7 @@ public class CountriesListPresenter {
     public void search(String query){
         List<Country> filteredCountries = new ArrayList<>();
         for (Country country : countryList) {
-            if(country.getName().startsWith(query)){
+            if(country.getName().toLowerCase().startsWith(query.toLowerCase())){
                 filteredCountries.add(country);
             }
         }

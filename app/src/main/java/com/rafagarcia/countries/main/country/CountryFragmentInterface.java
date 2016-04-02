@@ -19,5 +19,7 @@ public interface CountryFragmentInterface {
     void showArea(String area);
     void showDenonym(String denonym);
     void showNativeName(String nativeName);
-    void showBorderCountries();
+    void showBorderCountry(Country country);
+    void hideBorderCountriesText();
+    void showBorderCountriesText();
 }

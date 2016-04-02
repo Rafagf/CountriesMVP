@@ -4,10 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="10dp"
-    android:paddingTop="5dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
+    android:paddingBottom="5dp"
     android:scrollbars="none">
 
     <LinearLayout
@@ -16,6 +13,8 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="175dp">
 
@@ -73,11 +72,15 @@
         </RelativeLayout>
 
         <FrameLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:id="@+id/mapFragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"></FrameLayout>
 
         <LinearLayout
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -122,13 +125,14 @@
                 android:id="@+id/borderCountriesTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="20sp" />
 
             <HorizontalScrollView
                 android:id="@+id/bordersScrollView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:scrollbars="none">
 
                 <LinearLayout

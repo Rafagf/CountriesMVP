@@ -24,6 +24,21 @@ public class CountryPresenter {
         view.showCapital(country.getCapital());
         view.showDenonym(country.getDemonym());
         view.showPopulation(country.getPopulation());
-        view.showBorderCountries();
+
+        showBorders(country);
+    }
+
+    private void showBorders(Country country) {
+        if(country.getBorders().size() == 0){
+            view.hideBorderCountriesText();
+        }
+        else {
+            view.showBorderCountriesText();
+            Country borderCountry;
+            for (int i = 0; i < country.getBorders().size(); i++) {
+                borderCountry = MyApplication.getInstance().getCountryByAlphaCode(country.getBorders().get(i));
+                view.showBorderCountry(borderCountry);
+            }
+        }
     }
 }
