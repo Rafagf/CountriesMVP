@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.backend.CountryResponse;
-import com.rafagarcia.countries.backend.TranslationsResponse;
 
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class Country implements Comparable<Country>,Parcelable {
     private String flagUrl;
     private LatLng latlng;
     private List<String> borders;
-    private Translations translations;
 
     public Country(CountryResponse response){
         this.name = response.getName();
@@ -46,8 +44,6 @@ public class Country implements Comparable<Country>,Parcelable {
         if(response.getLatlng() != null && response.getLatlng().size() == 2) {
             this.latlng = new LatLng(response.getLatlng().get(0), response.getLatlng().get(1));
         }
-
-        this.translations = new Translations(response.getTranslations());
     }
 
     public Country(String name, String nativeName,
@@ -124,63 +120,6 @@ public class Country implements Comparable<Country>,Parcelable {
         return borders;
     }
 
-    private static class Translations implements Parcelable {
-
-        private String german;
-        private String spanish;
-        private String french;
-        private String japanese;
-        private String italian;
-
-        public Translations(TranslationsResponse translationsResponse){
-            this.german = translationsResponse.getGerman();
-            this.spanish = translationsResponse.getSpanish();
-            this.french = translationsResponse.getFrench();
-            this.japanese = translationsResponse.getJapanese();
-            this.italian = translationsResponse.getItalian();
-        }
-
-        public Translations(String german, String spanish, String french, String japanese, String italian){
-            this.german = german;
-            this.spanish = spanish;
-            this.french = french;
-            this.japanese = japanese;
-            this.italian = italian;
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.german);
-            dest.writeString(this.spanish);
-            dest.writeString(this.french);
-            dest.writeString(this.japanese);
-            dest.writeString(this.italian);
-        }
-
-        protected Translations(Parcel in) {
-            this.german = in.readString();
-            this.spanish = in.readString();
-            this.french = in.readString();
-            this.japanese = in.readString();
-            this.italian = in.readString();
-        }
-
-        public static final Creator<Translations> CREATOR = new Creator<Translations>() {
-            public Translations createFromParcel(Parcel source) {
-                return new Translations(source);
-            }
-
-            public Translations[] newArray(int size) {
-                return new Translations[size];
-            }
-        };
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -201,7 +140,6 @@ public class Country implements Comparable<Country>,Parcelable {
         dest.writeString(this.flagUrl);
         dest.writeParcelable(this.latlng, 0);
         dest.writeStringList(this.borders);
-        dest.writeParcelable(this.translations, flags);
     }
 
     protected Country(Parcel in) {
@@ -218,7 +156,6 @@ public class Country implements Comparable<Country>,Parcelable {
         this.flagUrl = in.readString();
         this.latlng = in.readParcelable(LatLng.class.getClassLoader());
         this.borders = in.createStringArrayList();
-        this.translations = in.readParcelable(Translations.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Country> CREATOR = new Parcelable.Creator<Country>() {

@@ -1,10 +1,7 @@
 package com.rafagarcia.countries.main.country;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,32 +21,31 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class CountryFragment extends Fragment implements CountryFragmentInterface {
 
-    @Bind(R.id.nameTextView) TextView nameTextView;
-    @Bind(R.id.flagImageView) ImageView flagImageView;
-    @Bind(R.id.regionTextView) TextView regionTextView;
-    @Bind(R.id.subregionTextView) TextView subregionTextView;
-    @Bind(R.id.populationTextView) TextView populationTextView;
-    @Bind(R.id.areaTextView) TextView areaTextView;
-    @Bind(R.id.denonymTextView) TextView denonymTextView;
-    @Bind(R.id.nativeTextView) TextView nativeNameTextView;
-    @Bind(R.id.capitalTextView) TextView capitalTextView;
-    @Bind(R.id.bordersLinearLayout) LinearLayout bordersLinearLayout;
-    @Bind(R.id.borderCountriesTextView) TextView borderCountriesTextView;
-    private Country country;
-    private CountryPresenter presenter;
-    private static final String COUNTRY_TAG = "country";
+    @Bind(R.id.nameTextView) TextView mNameTextView;
+    @Bind(R.id.flagImageView) ImageView mFlagImageView;
+    @Bind(R.id.regionTextView) TextView mRegionTextView;
+    @Bind(R.id.subregionTextView) TextView mSubregionTextView;
+    @Bind(R.id.populationTextView) TextView mPopulationTextView;
+    @Bind(R.id.areaTextView) TextView mAreaTextView;
+    @Bind(R.id.denonymTextView) TextView mDenonymTextView;
+    @Bind(R.id.nativeTextView) TextView mNativeNameTextView;
+    @Bind(R.id.capitalTextView) TextView mCapitalTextView;
+    @Bind(R.id.bordersLinearLayout) LinearLayout mBordersLinearLayout;
+    @Bind(R.id.borderCountriesTextView) TextView mBorderCountriesTextView;
+    private static final String COUNTRY_TAG = "mCountry";
     private static final String COUNTRY = "country_name";
-    private OnFragmentInteractionListener mListener;
+    private Country mCountry;
+    private CountryPresenter mPresenter;
 
     public static CountryFragment newInstance(Country country) {
         CountryFragment fragment = new CountryFragment();
@@ -64,7 +61,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            country = getArguments().getParcelable(COUNTRY);
+            mCountry = getArguments().getParcelable(COUNTRY);
         }
     }
 
@@ -78,79 +75,62 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     }
 
     private void init() {
-        presenter = new CountryPresenter(this);
-        presenter.showCountryInformation(country);
+        mPresenter = new CountryPresenter(this);
+        mPresenter.showCountryInformation(mCountry);
     }
 
     private void initViews(View view) {
         ButterKnife.bind(this, view);
         FragmentManager fm = getChildFragmentManager();
-        fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance(country)).commit();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+        fm.beginTransaction().add(R.id.mapFragment, MapFragment.newInstance(mCountry)).commit();
     }
 
     @Override
     public void showFlag(String flagUrl) {
         Picasso.with(getContext())
-                .load(country.getFlagUrl())
+                .load(mCountry.getFlagUrl())
                 .placeholder(R.drawable.interrogation)
-                .into(flagImageView);
+                .into(mFlagImageView);
     }
 
     @Override
     public void showName(String name) {
-        nameTextView.setText(country.getName());
+        mNameTextView.setText(mCountry.getName());
     }
 
     @Override
     public void showRegion(String region) {
-        regionTextView.setText(country.getRegion());
+        mRegionTextView.setText(mCountry.getRegion());
     }
 
     @Override
     public void showSubregion(String subregion) {
-        subregionTextView.setText(country.getSubregion());
+        mSubregionTextView.setText(mCountry.getSubregion());
     }
 
     @Override
     public void showCapital(String capital) {
-        capitalTextView.setText(getResources().getString(R.string.capital) + country.getCapital());
+        mCapitalTextView.setText(getResources().getString(R.string.capital) + mCountry.getCapital());
     }
 
     @Override
     public void showPopulation(String population) {
-        populationTextView.setText(getResources().getString(R.string.population) + country.getPopulation());
+        mPopulationTextView.setText(getResources().getString(R.string.population) + mCountry.getPopulation());
     }
 
     @Override
     public void showArea(String area) {
-        areaTextView.setText(getResources().getString(R.string.area) + country.getArea());
+        mAreaTextView.setText(getResources().getString(R.string.area) + mCountry.getArea());
     }
 
     @Override
     public void showDenonym(String denonym) {
-        denonymTextView.setText(getResources().getString(R.string.demonym) + country.getDemonym());
+        mDenonymTextView.setText(getResources().getString(R.string.demonym) + mCountry.getDemonym());
     }
 
     @Override
     public void showNativeName(String nativeName) {
-        nativeNameTextView.setText(getResources().getString(R.string.native_name) + country.getNativeName());
+        mNativeNameTextView.setText(getResources().getString(R.string.native_name) + mCountry.getNativeName());
     }
 
     @Override
@@ -167,7 +147,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(5, 20, 5, 10);
         textView.setLayoutParams(layoutParams);
-        bordersLinearLayout.addView(textView);
+        mBordersLinearLayout.addView(textView);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,15 +160,11 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
     @Override
     public void showBorderCountriesText() {
-        borderCountriesTextView.setText(getString(R.string.border_countries));
+        mBorderCountriesTextView.setText(getString(R.string.border_countries));
     }
 
     public void hideBorderCountriesText(){
-        borderCountriesTextView.setVisibility(View.GONE);
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        mBorderCountriesTextView.setVisibility(View.GONE);
     }
 
     public static class MapFragment extends Fragment {

@@ -8,36 +8,34 @@ import com.rafagarcia.countries.model.Country;
  */
 public class CountryPresenter {
 
-    CountryFragmentInterface view;
+    CountryFragmentInterface mView;
 
     public CountryPresenter(CountryFragmentInterface countryView) {
-        view = countryView;
+        mView = countryView;
     }
 
-    public void showCountryInformation(Country country){
-        view.showFlag(country.getFlagUrl());
-        view.showName(country.getName());
-        view.showNativeName(country.getNativeName());
-        view.showRegion(country.getRegion());
-        view.showSubregion(country.getSubregion());
-        view.showArea(country.getArea());
-        view.showCapital(country.getCapital());
-        view.showDenonym(country.getDemonym());
-        view.showPopulation(country.getPopulation());
-
+    public void showCountryInformation(Country country) {
+        mView.showFlag(country.getFlagUrl());
+        mView.showName(country.getName());
+        mView.showNativeName(country.getNativeName());
+        mView.showRegion(country.getRegion());
+        mView.showSubregion(country.getSubregion());
+        mView.showArea(country.getArea());
+        mView.showCapital(country.getCapital());
+        mView.showDenonym(country.getDemonym());
+        mView.showPopulation(country.getPopulation());
         showBorders(country);
     }
 
     private void showBorders(Country country) {
         if(country.getBorders().size() == 0){
-            view.hideBorderCountriesText();
-        }
-        else {
-            view.showBorderCountriesText();
+            mView.hideBorderCountriesText();
+        } else {
+            mView.showBorderCountriesText();
             Country borderCountry;
             for (int i = 0; i < country.getBorders().size(); i++) {
                 borderCountry = MyApplication.getInstance().getCountryByAlphaCode(country.getBorders().get(i));
-                view.showBorderCountry(borderCountry);
+                mView.showBorderCountry(borderCountry);
             }
         }
     }

@@ -19,34 +19,32 @@ import java.util.List;
  */
 public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.CountryViewHolder> {
 
-    private List<Country> countries;
-    private Context context;
     private static final String COUNTRY_POSITION = "country_position";
-    CountriesAdapterInterface listener;
+    private List<Country> mCountries;
+    private Context mContext;
+    private CountriesAdapterInterface mListener;
 
-    public CountriesAdapter(List<Country> countries, Context context, CountriesAdapterInterface listener ) {
-        this.countries = countries;
-        this.context = context;
-        this.listener = listener;
+    public CountriesAdapter(List<Country> countries, Context context, CountriesAdapterInterface mListener) {
+        this.mCountries = countries;
+        this.mContext = context;
+        this.mListener = mListener;
     }
 
     @Override
     public CountryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(context).inflate(R.layout.country_card, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.country_card, parent, false);
         CountryViewHolder countryViewHolder = new CountryViewHolder(view);
         return countryViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final CountryViewHolder holder, final int position) {
-
-        final Country country = countries.get(position);
+        final Country country = mCountries.get(position);
         holder.countryName.setText(country.getName());
-        holder.countryPopulation.setText(context.getResources().getString(R.string.population) + country.getPopulation());
-        holder.countryRegion.setText(context.getResources().getString(R.string.region) + country.getRegion());
+        holder.countryPopulation.setText(mContext.getResources().getString(R.string.population) + country.getPopulation());
+        holder.countryRegion.setText(mContext.getResources().getString(R.string.region) + country.getRegion());
 
-        Picasso.with(context)
+        Picasso.with(mContext)
                 .load(country.getFlagUrl())
                 .placeholder(R.drawable.interrogation)
                 .into(holder.countryFlag);
@@ -54,26 +52,18 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.countrySelected(country.getName(), holder.countryFlag, holder.countryName,
+                mListener.countrySelected(country.getName(), holder.countryFlag, holder.countryName,
                         holder.countryRegion);
-//                int pos = ((MyApplication)context.getApplicationContext())
-//                        .getCountryPosByName(country.getName());
-//
-//                if(pos >= 0) {
-//                    Intent intent = new Intent(context, CountryActivity.class);
-//                    intent.putExtra(COUNTRY_POSITION, pos);
-//                    context.startActivity(intent);
-//                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return countries.size();
+        return mCountries.size();
     }
 
-    public static class CountryViewHolder extends RecyclerView.ViewHolder{
+    public static class CountryViewHolder extends RecyclerView.ViewHolder {
         View rootView;
         ImageView countryFlag;
         TextView countryName;
@@ -81,7 +71,6 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         TextView countryPopulation;
 
         public CountryViewHolder(View itemView) {
-
             super(itemView);
             rootView = itemView;
             countryFlag = (ImageView)itemView.findViewById(R.id.flagImageView);

@@ -2,33 +2,21 @@ package com.rafagarcia.countries.main.launcher;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
-import com.rafagarcia.countries.model.Country;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rafagarcia on 29/11/2015.
  */
 public class LauncherActivity extends Activity implements LauncherActivityInterface {
 
-    LauncherPresenter presenter;
-    LauncherInteractor interactor;
+    LauncherPresenter mPresenter;
+    LauncherInteractor mInteractor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +26,8 @@ public class LauncherActivity extends Activity implements LauncherActivityInterf
     }
 
     private void init() {
-        interactor = new LauncherInteractor();
-        presenter = new LauncherPresenter(this, interactor);
+        mInteractor = new LauncherInteractor();
+        mPresenter = new LauncherPresenter(this, mInteractor);
         fetchCountriesInfo();
     }
 
@@ -47,7 +35,7 @@ public class LauncherActivity extends Activity implements LauncherActivityInterf
     public void fetchCountriesInfo() {
         boolean networkAvailable = Utilities.isNetworkAvailable(getApplicationContext());
         String countriesFromCache = Utilities.getCountriesJsonFromSharedPreferences(getApplicationContext());
-        presenter.fetchCountriesInfo(networkAvailable, countriesFromCache);
+        mPresenter.fetchCountriesInfo(networkAvailable, countriesFromCache);
     }
 
     @Override
@@ -60,6 +48,14 @@ public class LauncherActivity extends Activity implements LauncherActivityInterf
 
     @Override
     public void showError() {
-        Toast.makeText(getApplicationContext(), "No internet connection, please try again later", Toast.LENGTH_LONG).show();
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), R.string.internet_error, Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(R.string.retry, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fetchCountriesInfo();
+                snackbar.dismiss();
+            }
+        });
+        snackbar.show();
     }
 }

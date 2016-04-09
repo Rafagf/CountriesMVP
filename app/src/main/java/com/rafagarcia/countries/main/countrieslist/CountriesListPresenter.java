@@ -11,21 +11,22 @@ import java.util.List;
  */
 public class CountriesListPresenter {
 
-    CountriesListFragmentInterface view;
-    List<Country> countryList;
+    CountriesListFragmentInterface mView;
+    List<Country> mCountryList;
+
     public CountriesListPresenter(CountriesListFragmentInterface view){
-        this.view = view;
+        this.mView = view;
     }
 
-    public void loadCountries(){
-        countryList = MyApplication.getInstance().getCountries();
-        view.updateAdapter(countryList);
+    public void loadCountries() {
+        mCountryList = MyApplication.getInstance().getCountries();
+        mView.updateAdapter(mCountryList);
     }
 
     public void countrySelected(String name) {
         int pos = MyApplication.getInstance().getCountryPosByName(name);
         if(pos >= 0) {
-            view.goToSelectedCountry(name);
+            mView.goToSelectedCountry(name);
         }
     }
 
@@ -37,13 +38,13 @@ public class CountriesListPresenter {
         search(newText);
     }
 
-    public void search(String query){
+    public void search(String query) {
         List<Country> filteredCountries = new ArrayList<>();
-        for (Country country : countryList) {
+        for (Country country : mCountryList) {
             if(country.getName().toLowerCase().startsWith(query.toLowerCase())){
                 filteredCountries.add(country);
             }
         }
-        view.updateAdapter(filteredCountries);
+        mView.updateAdapter(filteredCountries);
     }
 }

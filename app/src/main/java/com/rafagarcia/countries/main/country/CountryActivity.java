@@ -1,7 +1,6 @@
 package com.rafagarcia.countries.main.country;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,7 @@ import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
 
-public class CountryActivity extends AppCompatActivity implements CountryFragment.OnFragmentInteractionListener{
+public class CountryActivity extends AppCompatActivity{
 
     private final static String COUNTRY_FRAGMENT_TAG = "country_fragment";
     private Toolbar mToolBar;
@@ -31,12 +30,9 @@ public class CountryActivity extends AppCompatActivity implements CountryFragmen
             mFragment = CountryFragment.newInstance(mCountry);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment, mFragment).commit();
-        }
-        else{
+        } else{
             mFragment = (CountryFragment)fm.findFragmentByTag(COUNTRY_FRAGMENT_TAG);
         }
-
-
 
         setToolbar();
     }
@@ -52,11 +48,6 @@ public class CountryActivity extends AppCompatActivity implements CountryFragmen
             }
             Utilities.setToolbarTitle(this, mToolBar, mCountry.getName());
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override

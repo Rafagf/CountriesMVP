@@ -1,12 +1,8 @@
 package com.rafagarcia.countries.backend;
 
-import com.rafagarcia.countries.model.Country;
-import com.squareup.okhttp.ResponseBody;
-
 import java.util.List;
 
 import retrofit.Call;
-import retrofit.Response;
 import retrofit.http.GET;
 
 /**

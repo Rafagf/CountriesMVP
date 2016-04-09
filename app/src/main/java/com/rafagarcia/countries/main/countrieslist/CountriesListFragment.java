@@ -17,14 +17,14 @@ import java.util.List;
 
 public class CountriesListFragment extends Fragment implements CountriesListFragmentInterface {
 
-    RecyclerView recyclerView;
-    private View flagToAnimate;
-    private View nameToAnimate;
-    private View regionToAnimate;
-    private CountriesListPresenter presenter;
+    private RecyclerView mRecyclerView;
+    private View mFlagToAnimate;
+    private View mNameToAnimate;
+    private View mRegionToAnimate;
+    private CountriesListPresenter mPresenter;
     private OnFragmentInteractionListener mListener;
-    private CountriesAdapter adapter;
-    private List<Country> countryList;
+    private CountriesAdapter mAdapter;
+    private List<Country> mCountryList;
 
     public static CountriesListFragment newInstance() {
         CountriesListFragment fragment = new CountriesListFragment();
@@ -40,8 +40,6 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
     }
 
     @Override
@@ -55,28 +53,28 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
     }
 
     private void initViews(View view) {
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-        countryList = new ArrayList<>();
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        mCountryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        adapter = new CountriesAdapter(countryList, getContext(), countriesAdapterListener);
-        recyclerView.setAdapter(adapter);
-        presenter.loadCountries();
+        mRecyclerView.setLayoutManager(manager);
+        mAdapter = new CountriesAdapter(mCountryList, getContext(), countriesAdapterListener);
+        mRecyclerView.setAdapter(mAdapter);
+        mPresenter.loadCountries();
     }
 
     CountriesAdapterInterface countriesAdapterListener = new CountriesAdapterInterface() {
         @Override
         public void countrySelected(String name, View flagView, View nameView,
                                     View regionView) {
-            flagToAnimate = flagView;
-            nameToAnimate = nameView;
-            regionToAnimate = regionView;
-            presenter.countrySelected(name);
+            mFlagToAnimate = flagView;
+            mNameToAnimate = nameView;
+            mRegionToAnimate = regionView;
+            mPresenter.countrySelected(name);
         }
     };
 
     private void init() {
-        presenter = new CountriesListPresenter(this);
+        mPresenter = new CountriesListPresenter(this);
     }
 
     @Override
@@ -98,27 +96,27 @@ public class CountriesListFragment extends Fragment implements CountriesListFrag
 
     @Override
     public List<Country> getCountryList() {
-        return countryList;
+        return mCountryList;
     }
 
     @Override
     public void updateAdapter(List<Country> countries) {
-        countryList.clear();
-        countryList.addAll(countries);
-        adapter.notifyDataSetChanged();
+        mCountryList.clear();
+        mCountryList.addAll(countries);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void goToSelectedCountry(String name){
-        mListener.goToSelectedCountry(name, flagToAnimate, nameToAnimate, regionToAnimate);
+        mListener.goToSelectedCountry(name, mFlagToAnimate, mNameToAnimate, mRegionToAnimate);
     }
 
     public void onQueryTextSubmit(String query) {
-        presenter.onQueryTextSubmit(query);
+        mPresenter.onQueryTextSubmit(query);
     }
 
     public void onQueryTextChange(String newText) {
-        presenter.onQueryTextChange(newText);
+        mPresenter.onQueryTextChange(newText);
     }
 
     public interface OnFragmentInteractionListener {

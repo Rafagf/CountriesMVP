@@ -17,7 +17,6 @@ import android.view.Window;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
-import com.rafagarcia.countries.Utilities.Utilities;
 import com.rafagarcia.countries.main.country.CountryActivity;
 
 public class CountriesListActivity extends AppCompatActivity implements CountriesListFragment.OnFragmentInteractionListener {
@@ -26,7 +25,7 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
     private static final String COUNTRIES_LIST_FRAGMENT_TAG = "countries_list_fragment";
     private Toolbar mToolBar;
     private CountriesListFragment mFragment;
-    private MaterialSearchView searchView;
+    private MaterialSearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +37,7 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
             mFragment = CountriesListFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment, mFragment).commit();
-        }
-        else{
+        } else{
             mFragment = (CountriesListFragment)fm.findFragmentByTag(COUNTRIES_LIST_FRAGMENT_TAG);
         }
 
@@ -47,18 +45,14 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
         setSearchView();
     }
 
-    /**
-     * There is a bug in the support library. The toolbar title won't
-     * show up inside the CollapsingToolbarLayout
-     */
     private void setToolbar() {
         mToolBar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(mToolBar);
     }
 
     private void setSearchView() {
-        searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+        mSearchView = (MaterialSearchView) findViewById(R.id.search_view);
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 mFragment.onQueryTextSubmit(query);
@@ -72,8 +66,9 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
             }
         });
 
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             Window window = getWindow();
+
             @Override
             public void onSearchViewShown() {
                 int color = ContextCompat.getColor(CountriesListActivity.this, R.color.plain_grey);
@@ -93,7 +88,7 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
+        mSearchView.setMenuItem(item);
         return true;
     }
 

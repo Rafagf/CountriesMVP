@@ -11,38 +11,38 @@ import com.google.gson.annotations.SerializedName;
 public class TranslationsResponse implements Parcelable {
 
     @SerializedName("de")
-    private String german;
+    private String mGerman;
 
     @SerializedName("es")
-    private String spanish;
+    private String mSpanish;
 
     @SerializedName("fr")
-    private String french;
+    private String mFrench;
 
     @SerializedName("ja")
-    private String japanese;
+    private String mJapanese;
 
     @SerializedName("it")
-    private String italian;
+    private String mItalian;
 
     public String getGerman() {
-        return german;
+        return mGerman;
     }
 
     public String getSpanish() {
-        return spanish;
+        return mSpanish;
     }
 
     public String getFrench() {
-        return french;
+        return mFrench;
     }
 
     public String getJapanese() {
-        return japanese;
+        return mJapanese;
     }
 
     public String getItalian() {
-        return italian;
+        return mItalian;
     }
 
     @Override
@@ -52,22 +52,22 @@ public class TranslationsResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.german);
-        dest.writeString(this.spanish);
-        dest.writeString(this.french);
-        dest.writeString(this.japanese);
-        dest.writeString(this.italian);
+        dest.writeString(this.mGerman);
+        dest.writeString(this.mSpanish);
+        dest.writeString(this.mFrench);
+        dest.writeString(this.mJapanese);
+        dest.writeString(this.mItalian);
     }
 
     public TranslationsResponse() {
     }
 
     protected TranslationsResponse(Parcel in) {
-        this.german = in.readString();
-        this.spanish = in.readString();
-        this.french = in.readString();
-        this.japanese = in.readString();
-        this.italian = in.readString();
+        this.mGerman = in.readString();
+        this.mSpanish = in.readString();
+        this.mFrench = in.readString();
+        this.mJapanese = in.readString();
+        this.mItalian = in.readString();
     }
 
     public static final Parcelable.Creator<TranslationsResponse> CREATOR = new Parcelable.Creator<TranslationsResponse>() {

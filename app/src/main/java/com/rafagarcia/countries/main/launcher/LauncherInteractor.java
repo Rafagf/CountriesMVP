@@ -1,12 +1,7 @@
 package com.rafagarcia.countries.main.launcher;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 import com.rafagarcia.countries.backend.CountryResponse;
 import com.rafagarcia.countries.backend.RetrofitService;
-import com.rafagarcia.countries.model.Country;
-import com.squareup.okhttp.ResponseBody;
 
 import java.util.List;
 
@@ -21,10 +16,7 @@ import retrofit.Retrofit;
  */
 public class LauncherInteractor {
 
-
-
     public void fetchCountriesInfo(final LauncherPresenter launcherPresenter) {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

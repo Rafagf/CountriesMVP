@@ -1,10 +1,6 @@
 package com.rafagarcia.countries.main.country;
 
-import android.content.res.Resources;
-
-import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by rafagarcia on 13/12/2015.

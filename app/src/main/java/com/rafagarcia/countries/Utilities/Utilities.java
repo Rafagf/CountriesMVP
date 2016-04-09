@@ -9,8 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.rafagarcia.countries.R;
-
 /**
  * Created by rafagarcia on 29/11/2015.
  */

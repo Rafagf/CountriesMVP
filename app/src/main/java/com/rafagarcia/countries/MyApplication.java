@@ -38,9 +38,7 @@ public class MyApplication extends Application{
      * Method to set the app language according to the device language
      */
     private void setLocalisedLanguage(){
-
         String deviceLanguage = Locale.getDefault().getLanguage().toUpperCase();
-
         //todo support different languages
         localisedLanguage = Languages.EN;
     }
@@ -59,23 +57,7 @@ public class MyApplication extends Application{
     }
 
     public Languages getLocalisedLanguage() {
-
         return localisedLanguage;
-    }
-
-    /**
-     * Gets the country position into the Countries array by alphaCode
-     * @param alphaCode country alphaCode
-     * @return -1 if country doesn't exist, otherwise the country index
-     */
-    public int getCountryPositionByAlphaCode(String alphaCode){
-        for(int i = 0; i < countries.size(); i++){
-            if(countries.get(i).getAlpha3Code().equals(alphaCode)){
-                return i;
-            }
-        }
-
-        return -1;
     }
 
     /**

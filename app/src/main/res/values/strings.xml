@@ -15,4 +15,6 @@
     <string name="country_name_transition">country_transition</string>
     <string name="region_transition">region_transition</string>
     <string name="countries_title">Countries</string>
+    <string name="internet_error">No internet connection, please try again later</string>
+    <string name="retry">Retry</string>
 </resources>
