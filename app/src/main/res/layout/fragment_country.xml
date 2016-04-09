@@ -22,8 +22,8 @@
                 android:id="@+id/flagImageView"
                 android:layout_centerVertical="true"
                 android:transitionName="@string/flag_transition"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
                 android:scaleType="fitXY"/>
 
             <LinearLayout
@@ -44,7 +44,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.33"
                     android:paddingTop="10dp"
-                    android:textSize="20sp"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/black" />
 
                 <TextView
@@ -55,7 +56,7 @@
                     android:layout_weight="0.33"
                     android:paddingTop="10dp"
                     android:textSize="18sp"
-                    android:textColor="@android:color/holo_blue_dark" />
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/subregionTextView"
@@ -65,7 +66,7 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:textSize="16sp"
-                    android:textColor="@android:color/holo_blue_dark" />
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
 
@@ -90,14 +91,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/capitalTextView"
-                android:textSize="26sp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="24sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/populationTextView"
                 android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="10dp"/>
 
             <TextView
@@ -105,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/areaTextView"
                 android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="10dp"/>
 
             <TextView
@@ -112,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/denonymTextView"
                 android:textSize="16sp"
+                android:textColor="@android:color/black"
                 android:layout_marginBottom="10dp"/>
 
             <TextView
@@ -119,12 +124,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/nativeTextView"
                 android:textSize="16sp"
-                android:layout_marginBottom="10dp"/>
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:id="@+id/borderCountriesTextView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <HorizontalScrollView

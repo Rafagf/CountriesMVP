@@ -12,6 +12,7 @@ import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -41,12 +42,14 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
     public void onBindViewHolder(final CountryViewHolder holder, final int position) {
         final Country country = mCountries.get(position);
         holder.countryName.setText(country.getName());
-        holder.countryPopulation.setText(mContext.getResources().getString(R.string.population) + country.getPopulation());
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        double populationDouble = Double.parseDouble(country.getPopulation());
+        String populationFormatted = formatter.format(populationDouble);
+        holder.countryPopulation.setText(mContext.getResources().getString(R.string.population) + populationFormatted);
         holder.countryRegion.setText(mContext.getResources().getString(R.string.region) + country.getRegion());
 
         Picasso.with(mContext)
                 .load(country.getFlagUrl())
-                .placeholder(R.drawable.interrogation)
                 .into(holder.countryFlag);
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {

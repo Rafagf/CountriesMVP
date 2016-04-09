@@ -89,7 +89,6 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
     public void showFlag(String flagUrl) {
         Picasso.with(getContext())
                 .load(mCountry.getFlagUrl())
-                .placeholder(R.drawable.interrogation)
                 .into(mFlagImageView);
     }
 
@@ -139,7 +138,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         textView.setBackgroundResource(R.drawable.circle_shape);
         textView.setTag(country.getName());
         textView.setTextSize(14);
-        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
         textView.setText(country.getName());
         textView.setGravity(Gravity.CENTER);
         textView.setPadding(20, 5, 20, 5);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Countries</string>
+    <string name="app_name">Countries of the world</string>
     <string name="countries_world">Countries in the world</string>
     <string name="countries_region">Countries in\u0020 </string>
     <string name="population">Population:\u0020</string>
