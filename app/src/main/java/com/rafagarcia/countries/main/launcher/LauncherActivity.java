@@ -55,7 +55,8 @@ public class LauncherActivity extends Activity implements LauncherActivityInterf
                 fetchCountriesInfo();
                 snackbar.dismiss();
             }
-        });
+        })
+        .setActionTextColor(getResources().getColor(R.color.colorPrimary));
         snackbar.show();
     }
 }
