@@ -3,15 +3,15 @@ package com.rafagarcia.countries.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.android.gms.maps.model.LatLng;
-import com.rafagarcia.countries.backend.CountryResponse;
 
 import java.util.List;
 
 /**
- * Created by Rafael Garcia on 12/10/15.
+ * Created by rafagarcia on 03/07/2016.
  */
-public class Country implements Comparable<Country>,Parcelable {
+public class Country extends BaseModel implements Comparable<Country>, Parcelable  {
 
     private String name;
     private String nativeName;
@@ -24,49 +24,13 @@ public class Country implements Comparable<Country>,Parcelable {
     private String area;
     private String demonym;
     private String flagUrl;
-    private LatLng latlng;
+
     private List<String> borders;
+    private List<Double> latlng;
 
-    public Country(CountryResponse response){
-        this.name = response.getName();
-        this.nativeName = response.getNativeName();
-        this.alpha2Code = response.getAlpha2Code();
-        this.alpha3Code = response.getAlpha3Code();
-        this.region = response.getRegion();
-        this.subregion = response.getSubregion();
-        this.capital = response.getCapital();
-        this.population = response.getPopulation();
-        this.area = response.getArea();
-        this.demonym = response.getDemonym();
-        this.borders = response.getBorders();
-        this.flagUrl = "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
+    public Country(){
 
-        if(response.getLatlng() != null && response.getLatlng().size() == 2) {
-            this.latlng = new LatLng(response.getLatlng().get(0), response.getLatlng().get(1));
-        }
     }
-
-    public Country(String name, String nativeName,
-                   String alpha2Code, String alpha3Code, String region, String subregion, String capital,
-                   String population, String area, String demonym) {
-        this.name = name;
-        this.nativeName = nativeName;
-        this.alpha2Code = alpha2Code;
-        this.alpha3Code = alpha3Code;
-        this.region = region;
-        this.subregion = subregion;
-        this.capital = capital;
-        this.population = population;
-        this.area = area;
-        this.demonym = demonym;
-        this.flagUrl = "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
-    }
-
-    @Override
-    public int compareTo(Country another) {
-        return name.compareTo(another.name);
-    }
-
 
     public String getName() {
         return name;
@@ -81,7 +45,7 @@ public class Country implements Comparable<Country>,Parcelable {
     }
 
     public String getFlagUrl() {
-        return flagUrl;
+        return "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
     }
 
     public String getAlpha2Code() {
@@ -112,13 +76,19 @@ public class Country implements Comparable<Country>,Parcelable {
         return alpha3Code;
     }
 
-    public LatLng getLatlng() {
-        return latlng;
-    }
-
     public List<String> getBorders() {
         return borders;
     }
+
+    public LatLng getLatlng() {
+        return new LatLng(latlng.get(0), latlng.get(1));
+    }
+
+    @Override
+    public int compareTo(Country another) {
+        return name.compareTo(another.name);
+    }
+
 
     @Override
     public int describeContents() {
@@ -138,7 +108,6 @@ public class Country implements Comparable<Country>,Parcelable {
         dest.writeString(this.area);
         dest.writeString(this.demonym);
         dest.writeString(this.flagUrl);
-        dest.writeParcelable(this.latlng, 0);
         dest.writeStringList(this.borders);
     }
 
@@ -154,7 +123,6 @@ public class Country implements Comparable<Country>,Parcelable {
         this.area = in.readString();
         this.demonym = in.readString();
         this.flagUrl = in.readString();
-        this.latlng = in.readParcelable(LatLng.class.getClassLoader());
         this.borders = in.createStringArrayList();
     }
 

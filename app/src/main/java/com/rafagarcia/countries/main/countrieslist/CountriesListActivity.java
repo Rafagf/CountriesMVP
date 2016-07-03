@@ -1,6 +1,7 @@
 package com.rafagarcia.countries.main.countrieslist;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -71,14 +72,18 @@ public class CountriesListActivity extends AppCompatActivity implements Countrie
 
             @Override
             public void onSearchViewShown() {
-                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.plain_grey);
-                window.setStatusBarColor(color);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int color = ContextCompat.getColor(CountriesListActivity.this, R.color.plain_grey);
+                    window.setStatusBarColor(color);
+                }
             }
 
             @Override
             public void onSearchViewClosed() {
-                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.colorPrimary);
-                window.setStatusBarColor(color);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    int color = ContextCompat.getColor(CountriesListActivity.this, R.color.colorPrimary);
+                    window.setStatusBarColor(color);
+                }
             }
         });
     }
