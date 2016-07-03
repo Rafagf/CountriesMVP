@@ -48,6 +48,8 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         holder.countryPopulation.setText(mContext.getResources().getString(R.string.population) + populationFormatted);
         holder.countryRegion.setText(mContext.getResources().getString(R.string.region) + country.getRegion());
 
+        String flagUrl = country.getFlagUrl();
+
         Picasso.with(mContext)
                 .load(country.getFlagUrl())
                 .into(holder.countryFlag);
