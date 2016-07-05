@@ -17,5 +17,5 @@
     <string name="countries_title">Countries</string>
     <string name="internet_error">No connection, please try again later</string>
     <string name="retry">Retry</string>
-    <string name="maps_key">YOUR API KEY</string>
+    <string name="maps_key">AIzaSyA-J8dfvtkrGHVKstPT5Lhr7sFWBJE_hqA</string>
 </resources>

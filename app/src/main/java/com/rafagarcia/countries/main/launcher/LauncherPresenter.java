@@ -1,11 +1,11 @@
 package com.rafagarcia.countries.main.launcher;
 
 import com.rafagarcia.countries.MyApplication;
-import com.rafagarcia.countries.backend.CountryResponse;
 import com.rafagarcia.countries.model.Country;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
 
 /**
  * Created by rafagarcia on 06/02/2016.
@@ -21,24 +21,24 @@ public class LauncherPresenter {
 
     public void fetchCountriesInfo(boolean networkAvailable, String jsonFromCache) {
         if(networkAvailable){
-            mInteractor.fetchCountriesInfo(this);
-        }
-        else if(jsonFromCache != null){
-            //todo implement caching (app shoud work offline)
-            onErrorFetchingCountries();
-        }
-        else{
-            onErrorFetchingCountries();
-        }
-    }
+            mInteractor.getAllCountries(new Subscriber<List<Country>>() {
+                @Override
+                public void onCompleted() {
 
-    public void countriesFetchedSuccessfully(List<CountryResponse> countriesResponse) {
-        List<Country> countryList = new ArrayList<>();
-        for(int i = 0; i < countriesResponse.size(); i++){
-            countryList.add(new Country(countriesResponse.get(i)));
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    onErrorFetchingCountries();
+                }
+
+                @Override
+                public void onNext(List<Country> countries) {
+                    loadCountriesInApp(countries);
+                    mView.goToMainScreen();
+                }
+            });
         }
-        loadCountriesInApp(countryList);
-        mView.goToMainScreen();
     }
 
     public void onErrorFetchingCountries() {
