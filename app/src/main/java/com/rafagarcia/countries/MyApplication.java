@@ -71,7 +71,6 @@ public class MyApplication extends Application{
                 return countries.get(i);
             }
         }
-
         return null;
     }
 
@@ -81,20 +80,16 @@ public class MyApplication extends Application{
      * @return -1 if country doesn't exist, otherwise the country index
      */
     public int getCountryPosByName(String name){
-
         for (int i = 0; i < countries.size(); i++) {
-
             if(countries.get(i).getName().equals(name)){
                 return i;
             }
         }
-
         return -1;
     }
 
     public Country getCountryByName(String name){
         for (int i = 0; i < countries.size(); i++) {
-
             if(countries.get(i).getName().equals(name)){
                 return countries.get(i);
             }
@@ -108,16 +103,12 @@ public class MyApplication extends Application{
      * @return list of countries in the given region
      */
     public List<Country> getCountriesInRegion(String region){
-
         List<Country> regionCountries = new ArrayList<>();
-
         for (Country country : this.countries) {
-
             if(country.getRegion().equals(region)){
                 regionCountries.add(country);
             }
         }
-
         return regionCountries;
     }
 
@@ -127,16 +118,12 @@ public class MyApplication extends Application{
      * @return list of countries in the given subregion
      */
     public List<Country> getCountriesInSubRegion(String subregion){
-
         List<Country> subRegionCountries = new ArrayList<>();
-
         for (Country country : this.countries) {
-
             if(country.getSubregion().equals(subregion)){
                 subRegionCountries.add(country);
             }
         }
-
         return subRegionCountries;
     }
 

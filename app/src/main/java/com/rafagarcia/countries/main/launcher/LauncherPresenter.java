@@ -3,7 +3,6 @@ package com.rafagarcia.countries.main.launcher;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.model.Country;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;

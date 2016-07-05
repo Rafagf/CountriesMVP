@@ -3,9 +3,9 @@ package com.rafagarcia.countries.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,14 +81,13 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
     }
 
     public LatLng getLatlng() {
-        return new LatLng(latlng.get(0), latlng.get(1));
+        return new LatLng(this.latlng.get(0), latlng.get(1));
     }
 
     @Override
     public int compareTo(Country another) {
         return name.compareTo(another.name);
     }
-
 
     @Override
     public int describeContents() {
@@ -109,6 +108,7 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         dest.writeString(this.demonym);
         dest.writeString(this.flagUrl);
         dest.writeStringList(this.borders);
+        dest.writeList(this.latlng);
     }
 
     protected Country(Parcel in) {
@@ -124,13 +124,17 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         this.demonym = in.readString();
         this.flagUrl = in.readString();
         this.borders = in.createStringArrayList();
+        this.latlng = new ArrayList<Double>();
+        in.readList(this.latlng, Double.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Country> CREATOR = new Parcelable.Creator<Country>() {
+    public static final Creator<Country> CREATOR = new Creator<Country>() {
+        @Override
         public Country createFromParcel(Parcel source) {
             return new Country(source);
         }
 
+        @Override
         public Country[] newArray(int size) {
             return new Country[size];
         }
