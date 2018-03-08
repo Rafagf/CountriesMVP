@@ -1,50 +1,82 @@
 package com.rafagarcia.countries.main.countrieslist;
 
-import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by rafagarcia on 14/11/2015.
  */
 public class CountriesListPresenter {
 
-    CountriesListFragmentInterface mView;
-    List<Country> mCountryList;
+    private CountriesListActivity view;
+    private CountriesListInteractor interactor;
+    private List<Country> countryList;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public CountriesListPresenter(CountriesListFragmentInterface view){
-        this.mView = view;
+    CountriesListPresenter(CountriesListActivity view, CountriesListInteractor interactor) {
+        this.view = view;
+        this.interactor = interactor;
     }
 
-    public void loadCountries() {
-        mCountryList = MyApplication.getInstance().getCountries();
-        mView.updateAdapter(mCountryList);
+    public void init() {
+        interactor.getCountries()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<Country>>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        compositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onSuccess(List<Country> countries) {
+                        onFetchingCountriesSucceed(countries);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onFetchingCountriesFailed();
+                    }
+                });
     }
 
-    public void countrySelected(String name) {
-        int pos = MyApplication.getInstance().getCountryPosByName(name);
-        if(pos >= 0) {
-            mView.goToSelectedCountry(name);
-        }
+    private void onFetchingCountriesFailed() {
+
     }
 
-    public void onQueryTextSubmit(String query) {
+    private void onFetchingCountriesSucceed(List<Country> countries) {
+        countryList = countries;
+        view.updateAdapter(countries);
+    }
+
+    void onQueryTextSubmit(String query) {
         search(query);
     }
 
-    public void onQueryTextChange(String newText) {
+    void onQueryTextChange(String newText) {
         search(newText);
     }
 
-    public void search(String query) {
+    void search(String query) {
         List<Country> filteredCountries = new ArrayList<>();
-        for (Country country : mCountryList) {
-            if(country.getName().toLowerCase().startsWith(query.toLowerCase())){
+        for (Country country : countryList) {
+            if (country.getName().toLowerCase().startsWith(query.toLowerCase())) {
                 filteredCountries.add(country);
             }
         }
-        mView.updateAdapter(filteredCountries);
+
+        view.updateAdapter(filteredCountries);
+    }
+
+    void onCountrySelected(String name) {
+
     }
 }

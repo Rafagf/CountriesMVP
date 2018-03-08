@@ -1,6 +1,5 @@
 package com.rafagarcia.countries.main.countrieslist;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,52 +19,49 @@ import java.util.List;
  */
 public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.CountryViewHolder> {
 
-    private static final String COUNTRY_POSITION = "country_position";
-    private List<Country> mCountries;
-    private Context mContext;
-    private CountriesAdapterInterface mListener;
+    interface CountriesAdapterInteraction {
+        void onCountrySelected(String id);
+    }
 
-    public CountriesAdapter(List<Country> countries, Context context, CountriesAdapterInterface mListener) {
-        this.mCountries = countries;
-        this.mContext = context;
-        this.mListener = mListener;
+    private List<Country> countries;
+    private CountriesAdapterInteraction listener;
+
+    public CountriesAdapter(List<Country> countries, CountriesAdapterInteraction listener) {
+        this.countries = countries;
+        this.listener = listener;
     }
 
     @Override
     public CountryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.country_card, parent, false);
-        CountryViewHolder countryViewHolder = new CountryViewHolder(view);
-        return countryViewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.country_card, parent, false);
+        return new CountryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final CountryViewHolder holder, final int position) {
-        final Country country = mCountries.get(position);
+        final Country country = countries.get(position);
         holder.countryName.setText(country.getName());
         DecimalFormat formatter = new DecimalFormat("#,###");
         double populationDouble = Double.parseDouble(country.getPopulation());
         String populationFormatted = formatter.format(populationDouble);
-        holder.countryPopulation.setText(mContext.getResources().getString(R.string.population) + populationFormatted);
-        holder.countryRegion.setText(mContext.getResources().getString(R.string.region) + country.getRegion());
+        holder.countryPopulation.setText(holder.itemView.getContext().getResources().getString(R.string.population) + populationFormatted);
+        holder.countryRegion.setText(holder.itemView.getContext().getResources().getString(R.string.region) + country.getRegion());
 
-        String flagUrl = country.getFlagUrl();
-
-        Picasso.with(mContext)
+        Picasso.with(holder.itemView.getContext())
                 .load(country.getFlagUrl())
                 .into(holder.countryFlag);
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.countrySelected(country.getName(), holder.countryFlag, holder.countryName,
-                        holder.countryRegion);
+                listener.onCountrySelected(country.getName());
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mCountries.size();
+        return countries.size();
     }
 
     public static class CountryViewHolder extends RecyclerView.ViewHolder {
@@ -78,10 +74,10 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         public CountryViewHolder(View itemView) {
             super(itemView);
             rootView = itemView;
-            countryFlag = (ImageView)itemView.findViewById(R.id.flagImageView);
-            countryName = (TextView)itemView.findViewById(R.id.nameTextView);
-            countryRegion = (TextView)itemView.findViewById(R.id.regionTextView);
-            countryPopulation = (TextView)itemView.findViewById(R.id.populationTextView);
+            countryFlag = itemView.findViewById(R.id.flagImageView);
+            countryName = itemView.findViewById(R.id.nameTextView);
+            countryRegion = itemView.findViewById(R.id.regionTextView);
+            countryPopulation = itemView.findViewById(R.id.populationTextView);
         }
     }
 }
