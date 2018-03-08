@@ -3,6 +3,7 @@ package com.rafagarcia.countries.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.List;
 /**
  * Created by rafagarcia on 03/07/2016.
  */
-public class Country extends BaseModel implements Comparable<Country>, Parcelable  {
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class Country extends Object implements Parcelable  {
 
     private String name;
     private String nativeName;
@@ -24,7 +26,6 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
     private String area;
     private String demonym;
     private String flagUrl;
-
     private List<String> borders;
     private List<Double> latlng;
 
@@ -46,10 +47,6 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
 
     public String getFlagUrl() {
         return "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
-    }
-
-    public String getAlpha2Code() {
-        return alpha2Code;
     }
 
     public String getCapital() {
@@ -82,11 +79,6 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
 
     public LatLng getLatlng() {
         return new LatLng(this.latlng.get(0), latlng.get(1));
-    }
-
-    @Override
-    public int compareTo(Country another) {
-        return name.compareTo(another.name);
     }
 
     @Override
