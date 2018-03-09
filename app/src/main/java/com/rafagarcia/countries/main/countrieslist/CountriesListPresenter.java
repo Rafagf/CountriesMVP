@@ -18,7 +18,7 @@ public class CountriesListPresenter {
 
     private CountriesListActivity view;
     private CountriesListInteractor interactor;
-    private List<Country> countryList;
+    private List<Country> countryList = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     CountriesListPresenter(CountriesListActivity view, CountriesListInteractor interactor) {
@@ -49,11 +49,12 @@ public class CountriesListPresenter {
     }
 
     private void onFetchingCountriesFailed() {
-
+        //todo error
     }
 
     private void onFetchingCountriesSucceed(List<Country> countries) {
-        countryList = countries;
+        countryList.clear();
+        countryList.addAll(countries);
         view.updateAdapter(countries);
     }
 
@@ -65,7 +66,7 @@ public class CountriesListPresenter {
         search(newText);
     }
 
-    void search(String query) {
+    private void search(String query) {
         List<Country> filteredCountries = new ArrayList<>();
         for (Country country : countryList) {
             if (country.getName().toLowerCase().startsWith(query.toLowerCase())) {

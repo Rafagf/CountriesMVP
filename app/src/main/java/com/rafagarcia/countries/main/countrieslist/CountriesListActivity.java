@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.R;
+import com.rafagarcia.countries.api.request.country.CountryApi;
 import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
 import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
 import com.rafagarcia.countries.main.usecases.CountriesRemoteDataSource;
@@ -107,7 +108,7 @@ public class CountriesListActivity extends AppCompatActivity {
 
     private void init() {
         //todo daggered
-        presenter = new CountriesListPresenter(this, new CountriesListInteractor(new CountriesLocalDataSource(), new CountriesRemoteDataSource(), new CountriesMemoryDataSource()));
+        presenter = new CountriesListPresenter(this, new CountriesListInteractor(new CountriesLocalDataSource(this), new CountriesRemoteDataSource(new CountryApi()), new CountriesMemoryDataSource()));
         presenter.init();
     }
 

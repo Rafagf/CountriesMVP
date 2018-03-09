@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafagarcia.countries.model.Country;
@@ -18,6 +17,10 @@ import io.reactivex.Maybe;
  * Created by Rafa on 08/03/2018.
  */
 
+/**
+ * This data sources saves data in shared preferences as a json to just make it easier.
+ * In a real app, it would use a proper local storage (Room, Realm or any other)
+ */
 public class CountriesLocalDataSource {
 
     private static String COUNTRIES_JSON = "countries_json";
@@ -48,7 +51,7 @@ public class CountriesLocalDataSource {
             ObjectMapper mapper = new ObjectMapper();
             String countriesInJson = mapper.writeValueAsString(countries);
             saveCountriesJsonInSharedPreferences(countriesInJson);
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

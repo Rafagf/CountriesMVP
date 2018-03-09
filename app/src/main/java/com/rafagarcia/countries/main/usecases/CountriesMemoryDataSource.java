@@ -2,6 +2,7 @@ package com.rafagarcia.countries.main.usecases;
 
 import com.rafagarcia.countries.model.Country;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Maybe;
@@ -12,17 +13,18 @@ import io.reactivex.Maybe;
 
 public class CountriesMemoryDataSource {
 
-    List<Country> countries;
+    List<Country> countries = new ArrayList<>();
 
     public Maybe<List<Country>> getCountries() {
         if (countries != null && countries.size() > 0) {
-            return Maybe.just(countries);
+            List<Country> shallowCopy = new ArrayList<>(countries);
+            return Maybe.just(shallowCopy);
         } else {
             return Maybe.empty();
         }
     }
 
     public void save(List<Country> countries) {
-        this.countries = countries;
+        this.countries.addAll(countries);
     }
 }

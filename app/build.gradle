@@ -33,7 +33,7 @@ dependencies {
 
     //Dependency Injection
     compile 'com.jakewharton:butterknife:7.0.1'
-
+    annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     //Jackson
     compile 'com.fasterxml.jackson.core:jackson-core:2.7.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.2'
