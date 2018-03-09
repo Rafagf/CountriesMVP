@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Countries of the world</string>
+    <string name="countries_world">Countries in the world</string>
+    <string name="countries_region">Countries in\u0020 </string>
+    <string name="population">Population:\u0020</string>
+    <string name="region">Region:\u0020</string>
+    <string name="capital">Capital:\u0020</string>
+    <string name="area">Area:\u0020</string>
+    <string name="demonym">Demonym:\u0020</string>
+    <string name="native_name">Native name:\u0020</string>
+    <string name="border_countries">Border countries</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="flag_transition">flag_transition</string>
+    <string name="country_name_transition">country_transition</string>
+    <string name="region_transition">region_transition</string>
+    <string name="countries_title">Countries</string>
+    <string name="internet_error">No connection, please try again later</string>
+    <string name="retry">Retry</string>
+    <string name="maps_key">AIzaSyA-J8dfvtkrGHVKstPT5Lhr7sFWBJE_hqA</string>
+</resources>
