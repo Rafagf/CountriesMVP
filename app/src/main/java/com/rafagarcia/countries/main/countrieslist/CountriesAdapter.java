@@ -47,9 +47,11 @@ public class CountriesAdapter extends RecyclerView.Adapter<CountriesAdapter.Coun
         holder.countryPopulation.setText(holder.itemView.getContext().getResources().getString(R.string.population) + populationFormatted);
         holder.countryRegion.setText(holder.itemView.getContext().getResources().getString(R.string.region) + country.getRegion());
 
-        Picasso.with(holder.itemView.getContext())
-                .load(country.getFlagUrl())
-                .into(holder.countryFlag);
+        if (country.getFlagUrl() != null && !country.getFlagUrl().equals("")) {
+            Picasso.with(holder.itemView.getContext())
+                    .load(country.getFlagUrl())
+                    .into(holder.countryFlag);
+        }
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override

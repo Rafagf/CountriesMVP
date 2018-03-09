@@ -14,10 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
 import com.rafagarcia.countries.model.Country;
@@ -205,11 +202,11 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
         }
 
         private void initMap() {
-            if(country != null) {
-                LatLng latLng = new LatLng(country.getLatlng().latitude, country.getLatlng().longitude);
-                googleMap.addMarker(new MarkerOptions().position(latLng).title(country.getName()));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
+//            if(country != null) {
+//                LatLng latLng = new LatLng(country.getLatlng().latitude, country.getLatlng().longitude);
+//                googleMap.addMarker(new MarkerOptions().position(latLng).title(country.getName()));
+//                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//            }
         }
     }
 }

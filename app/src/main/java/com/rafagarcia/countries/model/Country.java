@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.google.android.gms.maps.model.LatLng;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by rafagarcia on 03/07/2016.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Country extends Object implements Parcelable  {
 
@@ -37,48 +38,52 @@ public class Country extends Object implements Parcelable  {
         return name;
     }
 
-    public String getPopulation() {
-        return population;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getFlagUrl() {
-        return "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
-    }
-
-    public String getCapital() {
-        return capital;
-    }
-
-    public String getSubregion() {
-        return subregion;
-    }
-
-    public String getDemonym() {
-        return demonym;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
     public String getNativeName() {
         return nativeName;
+    }
+
+    public String getAlpha2Code() {
+        return alpha2Code;
     }
 
     public String getAlpha3Code() {
         return alpha3Code;
     }
 
+    public String getRegion() {
+        return region;
+    }
+
+    public String getSubregion() {
+        return subregion;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public String getPopulation() {
+        return population;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public String getDemonym() {
+        return demonym;
+    }
+
+    public String getFlagUrl() {
+        return flagUrl;
+    }
+
     public List<String> getBorders() {
         return borders;
     }
 
-    public LatLng getLatlng() {
-        return new LatLng(this.latlng.get(0), latlng.get(1));
+    public List<Double> getLatlng() {
+        return latlng;
     }
 
     @Override

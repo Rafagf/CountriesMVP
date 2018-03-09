@@ -34,8 +34,7 @@ public class CountriesListInteractor {
                     public void accept(List<Country> countries) throws Exception {
                         memoryDataSource.save(countries);
                     }
-                })
-                .switchIfEmpty(remoteDataSource.getCountries())
+                }).switchIfEmpty(remoteDataSource.getCountries())
                 .doOnSuccess(new Consumer<List<Country>>() {
                     @Override
                     public void accept(List<Country> countries) throws Exception {
