@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Rafa on 09/03/2018.
@@ -27,6 +27,7 @@ public class CountryViewHolder extends RecyclerView.ViewHolder {
     public CountryViewHolder(View itemView) {
         super(itemView);
         presenter = new CountryViewHolderPresenter(this);
+        ButterKnife.bind(this, itemView);
     }
 
     public void bind(Country country) {
@@ -42,12 +43,12 @@ public class CountryViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setPopulation(String name) {
-        nameTextView.setText(name);
+        populationTextView.setText(name);
     }
 
     public void setFlag(String url) {
-        Picasso.with(itemView.getContext())
-                .load(url)
-                .into(flagImageView);
+//        Picasso.with(itemView.getContext())
+//                .load(url)
+//                .into(flagImageView);
     }
 }
