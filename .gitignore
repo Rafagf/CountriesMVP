@@ -1,3 +1,4 @@
+# Created by .ignore support plugin (hsz.mobi)
 #built application files
 *.apk
 *.ap_
@@ -29,8 +30,10 @@ Thumbs.db
 build/
 .navigation
 captures/
-output.json 
+output.json
 
 #NDK
 obj/
 .externalNativeBuild
+libs/
+src/test/java/com/rafagarcia/countries/main/
