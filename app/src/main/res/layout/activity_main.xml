@@ -24,7 +24,7 @@
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolBar"
-                    andsoroid:fitsSystemWindows="true"
+                    android:fitsSystemWindows="true"
                     android:minHeight="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
                     app:theme="@style/MyToolBar"
