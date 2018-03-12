@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Rafael Garcia on 12/10/15.
  */
-public class CountriesAdapter extends RecyclerView.Adapter {
+public class CountryListAdapter extends RecyclerView.Adapter {
 
     interface CountriesAdapterInteraction {
         void onCountrySelected(String id);
@@ -23,7 +23,7 @@ public class CountriesAdapter extends RecyclerView.Adapter {
     private List<Country> countries;
     private CountriesAdapterInteraction listener;
 
-    public CountriesAdapter(List<Country> countries, CountriesAdapterInteraction listener) {
+    public CountryListAdapter(List<Country> countries, CountriesAdapterInteraction listener) {
         this.countries = countries;
         this.listener = listener;
     }

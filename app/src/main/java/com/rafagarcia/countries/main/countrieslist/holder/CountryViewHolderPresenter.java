@@ -9,10 +9,10 @@ import com.rafagarcia.countries.model.Country;
 class CountryViewHolderPresenter {
 
     private final String FLAGS_URL = "http://www.geonames.org/flags/x/";
-    CountryViewHolder view;
+    CountryHolderMvp.View view;
     Country country;
 
-    public CountryViewHolderPresenter(CountryViewHolder view) {
+    public CountryViewHolderPresenter(CountryHolderMvp.View view) {
         this.view = view;
     }
 
