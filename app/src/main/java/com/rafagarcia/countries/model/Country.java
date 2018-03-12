@@ -3,7 +3,8 @@ package com.rafagarcia.countries.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.List;
 /**
  * Created by rafagarcia on 03/07/2016.
  */
-public class Country extends BaseModel implements Comparable<Country>, Parcelable  {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class Country extends Object implements Parcelable  {
 
     private String name;
     private String nativeName;
@@ -24,7 +27,6 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
     private String area;
     private String demonym;
     private String flagUrl;
-
     private List<String> borders;
     private List<Double> latlng;
 
@@ -36,57 +38,52 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         return name;
     }
 
-    public String getPopulation() {
-        return population;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getFlagUrl() {
-        return "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
+    public String getNativeName() {
+        return nativeName;
     }
 
     public String getAlpha2Code() {
         return alpha2Code;
     }
 
-    public String getCapital() {
-        return capital;
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
+    public String getRegion() {
+        return region;
     }
 
     public String getSubregion() {
         return subregion;
     }
 
-    public String getDemonym() {
-        return demonym;
+    public String getCapital() {
+        return capital;
+    }
+
+    public String getPopulation() {
+        return population;
     }
 
     public String getArea() {
         return area;
     }
 
-    public String getNativeName() {
-        return nativeName;
+    public String getDemonym() {
+        return demonym;
     }
 
-    public String getAlpha3Code() {
-        return alpha3Code;
+    public String getFlagUrl() {
+        return flagUrl;
     }
 
     public List<String> getBorders() {
         return borders;
     }
 
-    public LatLng getLatlng() {
-        return new LatLng(this.latlng.get(0), latlng.get(1));
-    }
-
-    @Override
-    public int compareTo(Country another) {
-        return name.compareTo(another.name);
+    public List<Double> getLatlng() {
+        return latlng;
     }
 
     @Override
