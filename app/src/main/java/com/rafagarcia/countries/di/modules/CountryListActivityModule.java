@@ -3,9 +3,7 @@ package com.rafagarcia.countries.di.modules;
 import com.rafagarcia.countries.main.countrieslist.CountryListInteractor;
 import com.rafagarcia.countries.main.countrieslist.CountryListMvp;
 import com.rafagarcia.countries.main.countrieslist.CountryListPresenter;
-import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesRemoteDataSource;
+import com.rafagarcia.countries.di.providers.CountriesProvider;
 
 import dagger.Module;
 import dagger.Provides;
@@ -23,8 +21,8 @@ public class CountryListActivityModule {
     }
 
     @Provides
-    public CountryListInteractor provideInteractor(CountriesLocalDataSource localDataSource, CountriesMemoryDataSource memoryDataSource, CountriesRemoteDataSource remoteDataSource) {
-        return new CountryListInteractor(localDataSource, remoteDataSource, memoryDataSource);
+    public CountryListInteractor provideInteractor(CountriesProvider countriesProvider) {
+        return new CountryListInteractor(countriesProvider.getLocalDataSource(), countriesProvider.getRemoteDataSource(), countriesProvider.getMemoryDataSource());
     }
 
     @Provides

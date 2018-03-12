@@ -5,9 +5,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
+import com.rafagarcia.countries.di.components.ApplicationComponent;
+import com.rafagarcia.countries.di.components.DaggerCountryListViewHolderComponent;
+import com.rafagarcia.countries.di.modules.CountryListViewHolderModule;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -16,18 +22,25 @@ import butterknife.ButterKnife;
  * Created by Rafa on 09/03/2018.
  */
 
-public class CountryViewHolder extends RecyclerView.ViewHolder implements CountryHolderMvp.View {
+public class CountryListViewHolder extends RecyclerView.ViewHolder implements CountryListViewHolderMvp.View {
 
     @Bind(R.id.flagImageView) ImageView flagImageView;
     @Bind(R.id.nameTextView) TextView nameTextView;
     @Bind(R.id.regionTextView) TextView regionTextView;
     @Bind(R.id.populationTextView) TextView populationTextView;
 
-    private CountryViewHolderPresenter presenter;
+    @Inject
+    CountryListViewHolderPresenter presenter;
 
-    public CountryViewHolder(View itemView) {
+    public CountryListViewHolder(View itemView) {
         super(itemView);
-        presenter = new CountryViewHolderPresenter(this);
+        ApplicationComponent applicationComponent = ((MyApplication) itemView.getContext().getApplicationContext()).getApplicationComponent();
+        DaggerCountryListViewHolderComponent.builder()
+                .applicationComponent(applicationComponent)
+                .countryListViewHolderModule(new CountryListViewHolderModule(this))
+                .build()
+                .inject(this);
+
         ButterKnife.bind(this, itemView);
     }
 
