@@ -1,7 +1,7 @@
 package com.rafagarcia.countries.di.modules;
 
 import com.rafagarcia.countries.di.providers.FlagProvider;
-import com.rafagarcia.countries.di.providers.TextProvider;
+import com.rafagarcia.countries.di.providers.ResourcesProvider;
 import com.rafagarcia.countries.main.countrieslist.holder.CountryListViewHolderMvp;
 import com.rafagarcia.countries.main.countrieslist.holder.CountryListViewHolderPresenter;
 
@@ -21,7 +21,7 @@ public class CountryListViewHolderModule {
     }
 
     @Provides
-    public CountryListViewHolderPresenter providePresenter(TextProvider textProvider, FlagProvider flagProvider) {
-        return new CountryListViewHolderPresenter(view, textProvider, flagProvider);
+    public CountryListViewHolderPresenter providePresenter(ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
+        return new CountryListViewHolderPresenter(view, resourcesProvider, flagProvider);
     }
 }

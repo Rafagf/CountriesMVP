@@ -2,7 +2,7 @@ package com.rafagarcia.countries.di.modules;
 
 import android.content.Context;
 
-import com.rafagarcia.countries.di.providers.TextProvider;
+import com.rafagarcia.countries.di.providers.ResourcesProvider;
 
 import javax.inject.Singleton;
 
@@ -18,7 +18,7 @@ public class TextProviderModule {
 
     @Provides
     @Singleton
-    TextProvider provideTextProvider(Context context) {
-        return new TextProvider(context);
+    ResourcesProvider provideTextProvider(Context context) {
+        return new ResourcesProvider(context);
     }
 }
