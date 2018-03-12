@@ -11,7 +11,7 @@ import com.rafagarcia.countries.di.modules.NetworkModule;
 import com.rafagarcia.countries.di.modules.TextProviderModule;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
 import com.rafagarcia.countries.di.providers.FlagProvider;
-import com.rafagarcia.countries.di.providers.TextProvider;
+import com.rafagarcia.countries.di.providers.ResourcesProvider;
 
 import javax.inject.Singleton;
 
@@ -24,7 +24,7 @@ public interface ApplicationComponent {
 
     Context getContext();
 
-    TextProvider getTextProvider();
+    ResourcesProvider getTextProvider();
 
     FlagProvider getFlagProvider();
 

@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Countries of the world</string>
-    <string name="countries_world">Countries in the world</string>
-    <string name="countries_region">Countries in\u0020 </string>
-    <string name="population">Population:\u0020</string>
-    <string name="region">Region:\u0020</string>
+    <string name="population">Population: %1$s</string>
+    <string name="region">Region: %1$s</string>
+
     <string name="capital">Capital:\u0020</string>
     <string name="area">Area:\u0020</string>
     <string name="demonym">Demonym:\u0020</string>
