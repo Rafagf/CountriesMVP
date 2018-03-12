@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.Utilities;
+package com.rafagarcia.countries.utilities;
 
 import android.content.Context;
 import android.os.Build;

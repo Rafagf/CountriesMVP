@@ -20,7 +20,6 @@ public class NetworkModule {
 
     private static final String BASE_URL = "https://restcountries.eu/rest/v1/";
     private Retrofit retrofit;
-    private CountryApi mRequestsService;
 
     public NetworkModule() {
         retrofit = new Retrofit.Builder()
@@ -29,13 +28,11 @@ public class NetworkModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
-
-        mRequestsService = retrofit.create(CountryApi.class);
     }
 
     @Provides
     @Singleton
     CountryApi provideCountryRequest() {
-        return mRequestsService;
+        return retrofit.create(CountryApi.class);
     }
 }

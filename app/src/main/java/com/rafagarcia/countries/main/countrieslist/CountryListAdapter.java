@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rafagarcia.countries.R;
-import com.rafagarcia.countries.main.countrieslist.holder.CountryViewHolder;
+import com.rafagarcia.countries.main.countrieslist.holder.CountryListViewHolder;
 import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
@@ -29,14 +29,14 @@ public class CountryListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public CountryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CountryListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.country_card, parent, false);
-        return new CountryViewHolder(view);
+        return new CountryListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((CountryViewHolder) holder).bind(countries.get(position));
+        ((CountryListViewHolder) holder).bind(countries.get(position));
     }
 
     @Override

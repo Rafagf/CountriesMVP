@@ -4,7 +4,7 @@ package com.rafagarcia.countries.main.countrieslist.holder;
  * Created by Rafa on 12/03/2018.
  */
 
-public interface CountryHolderMvp {
+public interface CountryListViewHolderMvp {
 
     interface View {
 

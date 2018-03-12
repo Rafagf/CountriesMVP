@@ -19,12 +19,6 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Application provideApplication() {
-        return mApp;
-    }
-
-    @Provides
-    @Singleton
     Context provideApplicationContext() {
         return mApp.getApplicationContext();
     }

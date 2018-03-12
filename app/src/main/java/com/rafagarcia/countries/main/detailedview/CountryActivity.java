@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.rafagarcia.countries.R;
-import com.rafagarcia.countries.Utilities.Utilities;
+import com.rafagarcia.countries.utilities.Utilities;
 import com.rafagarcia.countries.main.countrieslist.CountryListActivity;
 import com.rafagarcia.countries.model.Country;
 
