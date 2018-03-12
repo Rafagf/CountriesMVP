@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,8 +48,8 @@ public class CountryViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setFlag(String url) {
-//        Picasso.with(itemView.getContext())
-//                .load(url)
-//                .into(flagImageView);
+        Picasso.with(itemView.getContext())
+                .load(url)
+                .into(flagImageView);
     }
 }

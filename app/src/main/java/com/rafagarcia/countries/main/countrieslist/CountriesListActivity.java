@@ -95,12 +95,7 @@ public class CountriesListActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
 
-        adapter = new CountriesAdapter(countryList, new CountriesAdapter.CountriesAdapterInteraction() {
-            @Override
-            public void onCountrySelected(String id) {
-                presenter.onCountrySelected(id);
-            }
-        });
+        adapter = new CountriesAdapter(countryList, id -> presenter.onCountrySelected(id));
 
         recyclerView.setAdapter(adapter);
     }

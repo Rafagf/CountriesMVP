@@ -8,6 +8,7 @@ import com.rafagarcia.countries.model.Country;
 
 class CountryViewHolderPresenter {
 
+    private final String FLAGS_URL = "http://www.geonames.org/flags/x/";
     CountryViewHolder view;
     Country country;
 
@@ -18,8 +19,8 @@ class CountryViewHolderPresenter {
     public void bind(Country country) {
         this.country = country;
         view.setName(country.getName());
-        view.setRegion(country.getRegion());
-        view.setPopulation(country.getPopulation());
-        view.setFlag("");
+        view.setRegion("Region: " + country.getRegion());
+        view.setPopulation("Population: " + country.getPopulation());
+        view.setFlag(FLAGS_URL + country.getAlpha2Code().toLowerCase() + ".gif");
     }
 }
