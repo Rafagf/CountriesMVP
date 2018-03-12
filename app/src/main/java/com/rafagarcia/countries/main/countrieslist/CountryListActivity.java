@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
@@ -98,7 +99,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         countryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        adapter = new CountryListAdapter(countryList, id -> presenter.onCountrySelected(id));
+        adapter = new CountryListAdapter(countryList, country -> presenter.onCountrySelected(country));
         recyclerView.setAdapter(adapter);
     }
 
@@ -118,5 +119,10 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         countryList.clear();
         countryList.addAll(countries);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void goToCountryDetailedView(Country country) {
+        Toast.makeText(this, "Go to " + country.getName(), Toast.LENGTH_LONG).show();
     }
 }

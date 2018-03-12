@@ -17,7 +17,7 @@ import java.util.List;
 public class CountryListAdapter extends RecyclerView.Adapter {
 
     interface CountriesAdapterInteraction {
-        void onCountrySelected(String id);
+        void onCountrySelected(Country country);
     }
 
     private List<Country> countries;
@@ -36,7 +36,9 @@ public class CountryListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((CountryListViewHolder) holder).bind(countries.get(position));
+        CountryListViewHolder countryHolder = (CountryListViewHolder) holder;
+        countryHolder.bind(countries.get(position));
+        countryHolder.itemView.setOnClickListener(view -> listener.onCountrySelected(countries.get(position)));
     }
 
     @Override
