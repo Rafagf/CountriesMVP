@@ -13,6 +13,7 @@ import io.reactivex.Single;
 public interface CountryListMvp {
     interface View {
         void updateList(List<Country> countries);
+        void goToCountryDetailedView(Country country);
     }
 
     interface Interactor {

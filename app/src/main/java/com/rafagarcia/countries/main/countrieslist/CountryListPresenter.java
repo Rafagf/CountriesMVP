@@ -77,7 +77,7 @@ public class CountryListPresenter {
         view.updateList(filteredCountries);
     }
 
-    void onCountrySelected(String name) {
-
+    void onCountrySelected(Country country) {
+        view.goToCountryDetailedView(country);
     }
 }

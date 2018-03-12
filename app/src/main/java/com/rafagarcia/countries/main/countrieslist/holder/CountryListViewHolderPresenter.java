@@ -14,7 +14,6 @@ public class CountryListViewHolderPresenter {
     private ResourcesProvider resourcesProvider;
     private FlagProvider flagProvider;
     private CountryListViewHolderMvp.View view;
-    private Country country;
 
     public CountryListViewHolderPresenter(CountryListViewHolderMvp.View view, ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
         this.view = view;
@@ -23,7 +22,6 @@ public class CountryListViewHolderPresenter {
     }
 
     public void bind(Country country) {
-        this.country = country;
         view.setName(country.getName());
         view.setRegion(resourcesProvider.getText(R.string.region, country.getRegion()));
         view.setPopulation(resourcesProvider.getText(R.string.population, country.getPopulation()));
