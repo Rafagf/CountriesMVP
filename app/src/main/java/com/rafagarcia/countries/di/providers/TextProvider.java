@@ -9,7 +9,7 @@ import android.support.annotation.StringRes;
 
 public class TextProvider {
 
-    Context context;
+    private Context context;
 
     public TextProvider(Context context) {
         this.context = context;
