@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.Utilities.Utilities;
-import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
+import com.rafagarcia.countries.main.countrieslist.CountryListActivity;
 import com.rafagarcia.countries.model.Country;
 
 public class CountryActivity extends AppCompatActivity{
@@ -23,7 +23,7 @@ public class CountryActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
         Intent intent = getIntent();
-        mCountry = intent.getParcelableExtra(CountriesListActivity.COUNTRY);
+        mCountry = intent.getParcelableExtra(CountryListActivity.COUNTRY);
 
         FragmentManager fm = getSupportFragmentManager();
         if(fm.findFragmentByTag(COUNTRY_FRAGMENT_TAG) == null){

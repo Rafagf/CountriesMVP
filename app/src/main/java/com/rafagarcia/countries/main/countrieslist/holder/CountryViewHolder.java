@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by Rafa on 09/03/2018.
  */
 
-public class CountryViewHolder extends RecyclerView.ViewHolder {
+public class CountryViewHolder extends RecyclerView.ViewHolder implements CountryHolderMvp.View {
 
     @Bind(R.id.flagImageView) ImageView flagImageView;
     @Bind(R.id.nameTextView) TextView nameTextView;
@@ -35,18 +35,22 @@ public class CountryViewHolder extends RecyclerView.ViewHolder {
         presenter.bind(country);
     }
 
+    @Override
     public void setName(String name) {
         nameTextView.setText(name);
     }
 
+    @Override
     public void setRegion(String name) {
         regionTextView.setText(name);
     }
 
+    @Override
     public void setPopulation(String name) {
         populationTextView.setText(name);
     }
 
+    @Override
     public void setFlag(String url) {
         Picasso.with(itemView.getContext())
                 .load(url)

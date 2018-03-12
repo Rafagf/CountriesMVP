@@ -14,14 +14,14 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by rafagarcia on 14/11/2015.
  */
-public class CountriesListPresenter {
+public class CountryListPresenter {
 
-    private CountriesListActivity view;
-    private CountriesListInteractor interactor;
+    private CountryListMvp.View view;
+    private CountryListMvp.Interactor interactor;
     private List<Country> countryList = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    CountriesListPresenter(CountriesListActivity view, CountriesListInteractor interactor) {
+    public CountryListPresenter(CountryListMvp.View view, CountryListMvp.Interactor interactor) {
         this.view = view;
         this.interactor = interactor;
     }
@@ -55,7 +55,7 @@ public class CountriesListPresenter {
     private void onFetchingCountriesSucceed(List<Country> countries) {
         countryList.clear();
         countryList.addAll(countries);
-        view.updateAdapter(countries);
+        view.updateList(countries);
     }
 
     void onQueryTextSubmit(String query) {
@@ -74,7 +74,7 @@ public class CountriesListPresenter {
             }
         }
 
-        view.updateAdapter(filteredCountries);
+        view.updateList(filteredCountries);
     }
 
     void onCountrySelected(String name) {

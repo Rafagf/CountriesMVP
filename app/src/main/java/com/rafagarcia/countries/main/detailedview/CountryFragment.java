@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.rafagarcia.countries.R;
-import com.rafagarcia.countries.main.countrieslist.CountriesListActivity;
+import com.rafagarcia.countries.main.countrieslist.CountryListActivity;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
 
@@ -145,7 +145,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CountryActivity.class);
-                intent.putExtra(CountriesListActivity.COUNTRY, country);
+                intent.putExtra(CountryListActivity.COUNTRY, country);
                 startActivity(intent);
             }
         });

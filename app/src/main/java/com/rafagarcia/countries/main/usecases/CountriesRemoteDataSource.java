@@ -20,7 +20,7 @@ public class CountriesRemoteDataSource {
     }
 
     public Single<List<Country>> getCountries() {
-        return countryApi.getCountries();
+        return countryApi.getAllCountries();
 
     }
 }

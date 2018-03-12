@@ -11,23 +11,27 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
-import com.rafagarcia.countries.api.request.country.CountryApi;
-import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesRemoteDataSource;
+import com.rafagarcia.countries.di.components.ApplicationComponent;
+import com.rafagarcia.countries.di.components.DaggerCountryListActivityComponent;
+import com.rafagarcia.countries.di.modules.CountryListActivityModule;
 import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountriesListActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class CountryListActivity extends AppCompatActivity implements CountryListMvp.View {
 
     public static final String COUNTRY = "country";
     private MaterialSearchView searchView;
-    private CountriesAdapter adapter;
+    private CountryListAdapter adapter;
     private List<Country> countryList;
-    private CountriesListPresenter presenter;
+
+    @Inject
+    CountryListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +81,13 @@ public class CountriesListActivity extends AppCompatActivity {
 
             @Override
             public void onSearchViewShown() {
-                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.plain_grey);
+                int color = ContextCompat.getColor(CountryListActivity.this, R.color.plain_grey);
                 window.setStatusBarColor(color);
             }
 
             @Override
             public void onSearchViewClosed() {
-                int color = ContextCompat.getColor(CountriesListActivity.this, R.color.colorPrimary);
+                int color = ContextCompat.getColor(CountryListActivity.this, R.color.colorPrimary);
                 window.setStatusBarColor(color);
             }
         });
@@ -94,20 +98,23 @@ public class CountriesListActivity extends AppCompatActivity {
         countryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-
-        adapter = new CountriesAdapter(countryList, id -> presenter.onCountrySelected(id));
-
+        adapter = new CountryListAdapter(countryList, id -> presenter.onCountrySelected(id));
         recyclerView.setAdapter(adapter);
     }
 
-
     private void init() {
-        //todo daggered
-        presenter = new CountriesListPresenter(this, new CountriesListInteractor(new CountriesLocalDataSource(this), new CountriesRemoteDataSource(new CountryApi()), new CountriesMemoryDataSource()));
+        ApplicationComponent applicationComponent = ((MyApplication) getApplication()).getApplicationComponent();
+        DaggerCountryListActivityComponent.builder()
+                .applicationComponent(applicationComponent)
+                .countryListActivityModule(new CountryListActivityModule(this))
+                .build().
+                inject(this);
+
         presenter.init();
     }
 
-    public void updateAdapter(List<Country> countries) {
+    @Override
+    public void updateList(List<Country> countries) {
         countryList.clear();
         countryList.addAll(countries);
         adapter.notifyDataSetChanged();
