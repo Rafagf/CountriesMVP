@@ -10,7 +10,7 @@ public interface CountryListViewHolderMvp {
 
         void setName(String name);
 
-        void setRegion(String name);
+        void setContinent(String name);
 
         void setPopulation(String name);
 

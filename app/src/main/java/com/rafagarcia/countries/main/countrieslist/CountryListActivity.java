@@ -1,6 +1,7 @@
 package com.rafagarcia.countries.main.countrieslist;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,12 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         setContentView(R.layout.activity_main);
         initViews();
         init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.stop();
     }
 
     @Override
@@ -124,5 +131,12 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     @Override
     public void goToCountryDetailedView(Country country) {
         Toast.makeText(this, "Go to " + country.getName(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showError() {
+        Snackbar.make(findViewById(android.R.id.content), R.string.there_was_an_error, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry, view -> presenter.onRetryClicked())
+                .show();
     }
 }

@@ -17,8 +17,8 @@ public class CountryPresenter {
         mView.showFlag(country.getFlagUrl());
         mView.showName(country.getName());
         mView.showNativeName(country.getNativeName());
-        mView.showRegion(country.getRegion());
-        mView.showSubregion(country.getSubregion());
+        mView.showRegion(country.getContinent());
+        mView.showSubregion(country.getRegion());
         mView.showArea(country.getArea());
         mView.showCapital(country.getCapital());
         mView.showDenonym(country.getDemonym());

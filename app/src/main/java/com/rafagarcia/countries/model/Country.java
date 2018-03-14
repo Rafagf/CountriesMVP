@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,6 @@ public class Country extends Object implements Parcelable  {
     private String nativeName;
     private String alpha2Code;
     private String alpha3Code;
-    private String region;
-    private String subregion;
     private String capital;
     private String population;
     private String area;
@@ -29,6 +28,10 @@ public class Country extends Object implements Parcelable  {
     private String flagUrl;
     private List<String> borders;
     private List<Double> latlng;
+    @JsonProperty("region")
+    private String continent;
+    @JsonProperty("subregion")
+    private String region;
 
     public Country(){
 
@@ -50,12 +53,12 @@ public class Country extends Object implements Parcelable  {
         return alpha3Code;
     }
 
-    public String getRegion() {
-        return region;
+    public String getContinent() {
+        return continent;
     }
 
-    public String getSubregion() {
-        return subregion;
+    public String getRegion() {
+        return region;
     }
 
     public String getCapital() {
@@ -97,8 +100,8 @@ public class Country extends Object implements Parcelable  {
         dest.writeString(this.nativeName);
         dest.writeString(this.alpha2Code);
         dest.writeString(this.alpha3Code);
+        dest.writeString(this.continent);
         dest.writeString(this.region);
-        dest.writeString(this.subregion);
         dest.writeString(this.capital);
         dest.writeString(this.population);
         dest.writeString(this.area);
@@ -113,8 +116,8 @@ public class Country extends Object implements Parcelable  {
         this.nativeName = in.readString();
         this.alpha2Code = in.readString();
         this.alpha3Code = in.readString();
+        this.continent = in.readString();
         this.region = in.readString();
-        this.subregion = in.readString();
         this.capital = in.readString();
         this.population = in.readString();
         this.area = in.readString();

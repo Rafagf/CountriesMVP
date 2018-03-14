@@ -14,6 +14,7 @@ public interface CountryListMvp {
     interface View {
         void updateList(List<Country> countries);
         void goToCountryDetailedView(Country country);
+        void showError();
     }
 
     interface Interactor {
