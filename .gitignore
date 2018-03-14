@@ -36,5 +36,3 @@ output.json
 obj/
 .externalNativeBuild
 libs/
-src/test/java/com/rafagarcia/countries/main/
-app/src/test/java/com/rafagarcia/countries/main/
