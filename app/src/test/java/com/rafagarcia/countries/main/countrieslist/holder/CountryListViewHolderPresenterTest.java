@@ -1,5 +1,6 @@
 package com.rafagarcia.countries.main.countrieslist.holder;
 
+import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
 import com.rafagarcia.countries.model.Country;
@@ -16,10 +17,10 @@ import static org.mockito.Mockito.when;
  */
 public class CountryListViewHolderPresenterTest {
 
-    CountryListViewHolderMvp.View view;
-    CountryListViewHolderPresenter presenter;
-    FlagProvider flagProvider;
-    ResourcesProvider resourcesProvider;
+    private CountryListViewHolderMvp.View view;
+    private CountryListViewHolderPresenter presenter;
+    private FlagProvider flagProvider;
+    private ResourcesProvider resourcesProvider;
 
     @Before
     public void setUp() throws Exception {
@@ -41,31 +42,35 @@ public class CountryListViewHolderPresenterTest {
     public void given_country_with_continent_then_it_shows_continent_name() throws Exception {
         Country country = mock(Country.class);
         when(country.getContinent()).thenReturn("Europe");
+        when(resourcesProvider.getText(R.string.continent)).thenReturn("Continent: ");
         presenter.bind(country);
-        verify(view).setContinent("Europe");
+        verify(view).setContinent("Continent: Europe");
     }
 
     @Test
     public void given_country_with_no_continent_then_it_shows_dash() throws Exception {
         Country country = mock(Country.class);
+        when(resourcesProvider.getText(R.string.continent)).thenReturn("Continent: ");
         when(country.getContinent()).thenReturn(null);
         presenter.bind(country);
-        verify(view).setContinent("-");
+        verify(view).setContinent("Continent: -");
     }
 
     @Test
     public void given_country_with_population_greater_than_0_then_it_shows_population() throws Exception {
         Country country = mock(Country.class);
         when(country.getPopulation()).thenReturn("500");
+        when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
         presenter.bind(country);
-        verify(view).setPopulation("500");
+        verify(view).setPopulation("Population: 500");
     }
 
     @Test
     public void given_country_with_population_equal_or_lesser_than_0_then_it_shows_uninhabited() throws Exception {
         Country country = mock(Country.class);
         when(country.getPopulation()).thenReturn("0");
+        when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
         presenter.bind(country);
-        verify(view).setPopulation("uninhabited");
+        verify(view).setPopulation("Population: uninhabited");
     }
 }
