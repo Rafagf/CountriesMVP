@@ -7,6 +7,7 @@ import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
@@ -26,13 +27,15 @@ public class CountryListInteractor implements CountryListMvp.Interactor {
     }
 
     @Override
-    public Single<List<Country>> getCountries() {
-        return memoryDataSource.getCountries()
-                .switchIfEmpty(localDataSource.getCountries())
-                .doOnSuccess(countries -> memoryDataSource.save(countries)).switchIfEmpty(remoteDataSource.getCountries())
-                .doOnSuccess(countries -> {
-                    memoryDataSource.save(countries);
-                    localDataSource.save(countries);
-                });
+    public Maybe<List<Country>> getCountries() {
+        Maybe<List<Country>> memorySource = memoryDataSource.getCountries();
+        Maybe<List<Country>> localSource = localDataSource.getCountries().doOnSuccess(countries ->
+                memoryDataSource.save(countries));
+        Single<List<Country>> remoteSource = remoteDataSource.getCountries().doOnSuccess(countries -> {
+            memoryDataSource.save(countries);
+            localDataSource.save(countries);
+        });
+
+        return Maybe.concat(memorySource, localSource, remoteSource.toMaybe()).firstElement();
     }
 }
