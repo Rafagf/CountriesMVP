@@ -35,17 +35,17 @@ public class CountryListViewHolderPresenter {
 
     private void setContinent(Country country) {
         if (country.getContinent() == null || country.getContinent().isEmpty()) {
-            view.setContinent(resourcesProvider.getText(R.string.continent, "-"));
+            view.setContinent(resourcesProvider.getText(R.string.continent) + "-");
         } else {
-            view.setContinent(resourcesProvider.getText(R.string.continent, country.getContinent()));
+            view.setContinent(resourcesProvider.getText(R.string.continent) + country.getContinent());
         }
     }
 
     private void setPopulation(Country country) {
         if (country.getPopulation() == null || country.getPopulation().isEmpty()) {
-            view.setPopulation(resourcesProvider.getText(R.string.population, "-"));
+            view.setPopulation(resourcesProvider.getText(R.string.population) + "-");
         } else {
-            view.setPopulation(resourcesProvider.getText(R.string.population, FormattingUtils.formatPopulation(country.getPopulation())));
+            view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(country.getPopulation()));
         }
     }
 
