@@ -28,6 +28,7 @@ public class CountryListInteractor implements CountryListMvp.Interactor {
 
     @Override
     public Maybe<List<Country>> getCountries() {
+
         Maybe<List<Country>> memorySource = memoryDataSource.getCountries();
         Maybe<List<Country>> localSource = localDataSource.getCountries().doOnSuccess(countries ->
                 memoryDataSource.save(countries));
