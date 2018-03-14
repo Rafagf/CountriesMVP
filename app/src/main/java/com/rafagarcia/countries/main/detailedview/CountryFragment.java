@@ -27,7 +27,7 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
     @Bind(R.id.nameTextView) TextView mNameTextView;
     @Bind(R.id.flagImageView) ImageView mFlagImageView;
-    @Bind(R.id.regionTextView) TextView mRegionTextView;
+    @Bind(R.id.continentTextView) TextView mRegionTextView;
     @Bind(R.id.subregionTextView) TextView mSubregionTextView;
     @Bind(R.id.populationTextView) TextView mPopulationTextView;
     @Bind(R.id.areaTextView) TextView mAreaTextView;
@@ -93,12 +93,12 @@ public class CountryFragment extends Fragment implements CountryFragmentInterfac
 
     @Override
     public void showRegion(String region) {
-        mRegionTextView.setText(mCountry.getRegion());
+        mRegionTextView.setText(mCountry.getContinent());
     }
 
     @Override
     public void showSubregion(String subregion) {
-        mSubregionTextView.setText(mCountry.getSubregion());
+        mSubregionTextView.setText(mCountry.getRegion());
     }
 
     @Override

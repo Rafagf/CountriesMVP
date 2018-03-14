@@ -26,7 +26,7 @@ public class CountryListViewHolder extends RecyclerView.ViewHolder implements Co
 
     @Bind(R.id.flagImageView) ImageView flagImageView;
     @Bind(R.id.nameTextView) TextView nameTextView;
-    @Bind(R.id.regionTextView) TextView regionTextView;
+    @Bind(R.id.continentTextView) TextView continentTextView;
     @Bind(R.id.populationTextView) TextView populationTextView;
 
     @Inject
@@ -54,8 +54,8 @@ public class CountryListViewHolder extends RecyclerView.ViewHolder implements Co
     }
 
     @Override
-    public void setRegion(String name) {
-        regionTextView.setText(name);
+    public void setContinent(String name) {
+        continentTextView.setText(name);
     }
 
     @Override

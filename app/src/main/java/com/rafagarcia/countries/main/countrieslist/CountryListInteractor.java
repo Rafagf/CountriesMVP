@@ -29,8 +29,7 @@ public class CountryListInteractor implements CountryListMvp.Interactor {
     public Single<List<Country>> getCountries() {
         return memoryDataSource.getCountries()
                 .switchIfEmpty(localDataSource.getCountries())
-                .doOnSuccess(countries ->
-                        memoryDataSource.save(countries)).switchIfEmpty(remoteDataSource.getCountries())
+                .doOnSuccess(countries -> memoryDataSource.save(countries)).switchIfEmpty(remoteDataSource.getCountries())
                 .doOnSuccess(countries -> {
                     memoryDataSource.save(countries);
                     localDataSource.save(countries);
