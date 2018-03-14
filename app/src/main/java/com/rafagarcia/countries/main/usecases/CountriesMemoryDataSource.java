@@ -13,7 +13,7 @@ import io.reactivex.Maybe;
 
 public class CountriesMemoryDataSource {
 
-    List<Country> countries = new ArrayList<>();
+    private List<Country> countries = new ArrayList<>();
 
     public Maybe<List<Country>> getCountries() {
         if (countries != null && countries.size() > 0) {

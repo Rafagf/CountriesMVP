@@ -26,7 +26,19 @@ public class CountryListPresenter {
         this.interactor = interactor;
     }
 
-    public void init() {
+    void init() {
+        fetchCountries();
+    }
+
+    void stop() {
+        compositeDisposable.clear();
+    }
+
+    void onRetryClicked() {
+        fetchCountries();
+    }
+
+    private void fetchCountries() {
         interactor.getCountries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -49,7 +61,7 @@ public class CountryListPresenter {
     }
 
     private void onFetchingCountriesFailed() {
-        //todo error
+        view.showError();
     }
 
     private void onFetchingCountriesSucceed(List<Country> countries) {
