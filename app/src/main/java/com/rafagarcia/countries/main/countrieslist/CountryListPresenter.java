@@ -5,7 +5,7 @@ import com.rafagarcia.countries.model.Country;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.SingleObserver;
+import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -42,7 +42,7 @@ public class CountryListPresenter {
         interactor.getCountries()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new SingleObserver<List<Country>>() {
+                .subscribe(new MaybeObserver<List<Country>>() {
                     @Override
                     public void onSubscribe(Disposable disposable) {
                         compositeDisposable.add(disposable);
@@ -56,6 +56,11 @@ public class CountryListPresenter {
                     @Override
                     public void onError(Throwable e) {
                         onFetchingCountriesFailed();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
