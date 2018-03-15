@@ -2,6 +2,7 @@ package com.rafagarcia.countries.di.components;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.rafagarcia.countries.api.request.country.CountryApi;
 import com.rafagarcia.countries.di.modules.ApplicationModule;
@@ -31,4 +32,6 @@ public interface ApplicationComponent {
     CountriesProvider getCountriesProvider();
 
     CountryApi getCountryApi();
+
+    SharedPreferences getSharedPreferences();
 }

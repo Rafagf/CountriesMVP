@@ -2,6 +2,8 @@ package com.rafagarcia.countries.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import javax.inject.Singleton;
 
@@ -21,5 +23,11 @@ public class ApplicationModule {
     @Singleton
     Context provideApplicationContext() {
         return mApp.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences provideSharesPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(mApp.getApplicationContext());
     }
 }
