@@ -1,6 +1,7 @@
 package com.rafagarcia.countries.main.countrieslist;
 
 import android.content.Intent;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -9,10 +10,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.TestApplication;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
+import com.rafagarcia.countries.main.espresso.MatcherUtils;
+import com.rafagarcia.countries.main.espresso.RecyclerViewItemCountAssertion;
 import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
 import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
 import com.rafagarcia.countries.main.utils.FileUtils;
-import com.rafagarcia.countries.main.utils.RecyclerViewItemCountAssertion;
 import com.rafagarcia.countries.model.Country;
 
 import org.junit.Before;
@@ -27,9 +29,12 @@ import io.appflate.restmock.RESTMockServer;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static io.appflate.restmock.utils.RequestMatchers.pathEndsWith;
 
 /**
@@ -62,7 +67,7 @@ public class CountryListActivityTest {
     }
 
     @Test
-    public void it_shows_2_countries_coming_from_remote_when_launched_and_there_is_no_data_in_memory_nor_local_data_sources() throws InterruptedException {
+    public void it_shows_2_countries_coming_from_remote_when_launched_and_there_is_no_data_in_memory_nor_local_data_sources() {
         RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/list_of_countries_1.json");
 
         mActivityTestRule.launchActivity(new Intent());
@@ -88,6 +93,45 @@ public class CountryListActivityTest {
         mActivityTestRule.launchActivity(new Intent());
 
         onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(6));
+    }
+
+    @Test
+    public void given_search_input_spain_when_filtering_countries_then_display_only_spain() {
+        RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.searchTextView)).perform(typeText("Spain"));
+        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(1));
+        ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
+        countryName.check(matches(withText("Spain")));
+    }
+
+    @Test
+    public void given_search_input_ge_when_filtering_countries_then_display_germany_and_georgia() {
+        RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.searchTextView)).perform(typeText("ge"));
+        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(2));
+        ViewInteraction firstCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
+        firstCountryName.check(matches(withText("Georgia")));
+        ViewInteraction secondCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 1));
+        secondCountryName.check(matches(withText("Germany")));
+    }
+
+    @Test
+    public void given_search_input_unreadable_when_filtering_countries_then_display_no_countries() {
+        RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.searchTextView)).perform(typeText("dsgdskgs"));
+        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(0));
     }
 
     private List<Country> getCountriesFromJson(String path) throws IOException {

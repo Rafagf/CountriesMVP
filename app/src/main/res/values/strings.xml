@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Countries of the world</string>
-    <string name="population">Population: %1$s</string>
-    <string name="continent">Continent: %1$s</string>
+    <string name="population">Population:\u0020 </string>
+    <string name="continent">Continent:\u0020 </string>
     <string name="there_was_an_error">Oops! There was an error</string>
     <string name="retry">Retry</string>
 
