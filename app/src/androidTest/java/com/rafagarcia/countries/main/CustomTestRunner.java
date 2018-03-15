@@ -3,6 +3,8 @@ package com.rafagarcia.countries.main;
 import android.app.Application;
 import android.content.Context;
 
+import com.rafagarcia.countries.TestApplication;
+
 import io.appflate.restmock.android.RESTMockTestRunner;
 
 public class CustomTestRunner extends RESTMockTestRunner {

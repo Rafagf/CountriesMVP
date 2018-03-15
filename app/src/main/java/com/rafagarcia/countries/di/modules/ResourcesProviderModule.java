@@ -14,7 +14,7 @@ import dagger.Provides;
  */
 
 @Module
-public class TextProviderModule {
+public class ResourcesProviderModule {
 
     @Provides
     @Singleton

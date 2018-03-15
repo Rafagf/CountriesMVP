@@ -54,6 +54,10 @@ public class CountriesLocalDataSource {
         }
     }
 
+    public void clear() {
+        sharedPreferences.edit().remove(COUNTRIES_JSON).apply();
+    }
+
     private void saveCountriesJsonInSharedPreferences(String json){
         sharedPreferences.edit().putString(COUNTRIES_JSON, json).apply();
     }

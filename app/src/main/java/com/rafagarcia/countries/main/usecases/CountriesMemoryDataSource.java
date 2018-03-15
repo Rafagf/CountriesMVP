@@ -27,4 +27,8 @@ public class CountriesMemoryDataSource {
     public void save(List<Country> countries) {
         this.countries.addAll(countries);
     }
+
+    public void clear() {
+        countries.clear();
+    }
 }

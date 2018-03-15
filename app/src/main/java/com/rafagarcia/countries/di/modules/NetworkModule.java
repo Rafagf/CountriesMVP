@@ -19,10 +19,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Module
 public class NetworkModule {
 
-    private static final String BASE_URL = "https://restcountries.eu/rest/v1/";
     private Retrofit retrofit;
 
-    public NetworkModule() {
+    public NetworkModule(String baseUrl) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -30,7 +29,7 @@ public class NetworkModule {
 
         retrofit = new Retrofit.Builder()
                 .client(new OkHttpClient())
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(httpClient.build())
