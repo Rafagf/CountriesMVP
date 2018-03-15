@@ -72,7 +72,7 @@ public class CountryListActivityTest {
 
         mActivityTestRule.launchActivity(new Intent());
 
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(2));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(2));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CountryListActivityTest {
 
         mActivityTestRule.launchActivity(new Intent());
 
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(12));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(12));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class CountryListActivityTest {
 
         mActivityTestRule.launchActivity(new Intent());
 
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(6));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(6));
     }
 
     @Test
@@ -103,7 +103,7 @@ public class CountryListActivityTest {
 
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("Spain"));
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(1));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(1));
         ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
         countryName.check(matches(withText("Spain")));
     }
@@ -116,7 +116,7 @@ public class CountryListActivityTest {
 
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("ge"));
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(2));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(2));
         ViewInteraction firstCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
         firstCountryName.check(matches(withText("Georgia")));
         ViewInteraction secondCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 1));
@@ -131,7 +131,7 @@ public class CountryListActivityTest {
 
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("dsgdskgs"));
-        onView(withId(R.id.countriesListRecyclerView)).check(new RecyclerViewItemCountAssertion(0));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(0));
     }
 
     private List<Country> getCountriesFromJson(String path) throws IOException {
