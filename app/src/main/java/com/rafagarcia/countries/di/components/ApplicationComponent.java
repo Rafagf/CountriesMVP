@@ -9,7 +9,8 @@ import com.rafagarcia.countries.di.modules.ApplicationModule;
 import com.rafagarcia.countries.di.modules.CountriesProviderModule;
 import com.rafagarcia.countries.di.modules.FlagProviderModule;
 import com.rafagarcia.countries.di.modules.NetworkModule;
-import com.rafagarcia.countries.di.modules.TextProviderModule;
+import com.rafagarcia.countries.di.modules.ResourcesProviderModule;
+import com.rafagarcia.countries.di.modules.SharedPreferencesModule;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
@@ -19,7 +20,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, TextProviderModule.class, FlagProviderModule.class, NetworkModule.class, CountriesProviderModule.class})
+@Component(modules = {ApplicationModule.class, SharedPreferencesModule.class, ResourcesProviderModule.class, FlagProviderModule.class, NetworkModule.class, CountriesProviderModule.class})
 
 public interface ApplicationComponent {
 
