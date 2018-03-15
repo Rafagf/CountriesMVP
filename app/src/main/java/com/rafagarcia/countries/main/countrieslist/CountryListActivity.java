@@ -102,7 +102,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     }
 
     private void setList() {
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.countriesListRecyclerView);
         countryList = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
