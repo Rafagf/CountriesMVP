@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.main.utils;
+package com.rafagarcia.countries.main.espresso;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.ViewAssertion;
