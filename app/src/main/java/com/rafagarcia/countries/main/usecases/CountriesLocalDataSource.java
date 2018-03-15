@@ -1,8 +1,6 @@
 package com.rafagarcia.countries.main.usecases;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,14 +22,14 @@ import io.reactivex.Maybe;
 public class CountriesLocalDataSource {
 
     private static String COUNTRIES_JSON = "countries_json";
-    private Context context;
+    private SharedPreferences sharedPreferences;
 
-    public CountriesLocalDataSource(Context context) {
-        this.context = context;
+    public CountriesLocalDataSource(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
     }
 
     public Maybe<List<Country>> getCountries() {
-        String countriesInJson = getCountriesJsonFromSharedPreferences(context);
+        String countriesInJson = getCountriesJsonFromSharedPreferences();
         if (countriesInJson != null) {
             ObjectMapper mapper = new ObjectMapper();
             try {
@@ -57,12 +55,10 @@ public class CountriesLocalDataSource {
     }
 
     private void saveCountriesJsonInSharedPreferences(String json){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putString(COUNTRIES_JSON, json).apply();
+        sharedPreferences.edit().putString(COUNTRIES_JSON, json).apply();
     }
 
-    private String getCountriesJsonFromSharedPreferences(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(COUNTRIES_JSON, null);
+    private String getCountriesJsonFromSharedPreferences() {
+        return sharedPreferences.getString(COUNTRIES_JSON, null);
     }
 }
