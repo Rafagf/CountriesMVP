@@ -98,4 +98,20 @@ public class CountryListPresenterTest {
         verify(view).goToCountryDetailedView(country);
         verifyNoMoreInteractions(view, interactor);
     }
+
+    @Test
+    public void given_first_country_is_visible_when_user_scrolled_then_hide_go_to_top_button() {
+        presenter.onListScrolled(0);
+
+        verify(view).setGoToTopButtonVisibility(false);
+        verifyNoMoreInteractions(view, interactor);
+    }
+
+    @Test
+    public void given_first_country_is_visible_when_user_scrolled_then_show_go_to_top_button() {
+        presenter.onListScrolled(0);
+
+        verify(view).setGoToTopButtonVisibility(false);
+        verifyNoMoreInteractions(view, interactor);
+    }
 }
