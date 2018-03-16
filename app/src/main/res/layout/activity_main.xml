@@ -57,7 +57,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/go_to_top"
-        android:visibility="visible"
+        android:visibility="gone"
         app:backgroundTint="@color/plain_white"
         app:fabSize="mini" />
 </android.support.design.widget.CoordinatorLayout>
