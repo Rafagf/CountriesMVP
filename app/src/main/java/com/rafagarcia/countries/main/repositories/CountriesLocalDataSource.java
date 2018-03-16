@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.main.usecases;
+package com.rafagarcia.countries.main.repositories;
 
 import android.content.SharedPreferences;
 
