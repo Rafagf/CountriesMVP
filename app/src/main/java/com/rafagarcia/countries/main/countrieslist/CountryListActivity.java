@@ -2,6 +2,7 @@ package com.rafagarcia.countries.main.countrieslist;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -42,6 +45,8 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     MaterialSearchView searchView;
     @Bind(R.id.countries_list_recycler_view)
     RecyclerView recyclerView;
+    @Bind(R.id.go_to_top_button)
+    FloatingActionButton goToTopButton;
 
     @Inject
     CountryListPresenter presenter;
@@ -122,6 +127,13 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         recyclerView.setLayoutManager(manager);
         adapter = new CountryListAdapter(countryList, country -> presenter.onCountrySelected(country));
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                presenter.onListScrolled(manager.findFirstVisibleItemPosition());
+            }
+        });
     }
 
     private void init() {
@@ -152,6 +164,11 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         Snackbar.make(findViewById(android.R.id.content), R.string.there_was_an_error, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry, view -> presenter.onRetryClicked())
                 .show();
+    }
+
+    @Override
+    public void setGoToTopButtonVisibility(boolean visibility) {
+        goToTopButton.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
     @OnClick(R.id.go_to_top_button)
