@@ -22,7 +22,7 @@
         </activity>
 
         <activity
-            android:name=".main.detailedview.CountryActivity"
+            android:name=".main.detailedview.DetailedCountryActivity"
             android:parentActivityName=".main.countrieslist.CountryListActivity" />
 
         <meta-data

@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 
 import com.rafagarcia.countries.api.request.country.CountryApi;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
-import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesRemoteDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesMemoryDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesRemoteDataSource;
 
 import javax.inject.Singleton;
 

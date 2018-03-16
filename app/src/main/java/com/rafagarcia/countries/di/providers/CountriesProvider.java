@@ -1,8 +1,8 @@
 package com.rafagarcia.countries.di.providers;
 
-import com.rafagarcia.countries.main.usecases.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.usecases.CountriesRemoteDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesMemoryDataSource;
+import com.rafagarcia.countries.main.repositories.CountriesRemoteDataSource;
 
 /**
  * Created by Rafa on 12/03/2018.
