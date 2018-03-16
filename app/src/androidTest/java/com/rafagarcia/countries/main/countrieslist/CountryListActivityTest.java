@@ -32,10 +32,12 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static io.appflate.restmock.utils.RequestMatchers.pathEndsWith;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Created by Rafa on 15/03/2018.
@@ -132,6 +134,41 @@ public class CountryListActivityTest {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("dsgdskgs"));
         onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(0));
+    }
+
+    @Test
+    public void when_user_scrolls_down_then_go_to_top_floating_button_is_visible() throws IOException {
+        List<Country> countries = getCountriesFromJson("json/list_of_countries_2.json");
+        countriesLocalDataSource.save(countries);
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.countries_list_recycler_view)).perform(scrollToPosition(10));
+
+        onView(withId(R.id.go_to_top_button)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void when_user_scrolls_down_and_then_to_top_then_go_to_top_floating_button_is_not_visible() throws IOException {
+        List<Country> countries = getCountriesFromJson("json/list_of_countries_2.json");
+        countriesLocalDataSource.save(countries);
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.countries_list_recycler_view)).perform(scrollToPosition(10));
+        onView(withId(R.id.countries_list_recycler_view)).perform(scrollToPosition(0));
+        onView(withId(R.id.go_to_top_button)).check(matches(not(isDisplayed())));
+    }
+
+    @Test
+    public void when_user_scrolls_down_and_then_click_on_go_to_top_button_then_list_scrolls_to_top() throws IOException {
+        List<Country> countries = getCountriesFromJson("json/list_of_countries_2.json");
+        countriesLocalDataSource.save(countries);
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.countries_list_recycler_view)).perform(scrollToPosition(10));
+        onView(withId(R.id.go_to_top_button)).perform(click());
+        ViewInteraction firstCountryName = onView(MatcherUtils.withIndex(withId(R.id.country_card_root), 0));
+        firstCountryName.check(matches(isDisplayed()));
     }
 
     private List<Country> getCountriesFromJson(String path) throws IOException {

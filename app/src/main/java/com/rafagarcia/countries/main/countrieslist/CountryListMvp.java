@@ -15,6 +15,7 @@ public interface CountryListMvp {
         void updateList(List<Country> countries);
         void goToCountryDetailedView(Country country);
         void showError();
+        void setGoToTopButtonVisibility(boolean visibility);
     }
 
     interface Interactor {
