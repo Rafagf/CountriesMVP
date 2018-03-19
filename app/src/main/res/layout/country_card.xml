@@ -23,11 +23,10 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/flagImageView"
+                android:id="@+id/flag_image_view"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
-                android:transitionName="@string/flag_transition"
                 android:scaleType="fitXY"/>
 
             <LinearLayout
@@ -38,9 +37,8 @@
                 android:layout_marginLeft="15dp">
 
                 <TextView
-                    android:id="@+id/nameTextView"
+                    android:id="@+id/name_text_view"
                     android:layout_width="wrap_content"
-                    android:transitionName="@string/country_name_transition"
                     android:layout_height="wrap_content"
                     android:textSize="17sp"
                     android:maxLines="2"
@@ -50,8 +48,7 @@
                     tools:text="Albania"/>
 
                 <TextView
-                    android:id="@+id/continentTextView"
-                    android:transitionName="@string/region_transition"
+                    android:id="@+id/continent_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
@@ -60,7 +57,7 @@
                     tools:text="Region: Asia"/>
 
                 <TextView
-                    android:id="@+id/populationTextView"
+                    android:id="@+id/population_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"

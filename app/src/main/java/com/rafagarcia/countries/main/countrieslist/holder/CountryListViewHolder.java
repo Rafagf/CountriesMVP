@@ -24,24 +24,31 @@ import butterknife.ButterKnife;
 
 public class CountryListViewHolder extends RecyclerView.ViewHolder implements CountryListViewHolderMvp.View {
 
-    @Bind(R.id.flagImageView) ImageView flagImageView;
-    @Bind(R.id.nameTextView) TextView nameTextView;
-    @Bind(R.id.continentTextView) TextView continentTextView;
-    @Bind(R.id.populationTextView) TextView populationTextView;
+    @Bind(R.id.flag_image_view) ImageView flagImageView;
+    @Bind(R.id.name_text_view) TextView nameTextView;
+    @Bind(R.id.continent_text_view) TextView continentTextView;
+    @Bind(R.id.population_text_view) TextView populationTextView;
 
     @Inject
     CountryListViewHolderPresenter presenter;
 
     public CountryListViewHolder(View itemView) {
         super(itemView);
+        initView(itemView);
+        init(itemView);
+    }
+
+    private void initView(View itemView) {
+        ButterKnife.bind(this, itemView);
+    }
+
+    private void init(View itemView) {
         ApplicationComponent applicationComponent = ((MyApplication) itemView.getContext().getApplicationContext()).getApplicationComponent();
         DaggerCountryListViewHolderComponent.builder()
                 .applicationComponent(applicationComponent)
                 .countryListViewHolderModule(new CountryListViewHolderModule(this))
                 .build()
                 .inject(this);
-
-        ButterKnife.bind(this, itemView);
     }
 
     public void bind(Country country) {

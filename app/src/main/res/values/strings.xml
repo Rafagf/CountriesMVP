@@ -4,14 +4,8 @@
     <string name="continent">Continent:\u0020 </string>
     <string name="there_was_an_error">Oops! There was an error</string>
     <string name="retry">Retry</string>
-
-    <string name="capital">Capital:\u0020</string>
     <string name="area">Area:\u0020</string>
     <string name="demonym">Demonym:\u0020</string>
     <string name="native_name">Native name:\u0020</string>
     <string name="border_countries">Border countries</string>
-
-    <string name="flag_transition">flag_transition</string>
-    <string name="country_name_transition">country_transition</string>
-    <string name="region_transition">region_transition</string>
 </resources>

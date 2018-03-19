@@ -19,8 +19,8 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
-import com.rafagarcia.countries.di.components.DaggerCountryListActivityComponent;
-import com.rafagarcia.countries.di.modules.CountryListActivityModule;
+import com.rafagarcia.countries.di.components.DaggerCountryListViewComponent;
+import com.rafagarcia.countries.di.modules.CountryListViewModule;
 import com.rafagarcia.countries.main.detailedview.DetailedCountryActivity;
 import com.rafagarcia.countries.model.Country;
 
@@ -137,9 +137,9 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
 
     private void init() {
         ApplicationComponent applicationComponent = ((MyApplication) getApplication()).getApplicationComponent();
-        DaggerCountryListActivityComponent.builder()
+        DaggerCountryListViewComponent.builder()
                 .applicationComponent(applicationComponent)
-                .countryListActivityModule(new CountryListActivityModule(this))
+                .countryListViewModule(new CountryListViewModule(this))
                 .build().
                 inject(this);
 
