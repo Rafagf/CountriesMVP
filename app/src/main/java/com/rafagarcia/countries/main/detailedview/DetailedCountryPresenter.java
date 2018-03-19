@@ -1,5 +1,6 @@
 package com.rafagarcia.countries.main.detailedview;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
@@ -93,5 +94,11 @@ public class DetailedCountryPresenter {
         } else {
             view.setNativeName(resourcesProvider.getText(R.string.native_name) + country.getNativeName());
         }
+    }
+
+    void onMapReady() {
+        //todo screaming for a view model
+        LatLng latLng = new LatLng(country.getLatlng().get(0), country.getLatlng().get(1));
+        view.addMapMarker(latLng, country.getName());
     }
 }
