@@ -26,5 +26,22 @@ public class FormattingUtils {
             return decimalFormat.format(populationNumber / 1000000f) + "M";
         }
     }
+
+    public static String formatArea(@NonNull String area) {
+        float areaNumber = Float.valueOf(area);
+        if (areaNumber <= 0) {
+            return 0 + " m²";
+        } else if (areaNumber <= 999) {
+            return area + " m²";
+        } else if (areaNumber > 999 && areaNumber <= 999999) {
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+            decimalFormat.setRoundingMode(RoundingMode.DOWN);
+            return decimalFormat.format(areaNumber / 1000f) + " km²";
+        } else {
+            DecimalFormat decimalFormat = new DecimalFormat("#.#");
+            decimalFormat.setRoundingMode(RoundingMode.DOWN);
+            return decimalFormat.format(areaNumber / 1000000f) + "M km²";
+        }
+    }
 }
 

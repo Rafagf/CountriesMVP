@@ -106,7 +106,7 @@ public class CountryListActivityTest {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("Spain"));
         onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(1));
-        ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
+        ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.name_text_view), 0));
         countryName.check(matches(withText("Spain")));
     }
 
@@ -119,9 +119,9 @@ public class CountryListActivityTest {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("ge"));
         onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(2));
-        ViewInteraction firstCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 0));
+        ViewInteraction firstCountryName = onView(MatcherUtils.withIndex(withId(R.id.name_text_view), 0));
         firstCountryName.check(matches(withText("Georgia")));
-        ViewInteraction secondCountryName = onView(MatcherUtils.withIndex(withId(R.id.nameTextView), 1));
+        ViewInteraction secondCountryName = onView(MatcherUtils.withIndex(withId(R.id.name_text_view), 1));
         secondCountryName.check(matches(withText("Germany")));
     }
 
