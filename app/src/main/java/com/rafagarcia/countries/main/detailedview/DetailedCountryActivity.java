@@ -7,6 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
@@ -20,7 +26,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DetailedCountryActivity extends AppCompatActivity implements DetailedCountryMvp.View {
+public class DetailedCountryActivity extends AppCompatActivity implements DetailedCountryMvp.View, OnMapReadyCallback {
 
     public static final String COUNTRY_TAG = "country";
 
@@ -32,6 +38,8 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     TextView continentTextView;
     @Bind(R.id.region_text_view)
     TextView regionTextView;
+    @Bind(R.id.map_view)
+    MapView mapView;
     @Bind(R.id.population_text_view)
     TextView populationTextView;
     @Bind(R.id.area_text_view)
@@ -46,13 +54,16 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     @Inject
     DetailedCountryPresenter presenter;
 
+    GoogleMap googleMap;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
         Intent intent = getIntent();
         Country country = intent.getParcelableExtra(COUNTRY_TAG);
-        initViews();
+        initViews(savedInstanceState);
         init(country);
     }
 
@@ -60,11 +71,49 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     protected void onDestroy() {
         super.onDestroy();
         presenter.stop();
+        mapView.onDestroy();
     }
 
-    private void initViews() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    private void initViews(Bundle savedInstanceState) {
         ButterKnife.bind(this);
         setToolbar();
+        setMap(savedInstanceState);
+    }
+
+    private void setMap(Bundle savedInstanceState) {
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+    }
+
+    private void setToolbar() {
+        setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     private void init(Country country) {
@@ -76,13 +125,6 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
                 .inject(this);
 
         presenter.init();
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -130,5 +172,21 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     @Override
     public void setNativeName(String nativeName) {
         nativeNameTextView.setText(nativeName);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
+        presenter.onMapReady();
+    }
+
+    @Override
+    public void addMapMarker(LatLng latLng, String country) {
+        googleMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .title(country));
+
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
     }
 }

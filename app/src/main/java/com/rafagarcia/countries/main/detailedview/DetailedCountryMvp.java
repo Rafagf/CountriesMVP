@@ -1,5 +1,7 @@
 package com.rafagarcia.countries.main.detailedview;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by rafagarcia on 13/12/2015.
  */
@@ -23,5 +25,7 @@ public interface DetailedCountryMvp {
         void setDemonym(String demonym);
 
         void setNativeName(String nativeName);
+
+        void addMapMarker(LatLng latLng, String country);
     }
 }
