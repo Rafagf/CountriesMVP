@@ -23,7 +23,5 @@ public interface DetailedCountryMvp {
         void setDemonym(String demonym);
 
         void setNativeName(String nativeName);
-
-        void setTitle(String name);
     }
 }

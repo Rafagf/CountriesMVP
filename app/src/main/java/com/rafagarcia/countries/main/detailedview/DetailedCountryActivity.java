@@ -2,15 +2,20 @@ package com.rafagarcia.countries.main.detailedview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
+import com.rafagarcia.countries.di.components.ApplicationComponent;
+import com.rafagarcia.countries.di.components.DaggerDetailedCountryViewComponent;
+import com.rafagarcia.countries.di.modules.DetailedCountryViewModule;
 import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,12 +24,8 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
 
     public static final String COUNTRY_TAG = "country";
 
-    @Bind(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.name_text_view)
-    TextView nameTextView;
     @Bind(R.id.flag_image_view)
     ImageView flagImageView;
     @Bind(R.id.continent_text_view)
@@ -42,6 +43,7 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     @Bind(R.id.capital_text_view)
     TextView capitalTextView;
 
+    @Inject
     DetailedCountryPresenter presenter;
 
     @Override
@@ -60,14 +62,20 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         presenter.stop();
     }
 
-    private void init(Country country) {
-        presenter = new DetailedCountryPresenter(this, country);
-        presenter.init();
-    }
-
     private void initViews() {
         ButterKnife.bind(this);
         setToolbar();
+    }
+
+    private void init(Country country) {
+        ApplicationComponent applicationComponent = ((MyApplication) getApplicationContext()).getApplicationComponent();
+        DaggerDetailedCountryViewComponent.builder()
+                .applicationComponent(applicationComponent)
+                .detailedCountryViewModule(new DetailedCountryViewModule(this, country))
+                .build()
+                .inject(this);
+
+        presenter.init();
     }
 
     private void setToolbar() {
@@ -78,9 +86,8 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     }
 
     @Override
-    public void setTitle(String name) {
-        //todo this does not work
-        collapsingToolbarLayout.setTitle(name);
+    public void setName(String name) {
+        getSupportActionBar().setTitle(name);
     }
 
     @Override
@@ -88,11 +95,6 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         Picasso.with(this)
                 .load(url)
                 .into(flagImageView);
-    }
-
-    @Override
-    public void setName(String name) {
-        nameTextView.setText(name);
     }
 
     @Override
