@@ -22,15 +22,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:id="@+id/flag_image_view"
@@ -53,18 +54,18 @@
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        tools:text="Madrid"/>
+                        tools:text="Madrid" />
 
                     <TextView
                         android:id="@+id/continent_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:paddingTop="10dp"
                         android:maxLines="2"
+                        android:paddingTop="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        tools:text="Eurooe"/>
+                        tools:text="Eurooe" />
 
                     <TextView
                         android:id="@+id/region_text_view"
@@ -73,66 +74,58 @@
                         android:paddingTop="10dp"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
-                        tools:text="Southern Europe"/>
+                        tools:text="Southern Europe" />
 
                 </LinearLayout>
-
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/map_fragment_layout"
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/map_view"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
+                android:layout_height="200dp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/population_text_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/plain_black"
+                android:textSize="16sp"
+                tools:text="Population: "/>
 
-                <TextView
-                    android:id="@+id/population_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/plain_black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/area_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/plain_black"
+                android:textSize="16sp"
+                tools:text="Area: "/>
 
-                <TextView
-                    android:id="@+id/area_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/plain_black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/demonym_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/plain_black"
+                android:textSize="16sp"
+                tools:text="Demonym: "/>
 
-                <TextView
-                    android:id="@+id/demonym_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/plain_black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/native_name_text_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/plain_black"
+                tools:text="Native name:"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/native_name_text_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:textColor="@color/plain_black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/border_countries_text_view"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/plain_black"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/border_countries_text_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/plain_black"
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
