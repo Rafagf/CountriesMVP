@@ -95,7 +95,7 @@ public class CountryListPresenter {
     }
 
     void onCountrySelected(Country country) {
-        view.goToCountryDetailedView(country);
+        view.goToCountryDetailedView(country.getName());
     }
 
     void onListScrolled(int firstVisibleItem) {

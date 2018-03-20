@@ -113,7 +113,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
 
             @Override
             public void onSearchViewClosed() {
-                int color = ContextCompat.getColor(CountryListActivity.this, R.color.colorPrimary);
+                int color = ContextCompat.getColor(CountryListActivity.this, R.color.color_primary);
                 window.setStatusBarColor(color);
             }
         });
@@ -154,9 +154,9 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     }
 
     @Override
-    public void goToCountryDetailedView(Country country) {
+    public void goToCountryDetailedView(String countryName) {
         Intent intent = new Intent(this, DetailedCountryActivity.class);
-        intent.putExtra(DetailedCountryActivity.COUNTRY_TAG, country);
+        intent.putExtra(DetailedCountryActivity.COUNTRY_NAME_TAG, countryName);
         startActivity(intent);
     }
 

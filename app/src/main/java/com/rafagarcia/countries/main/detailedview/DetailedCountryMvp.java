@@ -1,6 +1,9 @@
 package com.rafagarcia.countries.main.detailedview;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.rafagarcia.countries.model.Country;
+
+import io.reactivex.Maybe;
 
 /**
  * Created by rafagarcia on 13/12/2015.
@@ -27,5 +30,11 @@ public interface DetailedCountryMvp {
         void setNativeName(String nativeName);
 
         void addMapMarker(LatLng latLng, String country);
+
+        void addBorderCountry(String name);
+    }
+
+    public interface Interactor {
+        Maybe<Country> getCountry(String name);
     }
 }
