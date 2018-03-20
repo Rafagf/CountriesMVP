@@ -36,7 +36,7 @@
 //    @Bind(R.id.capitalTextView) TextView mCapitalTextView;
 //    @Bind(R.id.bordersLinearLayout) LinearLayout mBordersLinearLayout;
 //    @Bind(R.id.borderCountriesTextView) TextView mBorderCountriesTextView;
-//    private static final String COUNTRY_TAG = "mCountry";
+//    private static final String COUNTRY_NAME_TAG = "mCountry";
 //    private static final String COUNTRY = "country_name";
 //    private Country mCountry;
 //    private DetailedCountryPresenter mPresenter;
@@ -127,7 +127,7 @@
 //    }
 //
 //    @Override
-//    public void showBorderCountry(final Country country) {
+//    public void addBorderCountry(final Country country) {
 //        TextView textView = new TextView(getContext());
 //        textView.setBackgroundResource(R.drawable.circle_shape);
 //        textView.setTag(country.getName());
@@ -167,7 +167,7 @@
 //        public static MapFragment newInstance(Country country) {
 //            MapFragment fragment = new MapFragment();
 //            Bundle args = new Bundle();
-//            args.putParcelable(COUNTRY_TAG, country);
+//            args.putParcelable(COUNTRY_NAME_TAG, country);
 //            fragment.setArguments(args);
 //            return fragment;
 //        }
@@ -179,7 +179,7 @@
 //        @Override
 //        public void onCreate(Bundle savedInstanceState) {
 //            super.onCreate(savedInstanceState);
-//            country = getArguments().getParcelable(COUNTRY_TAG);
+//            country = getArguments().getParcelable(COUNTRY_NAME_TAG);
 //        }
 //
 //        @Override

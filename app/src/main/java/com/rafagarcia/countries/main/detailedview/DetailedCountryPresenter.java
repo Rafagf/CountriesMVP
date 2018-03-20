@@ -1,11 +1,16 @@
 package com.rafagarcia.countries.main.detailedview;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
 import com.rafagarcia.countries.model.Country;
 import com.rafagarcia.countries.utilities.FormattingUtils;
+
+import io.reactivex.MaybeObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by rafagarcia on 13/12/2015.
@@ -13,18 +18,50 @@ import com.rafagarcia.countries.utilities.FormattingUtils;
 public class DetailedCountryPresenter {
 
     private DetailedCountryMvp.View view;
-    private Country country;
+    private DetailedCountryMvp.Interactor interactor;
     private ResourcesProvider resourcesProvider;
     private FlagProvider flagProvider;
+    private DetailedCountryViewModel countryViewModel;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public DetailedCountryPresenter(DetailedCountryMvp.View view, Country country, ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
+    public DetailedCountryPresenter(DetailedCountryMvp.View view, DetailedCountryMvp.Interactor interactor, ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
         this.view = view;
-        this.country = country;
         this.resourcesProvider = resourcesProvider;
         this.flagProvider = flagProvider;
+        this.interactor = interactor;
     }
 
-    void init() {
+    void init(String countryName) {
+        interactor.getCountry(countryName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new MaybeObserver<Country>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        compositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onSuccess(Country country) {
+                        onFetchingCountrySucceed(country);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //todo fetch
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void onFetchingCountrySucceed(Country country) {
+        DetailedCountryViewModelMapper mapper = new DetailedCountryViewModelMapper();
+        countryViewModel = mapper.mapFrom(country);
+
         setName();
         setFlag();
         setCapital();
@@ -34,6 +71,8 @@ public class DetailedCountryPresenter {
         setArea();
         setDemomym();
         setNativeName();
+        setBorderCountries();
+        setMap();
     }
 
     void stop() {
@@ -41,64 +80,69 @@ public class DetailedCountryPresenter {
     }
 
     private void setName() {
-        view.setName(country.getName());
+        view.setName(countryViewModel.getName());
     }
 
     private void setFlag() {
-        view.setFlag(flagProvider.getFlagUrl(country.getAlpha2Code()));
+        view.setFlag(flagProvider.getFlagUrl(countryViewModel.getAlpha2Code()));
     }
 
     private void setCapital() {
-        if (country.getCapital() == null || country.getCapital().isEmpty()) {
+        if (countryViewModel.getCapital() == null || countryViewModel.getCapital().isEmpty()) {
             view.setCapital("-");
         } else {
-            view.setCapital(country.getCapital());
+            view.setCapital(countryViewModel.getCapital());
         }
     }
 
     private void setContinent() {
-        if (country.getContinent() == null || country.getContinent().isEmpty()) {
+        if (countryViewModel.getContinent() == null || countryViewModel.getContinent().isEmpty()) {
             view.setContinent("-");
         } else {
-            view.setContinent(country.getContinent());
+            view.setContinent(countryViewModel.getContinent());
         }
     }
 
     private void setRegion() {
-        if (country.getRegion() == null || country.getRegion().isEmpty()) {
+        if (countryViewModel.getRegion() == null || countryViewModel.getRegion().isEmpty()) {
             view.setRegion("-");
         } else {
-            view.setRegion(country.getRegion());
+            view.setRegion(countryViewModel.getRegion());
         }
     }
 
     private void setPopulation() {
-        view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(country.getPopulation()));
+        view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(countryViewModel.getPopulation()));
     }
 
     private void setArea() {
-        view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(country.getArea()));
+        view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
     }
 
     private void setDemomym() {
-        if (country.getDemonym() == null || country.getDemonym().isEmpty()) {
+        if (countryViewModel.getDemonym() == null || countryViewModel.getDemonym().isEmpty()) {
             view.setDemonym(resourcesProvider.getText(R.string.demonym) + "-");
         } else {
-            view.setDemonym(resourcesProvider.getText(R.string.demonym) + country.getDemonym());
+            view.setDemonym(resourcesProvider.getText(R.string.demonym) + countryViewModel.getDemonym());
         }
     }
 
     private void setNativeName() {
-        if (country.getNativeName() == null || country.getNativeName().isEmpty()) {
+        if (countryViewModel.getNativeName() == null || countryViewModel.getNativeName().isEmpty()) {
             view.setNativeName(resourcesProvider.getText(R.string.native_name) + "-");
         } else {
-            view.setNativeName(resourcesProvider.getText(R.string.native_name) + country.getNativeName());
+            view.setNativeName(resourcesProvider.getText(R.string.native_name) + countryViewModel.getNativeName());
         }
     }
 
-    void onMapReady() {
-        //todo screaming for a view model
-        LatLng latLng = new LatLng(country.getLatlng().get(0), country.getLatlng().get(1));
-        view.addMapMarker(latLng, country.getName());
+    private void setBorderCountries() {
+        for (String countryName : countryViewModel.getBorderCountries()) {
+            view.addBorderCountry(countryName);
+        }
+    }
+
+    private void setMap() {
+        //todo i don't like this one bit...this would crash if the map is not ready
+        view.addMapMarker(countryViewModel.getLatlng(), countryViewModel.getName());
     }
 }

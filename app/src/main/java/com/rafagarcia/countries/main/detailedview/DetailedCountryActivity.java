@@ -2,9 +2,12 @@ package com.rafagarcia.countries.main.detailedview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,7 +21,6 @@ import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
 import com.rafagarcia.countries.di.components.DaggerDetailedCountryViewComponent;
 import com.rafagarcia.countries.di.modules.DetailedCountryViewModule;
-import com.rafagarcia.countries.model.Country;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
 
 public class DetailedCountryActivity extends AppCompatActivity implements DetailedCountryMvp.View, OnMapReadyCallback {
 
-    public static final String COUNTRY_TAG = "country";
+    public static final String COUNTRY_NAME_TAG = "country_name";
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -50,6 +52,8 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     TextView nativeNameTextView;
     @Bind(R.id.capital_text_view)
     TextView capitalTextView;
+    @Bind(R.id.borders_linear_layout)
+    LinearLayout bordersLinearLayout;
 
     @Inject
     DetailedCountryPresenter presenter;
@@ -62,7 +66,7 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
         Intent intent = getIntent();
-        Country country = intent.getParcelableExtra(COUNTRY_TAG);
+        String country = intent.getStringExtra(COUNTRY_NAME_TAG);
         initViews(savedInstanceState);
         init(country);
     }
@@ -116,15 +120,15 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         actionBar.setDisplayShowHomeEnabled(true);
     }
 
-    private void init(Country country) {
+    private void init(String country) {
         ApplicationComponent applicationComponent = ((MyApplication) getApplicationContext()).getApplicationComponent();
         DaggerDetailedCountryViewComponent.builder()
                 .applicationComponent(applicationComponent)
-                .detailedCountryViewModule(new DetailedCountryViewModule(this, country))
+                .detailedCountryViewModule(new DetailedCountryViewModule(this))
                 .build()
                 .inject(this);
 
-        presenter.init();
+        presenter.init(country);
     }
 
     @Override
@@ -178,7 +182,6 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     public void onMapReady(GoogleMap map) {
         googleMap = map;
         googleMap.getUiSettings().setAllGesturesEnabled(false);
-        presenter.onMapReady();
     }
 
     @Override
@@ -188,5 +191,22 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
                 .title(country));
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
+    }
+
+    @Override
+    public void addBorderCountry(final String name) {
+        //todo the root needs to be a parent
+        TextView textView = new TextView(this);
+        textView.setBackgroundResource(R.drawable.circle_shape);
+        textView.setTextSize(14);
+        textView.setTextColor(ContextCompat.getColor(this, R.color.color_primary));
+        textView.setText(name);
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(20, 5, 20, 5);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(5, 20, 5, 10);
+        textView.setLayoutParams(layoutParams);
+        bordersLinearLayout.addView(textView);
     }
 }

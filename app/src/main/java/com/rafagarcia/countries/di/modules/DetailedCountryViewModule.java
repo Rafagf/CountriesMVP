@@ -1,10 +1,11 @@
 package com.rafagarcia.countries.di.modules;
 
+import com.rafagarcia.countries.di.providers.CountriesProvider;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
+import com.rafagarcia.countries.main.detailedview.DetailedCountryInteractor;
 import com.rafagarcia.countries.main.detailedview.DetailedCountryMvp;
 import com.rafagarcia.countries.main.detailedview.DetailedCountryPresenter;
-import com.rafagarcia.countries.model.Country;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,15 +17,18 @@ import dagger.Provides;
 public class DetailedCountryViewModule {
 
     private DetailedCountryMvp.View view;
-    private Country country;
 
-    public DetailedCountryViewModule(DetailedCountryMvp.View view, Country country) {
+    public DetailedCountryViewModule(DetailedCountryMvp.View view) {
         this.view = view;
-        this.country = country;
     }
 
     @Provides
-    public DetailedCountryPresenter providePresenter(ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
-        return new DetailedCountryPresenter(view, country, resourcesProvider, flagProvider);
+    public DetailedCountryInteractor provideInteractor(CountriesProvider countriesProvider) {
+        return new DetailedCountryInteractor(countriesProvider.getLocalDataSource(), countriesProvider.getMemoryDataSource());
+    }
+
+    @Provides
+    public DetailedCountryPresenter providePresenter(DetailedCountryInteractor interactor, ResourcesProvider resourcesProvider, FlagProvider flagProvider) {
+        return new DetailedCountryPresenter(view, interactor, resourcesProvider, flagProvider);
     }
 }
