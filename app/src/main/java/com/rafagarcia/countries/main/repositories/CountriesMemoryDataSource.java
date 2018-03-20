@@ -31,4 +31,14 @@ public class CountriesMemoryDataSource {
     public void clear() {
         countries.clear();
     }
+
+    public Maybe<Country> getCountry(String name) {
+        for (Country country : countries) {
+            if (country.getName().equals(name)) {
+                return Maybe.just(country);
+            }
+        }
+
+        return Maybe.empty();
+    }
 }

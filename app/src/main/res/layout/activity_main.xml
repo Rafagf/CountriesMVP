@@ -26,7 +26,7 @@
                     android:id="@+id/toolbar"
                     android:fitsSystemWindows="true"
                     android:minHeight="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/color_primary"
                     app:theme="@style/MyToolBar"
                     android:layout_width="match_parent"
                     app:layout_collapseMode="pin"
