@@ -13,7 +13,7 @@ import io.reactivex.Single;
 
 public class CountriesRemoteDataSource {
 
-    CountryApi countryApi;
+    private CountryApi countryApi;
 
     public CountriesRemoteDataSource(CountryApi countryApi) {
         this.countryApi = countryApi;
@@ -21,6 +21,9 @@ public class CountriesRemoteDataSource {
 
     public Single<List<Country>> getCountries() {
         return countryApi.getAllCountries();
+    }
 
+    public Single<Country> getCountry(String name) {
+        return countryApi.getCountry(name).flatMap(countries -> Single.just(countries.get(0)));
     }
 }

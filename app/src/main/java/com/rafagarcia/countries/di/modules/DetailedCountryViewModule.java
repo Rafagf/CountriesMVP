@@ -24,7 +24,7 @@ public class DetailedCountryViewModule {
 
     @Provides
     public DetailedCountryInteractor provideInteractor(CountriesProvider countriesProvider) {
-        return new DetailedCountryInteractor(countriesProvider.getLocalDataSource(), countriesProvider.getMemoryDataSource());
+        return new DetailedCountryInteractor(countriesProvider.getLocalDataSource(), countriesProvider.getMemoryDataSource(), countriesProvider.getRemoteDataSource());
     }
 
     @Provides
