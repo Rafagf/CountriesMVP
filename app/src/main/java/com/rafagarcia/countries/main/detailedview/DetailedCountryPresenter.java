@@ -32,6 +32,10 @@ public class DetailedCountryPresenter {
     }
 
     void init(String countryName) {
+        fetchCountry(countryName);
+    }
+
+    private void fetchCountry(String countryName) {
         interactor.getCountry(countryName)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -67,16 +71,16 @@ public class DetailedCountryPresenter {
         setCapital();
         setContinent();
         setRegion();
+        setMap();
         setPopulation();
         setArea();
-        setDemomym();
+        setDemonym();
         setNativeName();
         setBorderCountries();
-        setMap();
     }
 
     void stop() {
-
+        compositeDisposable.clear();
     }
 
     private void setName() {
@@ -119,7 +123,7 @@ public class DetailedCountryPresenter {
         view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
     }
 
-    private void setDemomym() {
+    private void setDemonym() {
         if (countryViewModel.getDemonym() == null || countryViewModel.getDemonym().isEmpty()) {
             view.setDemonym(resourcesProvider.getText(R.string.demonym) + "-");
         } else {
@@ -142,7 +146,6 @@ public class DetailedCountryPresenter {
     }
 
     private void setMap() {
-        //todo i don't like this one bit...this would crash if the map is not ready
         view.addMapMarker(countryViewModel.getLatlng(), countryViewModel.getName());
     }
 }

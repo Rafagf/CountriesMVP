@@ -93,9 +93,10 @@ public class CountryListPresenterTest {
     @Test
     public void when_country_is_selected_then_go_to_detailed_view() throws Exception {
         Country country = mock(Country.class);
+        when(country.getName()).thenReturn("Spain");
         presenter.onCountrySelected(country);
 
-        verify(view).goToCountryDetailedView(country);
+        verify(view).goToCountryDetailedView("Spain");
         verifyNoMoreInteractions(view, interactor);
     }
 

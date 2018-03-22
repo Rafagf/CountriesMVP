@@ -189,7 +189,6 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         googleMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(country));
-
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
     }
 
