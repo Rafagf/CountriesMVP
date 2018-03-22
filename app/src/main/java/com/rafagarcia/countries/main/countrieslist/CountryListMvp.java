@@ -13,7 +13,7 @@ import io.reactivex.Maybe;
 public interface CountryListMvp {
     interface View {
         void updateList(List<Country> countries);
-        void goToCountryDetailedView(Country country);
+        void goToCountryDetailedView(String countryName);
         void showError();
         void setGoToTopButtonVisibility(boolean visibility);
     }

@@ -22,7 +22,8 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class, SharedPreferencesModule.class, ResourcesProviderModule.class, FlagProviderModule.class, NetworkModule.class, CountriesProviderModule.class})
 
-public interface ApplicationComponent {
+public interface
+ApplicationComponent {
 
     Context getContext();
 

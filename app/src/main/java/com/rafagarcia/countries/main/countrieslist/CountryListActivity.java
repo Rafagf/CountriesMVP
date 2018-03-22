@@ -1,5 +1,6 @@
 package com.rafagarcia.countries.main.countrieslist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -13,15 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
-import com.rafagarcia.countries.di.components.DaggerCountryListActivityComponent;
-import com.rafagarcia.countries.di.modules.CountryListActivityModule;
+import com.rafagarcia.countries.di.components.DaggerCountryListViewComponent;
+import com.rafagarcia.countries.di.modules.CountryListViewModule;
+import com.rafagarcia.countries.main.detailedview.DetailedCountryActivity;
 import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
@@ -35,7 +35,6 @@ import butterknife.OnClick;
 
 public class CountryListActivity extends AppCompatActivity implements CountryListMvp.View {
 
-    public static final String COUNTRY = "country";
 
     @Bind(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
@@ -114,7 +113,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
 
             @Override
             public void onSearchViewClosed() {
-                int color = ContextCompat.getColor(CountryListActivity.this, R.color.colorPrimary);
+                int color = ContextCompat.getColor(CountryListActivity.this, R.color.color_primary);
                 window.setStatusBarColor(color);
             }
         });
@@ -138,9 +137,9 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
 
     private void init() {
         ApplicationComponent applicationComponent = ((MyApplication) getApplication()).getApplicationComponent();
-        DaggerCountryListActivityComponent.builder()
+        DaggerCountryListViewComponent.builder()
                 .applicationComponent(applicationComponent)
-                .countryListActivityModule(new CountryListActivityModule(this))
+                .countryListViewModule(new CountryListViewModule(this))
                 .build().
                 inject(this);
 
@@ -155,8 +154,10 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     }
 
     @Override
-    public void goToCountryDetailedView(Country country) {
-        Toast.makeText(this, "Go to " + country.getName(), Toast.LENGTH_LONG).show();
+    public void goToCountryDetailedView(String countryName) {
+        Intent intent = new Intent(this, DetailedCountryActivity.class);
+        intent.putExtra(DetailedCountryActivity.COUNTRY_NAME_TAG, countryName);
+        startActivity(intent);
     }
 
     @Override

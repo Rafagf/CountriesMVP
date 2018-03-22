@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.main.usecases;
+package com.rafagarcia.countries.main.repositories;
 
 import android.content.SharedPreferences;
 
@@ -64,5 +64,25 @@ public class CountriesLocalDataSource {
 
     private String getCountriesJsonFromSharedPreferences() {
         return sharedPreferences.getString(COUNTRIES_JSON, null);
+    }
+
+    public Maybe<Country> getCountry(String name) {
+        String countriesInJson = getCountriesJsonFromSharedPreferences();
+        if (countriesInJson != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                List<Country> countries = mapper.readValue(countriesInJson, new TypeReference<List<Country>>(){});
+                for (Country country : countries) {
+                    if (country.getName().equals(name)) {
+                        return Maybe.just(country);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Maybe.empty();
+            }
+        }
+
+        return Maybe.empty();
     }
 }
