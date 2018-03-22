@@ -73,4 +73,13 @@ public class CountryListViewHolderPresenterTest {
         presenter.bind(country);
         verify(view).setPopulation("Population: uninhabited");
     }
+
+    @Test
+    public void given_country_then_it_shows_flag() throws Exception {
+        Country country = mock(Country.class);
+        when(country.getAlpha2Code()).thenReturn("ES");
+        when(flagProvider.getFlagUrl("ES")).thenReturn("url");
+        presenter.bind(country);
+        verify(view).setFlag("url");
+    }
 }
