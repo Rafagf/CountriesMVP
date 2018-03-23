@@ -3,6 +3,8 @@ package com.rafagarcia.countries.main.detailedview;
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.model.Country;
 
+import java.util.List;
+
 import io.reactivex.Maybe;
 
 /**
@@ -31,7 +33,7 @@ public interface DetailedCountryMvp {
 
         void addMapMarker(LatLng latLng, String country);
 
-        void addBorderCountry(String name);
+        void setBorders(List<String> borderCountries);
     }
 
     public interface Interactor {

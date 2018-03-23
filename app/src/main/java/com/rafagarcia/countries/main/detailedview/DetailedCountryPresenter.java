@@ -140,9 +140,7 @@ public class DetailedCountryPresenter {
     }
 
     private void setBorderCountries() {
-        for (String countryName : countryViewModel.getBorderCountries()) {
-            view.addBorderCountry(countryName);
-        }
+        view.setBorders(countryViewModel.getBorderCountries());
     }
 
     private void setMap() {
