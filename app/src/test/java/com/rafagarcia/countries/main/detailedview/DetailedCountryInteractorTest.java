@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Maybe;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 
@@ -39,7 +38,7 @@ public class DetailedCountryInteractorTest {
     }
 
     @Test
-    public void given_memory_data_source_has_data_then_return_memory_data_source_content() throws Exception {
+    public void given_memory_data_source_has_data_when_getting_country_then_return_memory_data_source_content() throws Exception {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
@@ -57,7 +56,7 @@ public class DetailedCountryInteractorTest {
     }
 
     @Test
-    public void given_local_data_source_has_data_then_return_local_data_source_content() throws Exception {
+    public void given_local_data_source_has_data_when_getting_country_then_return_local_data_source_content() throws Exception {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
@@ -75,7 +74,7 @@ public class DetailedCountryInteractorTest {
     }
 
     @Test
-    public void given_remote_data_source_has_data_then_return_remote_data_source_content() throws Exception {
+    public void given_remote_data_source_has_data_when_getting_country_then_return_remote_data_source_content() throws Exception {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
@@ -92,31 +91,61 @@ public class DetailedCountryInteractorTest {
         assertEquals(receivedCountry.getName(),"Spain");
     }
 
+
     @Test
-    public void tusmuertosrxjava() {
-        List<String> stringList = new ArrayList<>();
-        stringList.add("Esp");
-        stringList.add("Fra");
-        stringList.add("Por");
+    public void given_memory_data_source_has_data_when_getting_border_countries_then_return_memory_data_source_content() throws Exception {
+        Country country = mock(Country.class);
+        when(country.getName()).thenReturn("Spain");
+        TestObserver<List<String>> observer = new TestObserver<>();
+        when(memoryDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.just(country));
+        when(localDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.empty());
+        when(remoteDataSource.getCountryByAlpha3("ESP")).thenReturn(Single.never());
+        List<String> borderCountryList = new ArrayList<>();
+        borderCountryList.add("ESP");
+        Single<List<String>> observable = interactor.getBorderCountriesName(borderCountryList);
 
-        Maybe<List<String>> myObv = Observable.fromIterable(stringList)
-                .flatMap(s -> Observable.just("TUPUTAMADRE"))
-                .toList()
-                .toMaybe();
+        observable.subscribe(observer);
+        observer.assertComplete();
+        observer.assertNoErrors();
+        List<String> receivedCountryList = observer.values().get(0);
+        assertEquals(receivedCountryList.get(0),"Spain");
+    }
 
-        TestObserver<List<String>> testObserver = new TestObserver<>();
-        myObv.subscribe(testObserver);
+    @Test
+    public void given_local_data_source_has_data_when_getting_border_countries_then_return_local_data_source_content() throws Exception {
+        Country country = mock(Country.class);
+        when(country.getName()).thenReturn("Spain");
+        TestObserver<List<String>> observer = new TestObserver<>();
+        when(memoryDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.empty());
+        when(localDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.just(country));
+        when(remoteDataSource.getCountryByAlpha3("ESP")).thenReturn(Single.never());
+        List<String> borderCountryList = new ArrayList<>();
+        borderCountryList.add("ESP");
+        Single<List<String>> observable = interactor.getBorderCountriesName(borderCountryList);
 
-        testObserver.assertComplete();
-        testObserver.assertNoErrors();
-        String c1 = testObserver.values().get(0).get(0);
-        String c2 = testObserver.values().get(0).get(1);
-        String c3 = testObserver.values().get(0).get(2);
+        observable.subscribe(observer);
+        observer.assertNoErrors();
+        List<String> receivedCountryList = observer.values().get(0);
+        assertEquals(receivedCountryList.get(0),"Spain");
+    }
 
-        assertEquals(c1, "TUPUTAMADRE");
-        assertEquals(c2, "TUPUTAMADRE");
-        assertEquals(c3, "TUPUTAMADRE");
+    @Test
+    public void given_remote_data_source_has_data_when_getting_border_countries_then_return_remote_data_source_content() throws Exception {
+        Country country = mock(Country.class);
+        when(country.getName()).thenReturn("Spain");
+        TestObserver<List<String>> observer = new TestObserver<>();
+        when(memoryDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.empty());
+        when(localDataSource.getCountryByAlpha3("ESP")).thenReturn(Maybe.empty());
+        when(remoteDataSource.getCountryByAlpha3("ESP")).thenReturn(Single.just(country));
+        List<String> borderCountryList = new ArrayList<>();
+        borderCountryList.add("ESP");
+        Single<List<String>> observable = interactor.getBorderCountriesName(borderCountryList);
 
+        observable.subscribe(observer);
+        observer.assertComplete();
+        observer.assertNoErrors();
+        List<String> receivedCountryList = observer.values().get(0);
+        assertEquals(receivedCountryList.get(0),"Spain");
     }
 
 }

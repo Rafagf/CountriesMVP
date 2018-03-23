@@ -64,7 +64,7 @@ public class CountryListPresenterTest {
     }
 
     @Test
-    public void given_countries_errored_when_started_then_it_shows_error() throws Exception {
+    public void given_fetching_countries_errored_when_started_then_it_shows_error() throws Exception {
         when(interactor.getCountries()).thenReturn(Single.error(new Throwable()));
 
         presenter.init();
