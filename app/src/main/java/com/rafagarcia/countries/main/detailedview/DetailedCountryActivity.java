@@ -2,6 +2,7 @@ package com.rafagarcia.countries.main.detailedview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -203,5 +204,12 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     @Override
     public void setBordersVisibility(boolean visibility) {
         bordersView.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showError() {
+        Snackbar.make(findViewById(android.R.id.content), R.string.there_was_an_error, Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.retry, view -> presenter.onRetryClicked(getIntent().getStringExtra(COUNTRY_NAME_TAG)))
+                .show();
     }
 }

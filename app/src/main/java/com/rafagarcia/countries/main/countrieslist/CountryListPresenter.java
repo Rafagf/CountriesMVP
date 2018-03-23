@@ -94,6 +94,6 @@ public class CountryListPresenter {
     }
 
     void onListScrolled(int firstVisibleItem) {
-        view.setGoToTopButtonVisibility(firstVisibleItem != 0);
+        view.setGoToTopButtonVisibility(firstVisibleItem > 0);
     }
 }

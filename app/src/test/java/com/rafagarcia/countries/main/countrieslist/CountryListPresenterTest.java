@@ -115,4 +115,14 @@ public class CountryListPresenterTest {
         verify(view).setGoToTopButtonVisibility(false);
         verifyNoMoreInteractions(view, interactor);
     }
+
+    @Test
+    public void when_retry_button_is_clicked_then_fetch_countries() {
+        when(interactor.getCountries()).thenReturn(Single.never());
+
+        presenter.onRetryClicked();
+
+        verify(interactor).getCountries();
+        verifyNoMoreInteractions(view, interactor);
+    }
 }
