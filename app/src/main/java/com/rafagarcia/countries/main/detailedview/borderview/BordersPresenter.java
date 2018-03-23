@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BordersPresenter {
 
-    BordersViewMvp.View view;
+    private BordersViewMvp.View view;
 
     public BordersPresenter(BordersViewMvp.View view) {
         this.view = view;
@@ -35,6 +35,6 @@ public class BordersPresenter {
     }
 
     public void onCountryClicked(String name) {
-
+        view.goToCountryDetailedView(name);
     }
 }
