@@ -14,7 +14,7 @@ public class BordersPresenter {
         this.view = view;
     }
 
-    public void bind(List<String> countries) {
+    void bind(List<String> countries) {
         if (countries.size() > 0) {
             setBorderTitleVisibility(true);
             setBorders(countries);
@@ -34,7 +34,7 @@ public class BordersPresenter {
         }
     }
 
-    public void onCountryClicked(String name) {
+    void onCountryClicked(String name) {
         view.goToCountryDetailedView(name);
     }
 }

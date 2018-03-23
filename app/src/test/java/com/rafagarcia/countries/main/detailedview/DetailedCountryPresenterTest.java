@@ -311,4 +311,14 @@ public class DetailedCountryPresenterTest {
 
         return country;
     }
+
+    @Test
+    public void when_retry_button_is_clicked_then_fetch_country() {
+        when(interactor.getCountry("Spain")).thenReturn(Single.never());
+
+        presenter.onRetryClicked("Spain");
+
+        verify(interactor).getCountry("Spain");
+        verifyNoMoreInteractions(view, interactor);
+    }
 }

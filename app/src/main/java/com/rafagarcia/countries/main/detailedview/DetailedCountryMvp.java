@@ -36,6 +36,8 @@ public interface DetailedCountryMvp {
         void setBorders(List<String> borderCountries);
 
         void setBordersVisibility(boolean visibility);
+
+        void showError();
     }
 
     public interface Interactor {
