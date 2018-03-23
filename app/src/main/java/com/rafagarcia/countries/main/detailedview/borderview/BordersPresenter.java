@@ -33,4 +33,8 @@ public class BordersPresenter {
             view.addBorder(country);
         }
     }
+
+    public void onCountryClicked(String name) {
+
+    }
 }

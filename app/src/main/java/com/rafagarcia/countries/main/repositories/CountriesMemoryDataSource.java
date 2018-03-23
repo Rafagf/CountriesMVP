@@ -32,9 +32,19 @@ public class CountriesMemoryDataSource {
         countries.clear();
     }
 
-    public Maybe<Country> getCountry(String name) {
+    public Maybe<Country> getCountryByName(String name) {
         for (Country country : countries) {
             if (country.getName().equals(name)) {
+                return Maybe.just(country);
+            }
+        }
+
+        return Maybe.empty();
+    }
+
+    public Maybe<Country> getCountryByAlpha3(String alpha) {
+        for (Country country : countries) {
+            if (country.getAlpha3Code().equals(alpha)) {
                 return Maybe.just(country);
             }
         }

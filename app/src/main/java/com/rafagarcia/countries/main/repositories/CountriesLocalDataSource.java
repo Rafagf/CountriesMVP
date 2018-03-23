@@ -66,7 +66,7 @@ public class CountriesLocalDataSource {
         return sharedPreferences.getString(COUNTRIES_JSON, null);
     }
 
-    public Maybe<Country> getCountry(String name) {
+    public Maybe<Country> getCountryByName(String name) {
         String countriesInJson = getCountriesJsonFromSharedPreferences();
         if (countriesInJson != null) {
             ObjectMapper mapper = new ObjectMapper();
@@ -74,6 +74,26 @@ public class CountriesLocalDataSource {
                 List<Country> countries = mapper.readValue(countriesInJson, new TypeReference<List<Country>>(){});
                 for (Country country : countries) {
                     if (country.getName().equals(name)) {
+                        return Maybe.just(country);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return Maybe.empty();
+            }
+        }
+
+        return Maybe.empty();
+    }
+
+    public Maybe<Country> getCountryByAlpha3(String alpha) {
+        String countriesInJson = getCountriesJsonFromSharedPreferences();
+        if (countriesInJson != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                List<Country> countries = mapper.readValue(countriesInJson, new TypeReference<List<Country>>(){});
+                for (Country country : countries) {
+                    if (country.getAlpha2Code().equals(alpha)) {
                         return Maybe.just(country);
                     }
                 }

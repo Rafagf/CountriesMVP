@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
@@ -185,14 +187,21 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
 
     @Override
     public void addMapMarker(LatLng latLng, String country) {
-//        googleMap.addMarker(new MarkerOptions()
-//                .position(latLng)
-//                .title(country));
-//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
+        if (googleMap != null) {
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(country));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
+        }
     }
 
     @Override
     public void setBorders(List<String> borderCountries) {
         bordersView.bind(borderCountries);
+    }
+
+    @Override
+    public void setBordersVisibility(boolean visibility) {
+        bordersView.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 }

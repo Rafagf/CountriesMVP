@@ -27,7 +27,7 @@ public class CountryListInteractor implements CountryListMvp.Interactor {
     }
 
     @Override
-    public Maybe<List<Country>> getCountries() {
+    public Single<List<Country>> getCountries() {
         Maybe<List<Country>> memorySource = memoryDataSource.getCountries();
         Maybe<List<Country>> localSource = localDataSource.getCountries().doOnSuccess(countries ->
                 memoryDataSource.save(countries));
@@ -36,6 +36,6 @@ public class CountryListInteractor implements CountryListMvp.Interactor {
             localDataSource.save(countries);
         });
 
-        return Maybe.concat(memorySource, localSource, remoteSource.toMaybe()).firstElement();
+        return Maybe.concat(memorySource, localSource, remoteSource.toMaybe()).firstElement().toSingle();
     }
 }

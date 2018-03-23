@@ -4,7 +4,7 @@ import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Created by Rafa on 12/03/2018.
@@ -19,6 +19,6 @@ public interface CountryListMvp {
     }
 
     interface Interactor {
-        Maybe<List<Country>> getCountries();
+        Single<List<Country>> getCountries();
     }
 }

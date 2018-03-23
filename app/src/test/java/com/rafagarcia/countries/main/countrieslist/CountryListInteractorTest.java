@@ -48,7 +48,7 @@ public class CountryListInteractorTest {
         when(localDataSource.getCountries()).thenReturn(Maybe.empty());
         when(remoteDataSource.getCountries()).thenReturn(Single.never());
 
-        Maybe<List<Country>> observable = interactor.getCountries();
+        Single<List<Country>> observable = interactor.getCountries();
 
         observable.subscribe(observer);
         observer.assertComplete();
@@ -68,7 +68,7 @@ public class CountryListInteractorTest {
         when(localDataSource.getCountries()).thenReturn(Maybe.just(countryList));
         when(remoteDataSource.getCountries()).thenReturn(Single.never());
 
-        Maybe<List<Country>> observable = interactor.getCountries();
+        Single<List<Country>> observable = interactor.getCountries();
 
         observable.subscribe(observer);
         observer.assertComplete();
@@ -88,7 +88,7 @@ public class CountryListInteractorTest {
         when(localDataSource.getCountries()).thenReturn(Maybe.empty());
         when(remoteDataSource.getCountries()).thenReturn(Single.just(countryList));
 
-        Maybe<List<Country>> observable = interactor.getCountries();
+        Single<List<Country>> observable = interactor.getCountries();
 
         observable.subscribe(observer);
         observer.assertComplete();
