@@ -16,6 +16,7 @@ import java.util.List;
 
 import io.reactivex.Single;
 
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -59,6 +60,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_name() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -70,6 +72,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_flag() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(flagProvider.getFlagUrl("ES")).thenReturn("url");
 
         presenter.init("Spain");
@@ -82,6 +85,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_capital() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -94,6 +98,7 @@ public class DetailedCountryPresenterTest {
         Country country = getMockedCountry();
         when(country.getCapital()).thenReturn(null);
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -105,6 +110,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_continent() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -117,6 +123,7 @@ public class DetailedCountryPresenterTest {
         Country country = getMockedCountry();
         when(country.getContinent()).thenReturn(null);
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -128,6 +135,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_region() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -140,6 +148,7 @@ public class DetailedCountryPresenterTest {
         Country country = getMockedCountry();
         when(country.getRegion()).thenReturn(null);
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -151,6 +160,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_map() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -162,6 +172,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_population() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
 
         presenter.init("Spain");
@@ -174,6 +185,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_area() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.area)).thenReturn("Area: ");
 
         presenter.init("Spain");
@@ -186,6 +198,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_demonym() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.demonym)).thenReturn("Demonym: ");
 
         presenter.init("Spain");
@@ -199,6 +212,7 @@ public class DetailedCountryPresenterTest {
         Country country = getMockedCountry();
         when(country.getDemonym()).thenReturn(null);
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.demonym)).thenReturn("Demonym: ");
 
         presenter.init("Spain");
@@ -211,6 +225,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_when_started_then_set_native_name() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
 
         presenter.init("Spain");
@@ -224,12 +239,50 @@ public class DetailedCountryPresenterTest {
         Country country = getMockedCountry();
         when(country.getNativeName()).thenReturn(null);
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
         when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
 
         presenter.init("Spain");
 
         verify(interactor).getCountry("Spain");
         verify(view).setNativeName("Native name: -");
+    }
+
+    @Test
+    public void given_borders_successfully_fetched_when_started_then_show_borders() {
+        Country country = getMockedCountry();
+        when(country.getNativeName()).thenReturn(null);
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        List<String> borderCountries = new ArrayList<>();
+        borderCountries.add("Portugal");
+        borderCountries.add("Marocco");
+        borderCountries.add("Andorra");
+        borderCountries.add("Gibraltar");
+        borderCountries.add("France");
+        when(interactor.getBorderCountriesName(country.getBorderCountryAlphaList())).thenReturn(Single.just(borderCountries));
+        when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
+
+        presenter.init("Spain");
+
+        verify(interactor).getCountry("Spain");
+        verify(interactor).getBorderCountriesName(country.getBorderCountryAlphaList());
+        verify(view).setBordersVisibility(true);
+        verify(view).setBorders(borderCountries);
+    }
+
+    @Test
+    public void given_fetching_borders_errored_when_started_then_hide_borders() {
+        Country country = getMockedCountry();
+        when(country.getNativeName()).thenReturn(null);
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(country.getBorderCountryAlphaList())).thenReturn(Single.error(new Throwable()));
+        when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
+
+        presenter.init("Spain");
+
+        verify(interactor).getCountry("Spain");
+        verify(interactor).getBorderCountriesName(country.getBorderCountryAlphaList());
+        verify(view).setBordersVisibility(false);
     }
 
     private Country getMockedCountry() {

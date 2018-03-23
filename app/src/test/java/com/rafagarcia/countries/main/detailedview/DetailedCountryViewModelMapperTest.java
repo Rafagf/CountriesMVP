@@ -49,6 +49,7 @@ public class DetailedCountryViewModelMapperTest {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         when(country.getAlpha2Code()).thenReturn("ES");
+        when(country.getAlpha3Code()).thenReturn("ESP");
         when(country.getCapital()).thenReturn("Madrid");
         when(country.getContinent()).thenReturn("Europe");
         when(country.getRegion()).thenReturn("Southern Europe");
