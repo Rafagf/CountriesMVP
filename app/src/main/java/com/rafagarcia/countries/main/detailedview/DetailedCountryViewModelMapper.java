@@ -16,6 +16,7 @@ public class DetailedCountryViewModelMapper {
         return new DetailedCountryViewModel.DetailedCountryViewModelBuilder()
                 .setName(country.getName())
                 .setAlpha2Code(country.getAlpha2Code())
+                .setAlpha3Code(country.getAlpha3Code())
                 .setCapital(country.getCapital())
                 .setContinent(country.getContinent())
                 .setRegion(country.getRegion())
@@ -24,7 +25,7 @@ public class DetailedCountryViewModelMapper {
                 .setPopulation(country.getPopulation())
                 .setDemonym(country.getDemonym())
                 .setLatLng(latLng)
-                .setBorderCountries(country.getBorders())
+                .setBorderCountryAlphaList(country.getBorderCountryAlphaList())
                 .build();
     }
 }

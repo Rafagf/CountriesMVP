@@ -8,7 +8,11 @@ import com.rafagarcia.countries.model.Country;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 
@@ -39,11 +43,11 @@ public class DetailedCountryInteractorTest {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
-        when(memoryDataSource.getCountry("Spain")).thenReturn(Maybe.just(country));
-        when(localDataSource.getCountry("Spain")).thenReturn(Maybe.empty());
-        when(remoteDataSource.getCountry("Spain")).thenReturn(Single.never());
+        when(memoryDataSource.getCountryByName("Spain")).thenReturn(Maybe.just(country));
+        when(localDataSource.getCountryByName("Spain")).thenReturn(Maybe.empty());
+        when(remoteDataSource.getCountryByName("Spain")).thenReturn(Single.never());
 
-        Maybe<Country> observable = interactor.getCountry("Spain");
+        Single<Country> observable = interactor.getCountry("Spain");
 
         observable.subscribe(observer);
         observer.assertComplete();
@@ -57,11 +61,11 @@ public class DetailedCountryInteractorTest {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
-        when(memoryDataSource.getCountry("Spain")).thenReturn(Maybe.empty());
-        when(localDataSource.getCountry("Spain")).thenReturn(Maybe.just(country));
-        when(remoteDataSource.getCountry("Spain")).thenReturn(Single.never());
+        when(memoryDataSource.getCountryByName("Spain")).thenReturn(Maybe.empty());
+        when(localDataSource.getCountryByName("Spain")).thenReturn(Maybe.just(country));
+        when(remoteDataSource.getCountryByName("Spain")).thenReturn(Single.never());
 
-        Maybe<Country> observable = interactor.getCountry("Spain");
+        Single<Country> observable = interactor.getCountry("Spain");
 
         observable.subscribe(observer);
         observer.assertComplete();
@@ -75,17 +79,44 @@ public class DetailedCountryInteractorTest {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         TestObserver<Country> observer = new TestObserver<>();
-        when(memoryDataSource.getCountry("Spain")).thenReturn(Maybe.empty());
-        when(localDataSource.getCountry("Spain")).thenReturn(Maybe.empty());
-        when(remoteDataSource.getCountry("Spain")).thenReturn(Single.just(country));
+        when(memoryDataSource.getCountryByName("Spain")).thenReturn(Maybe.empty());
+        when(localDataSource.getCountryByName("Spain")).thenReturn(Maybe.empty());
+        when(remoteDataSource.getCountryByName("Spain")).thenReturn(Single.just(country));
 
-        Maybe<Country> observable = interactor.getCountry("Spain");
+        Single<Country> observable = interactor.getCountry("Spain");
 
         observable.subscribe(observer);
         observer.assertComplete();
         observer.assertNoErrors();
         Country receivedCountry = observer.values().get(0);
         assertEquals(receivedCountry.getName(),"Spain");
+    }
+
+    @Test
+    public void tusmuertosrxjava() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("Esp");
+        stringList.add("Fra");
+        stringList.add("Por");
+
+        Maybe<List<String>> myObv = Observable.fromIterable(stringList)
+                .flatMap(s -> Observable.just("TUPUTAMADRE"))
+                .toList()
+                .toMaybe();
+
+        TestObserver<List<String>> testObserver = new TestObserver<>();
+        myObv.subscribe(testObserver);
+
+        testObserver.assertComplete();
+        testObserver.assertNoErrors();
+        String c1 = testObserver.values().get(0).get(0);
+        String c2 = testObserver.values().get(0).get(1);
+        String c3 = testObserver.values().get(0).get(2);
+
+        assertEquals(c1, "TUPUTAMADRE");
+        assertEquals(c2, "TUPUTAMADRE");
+        assertEquals(c3, "TUPUTAMADRE");
+
     }
 
 }
