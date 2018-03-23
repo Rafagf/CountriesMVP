@@ -2,26 +2,25 @@ package com.rafagarcia.countries.main.detailedview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.rafagarcia.countries.MyApplication;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
 import com.rafagarcia.countries.di.components.DaggerDetailedCountryViewComponent;
 import com.rafagarcia.countries.di.modules.DetailedCountryViewModule;
+import com.rafagarcia.countries.main.detailedview.borderview.BordersView;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,8 +51,8 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     TextView nativeNameTextView;
     @Bind(R.id.capital_text_view)
     TextView capitalTextView;
-    @Bind(R.id.borders_linear_layout)
-    LinearLayout bordersLinearLayout;
+    @Bind(R.id.borders_view)
+    BordersView bordersView;
 
     @Inject
     DetailedCountryPresenter presenter;
@@ -186,26 +185,14 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
 
     @Override
     public void addMapMarker(LatLng latLng, String country) {
-        googleMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title(country));
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
+//        googleMap.addMarker(new MarkerOptions()
+//                .position(latLng)
+//                .title(country));
+//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3f));
     }
 
     @Override
-    public void addBorderCountry(final String name) {
-        //todo the root needs to be a parent
-        TextView textView = new TextView(this);
-        textView.setBackgroundResource(R.drawable.circle_shape);
-        textView.setTextSize(14);
-        textView.setTextColor(ContextCompat.getColor(this, R.color.color_primary));
-        textView.setText(name);
-        textView.setGravity(Gravity.CENTER);
-        textView.setPadding(20, 5, 20, 5);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(5, 20, 5, 10);
-        textView.setLayoutParams(layoutParams);
-        bordersLinearLayout.addView(textView);
+    public void setBorders(List<String> borderCountries) {
+        bordersView.bind(borderCountries);
     }
 }

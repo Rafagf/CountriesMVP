@@ -120,22 +120,11 @@
                 tools:text="Native name:"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/border_countries_text_view"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp"
-                android:textColor="@color/plain_black"
-                android:text="@string/border_countries"
-                android:textStyle="bold"
-                android:textSize="18sp" />
-
-            <LinearLayout
-                android:id="@+id/borders_linear_layout"
+            <com.rafagarcia.countries.main.detailedview.borderview.BordersView
+                android:id="@+id/borders_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
+                android:layout_marginTop="20dp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
