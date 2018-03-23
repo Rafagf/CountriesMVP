@@ -54,7 +54,7 @@ public class DetailedCountryPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        //todo fetch
+                        onFetchingCountryFailed();
                     }
                 });
     }
@@ -74,6 +74,10 @@ public class DetailedCountryPresenter {
         setDemonym();
         setNativeName();
         setBorderCountries();
+    }
+
+    private void onFetchingCountryFailed() {
+        view.showError();
     }
 
     void stop() {
@@ -160,5 +164,9 @@ public class DetailedCountryPresenter {
 
     private void setMap() {
         view.addMapMarker(countryViewModel.getLatlng(), countryViewModel.getName());
+    }
+
+    void onRetryClicked(String countryName) {
+        fetchCountry(countryName);
     }
 }
