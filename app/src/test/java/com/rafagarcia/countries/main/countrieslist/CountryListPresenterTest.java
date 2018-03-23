@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
@@ -39,7 +39,7 @@ public class CountryListPresenterTest {
 
     @Test
     public void when_it_starts_then_it_get_countries() throws Exception {
-        when(interactor.getCountries()).thenReturn(Maybe.never());
+        when(interactor.getCountries()).thenReturn(Single.never());
 
         presenter.init();
 
@@ -54,7 +54,7 @@ public class CountryListPresenterTest {
         Country country2 = mock(Country.class);
         countries.add(country1);
         countries.add(country2);
-        when(interactor.getCountries()).thenReturn(Maybe.just(countries));
+        when(interactor.getCountries()).thenReturn(Single.just(countries));
 
         presenter.init();
 
@@ -65,7 +65,7 @@ public class CountryListPresenterTest {
 
     @Test
     public void given_countries_errored_when_started_then_it_shows_error() throws Exception {
-        when(interactor.getCountries()).thenReturn(Maybe.error(new Throwable()));
+        when(interactor.getCountries()).thenReturn(Single.error(new Throwable()));
 
         presenter.init();
 

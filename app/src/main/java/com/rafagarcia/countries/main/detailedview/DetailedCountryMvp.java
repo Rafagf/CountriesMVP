@@ -5,7 +5,7 @@ import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Created by rafagarcia on 13/12/2015.
@@ -34,9 +34,12 @@ public interface DetailedCountryMvp {
         void addMapMarker(LatLng latLng, String country);
 
         void setBorders(List<String> borderCountries);
+
+        void setBordersVisibility(boolean visibility);
     }
 
     public interface Interactor {
-        Maybe<Country> getCountry(String name);
+        Single<Country> getCountry(String name);
+        Single<List<String>> getBorderCountriesName(List<String> alphaCountryList);
     }
 }

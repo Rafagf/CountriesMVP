@@ -14,7 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -47,7 +47,7 @@ public class DetailedCountryPresenterTest {
 
     @Test
     public void given_country_when_it_starts_then_fetch_country() throws Exception {
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.never());
+        when(interactor.getCountry("Spain")).thenReturn(Single.never());
 
         presenter.init("Spain");
 
@@ -58,7 +58,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_name() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -69,7 +69,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_flag() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(flagProvider.getFlagUrl("ES")).thenReturn("url");
 
         presenter.init("Spain");
@@ -81,7 +81,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_capital() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -93,7 +93,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_and_country_does_not_have_a_capital_when_started_then_set_capital_to_nothing() {
         Country country = getMockedCountry();
         when(country.getCapital()).thenReturn(null);
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -104,7 +104,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_continent() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -116,7 +116,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_and_it_does_not_have_continent_when_started_then_set_continent_to_nothing() {
         Country country = getMockedCountry();
         when(country.getContinent()).thenReturn(null);
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -127,7 +127,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_region() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -139,7 +139,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_and_it_does_not_have_region_when_started_then_set_region_to_nothing() {
         Country country = getMockedCountry();
         when(country.getRegion()).thenReturn(null);
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -150,7 +150,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_map() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
 
         presenter.init("Spain");
 
@@ -161,7 +161,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_population() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
 
         presenter.init("Spain");
@@ -173,7 +173,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_area() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.area)).thenReturn("Area: ");
 
         presenter.init("Spain");
@@ -185,7 +185,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_demonym() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.demonym)).thenReturn("Demonym: ");
 
         presenter.init("Spain");
@@ -198,7 +198,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_and_it_does_not_have_demonym_when_started_then_set_demonym_to_nothing() {
         Country country = getMockedCountry();
         when(country.getDemonym()).thenReturn(null);
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.demonym)).thenReturn("Demonym: ");
 
         presenter.init("Spain");
@@ -210,7 +210,7 @@ public class DetailedCountryPresenterTest {
     @Test
     public void given_country_successfully_fetched_when_started_then_set_native_name() {
         Country country = getMockedCountry();
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
 
         presenter.init("Spain");
@@ -223,7 +223,7 @@ public class DetailedCountryPresenterTest {
     public void given_country_successfully_fetched_and_it_does_not_have_native_name_when_started_then_set_native_name_to_nothing() {
         Country country = getMockedCountry();
         when(country.getNativeName()).thenReturn(null);
-        when(interactor.getCountry("Spain")).thenReturn(Maybe.just(country));
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
         when(resourcesProvider.getText(R.string.native_name)).thenReturn("Native name: ");
 
         presenter.init("Spain");
@@ -236,6 +236,7 @@ public class DetailedCountryPresenterTest {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         when(country.getAlpha2Code()).thenReturn("ES");
+        when(country.getAlpha3Code()).thenReturn("ESP");
         when(country.getCapital()).thenReturn("Madrid");
         when(country.getContinent()).thenReturn("Europe");
         when(country.getRegion()).thenReturn("Southern Europe");
@@ -253,7 +254,7 @@ public class DetailedCountryPresenterTest {
         borders.add("GIB");
         borders.add("PRT");
         borders.add("MAR");
-        when(country.getBorders()).thenReturn(borders);
+        when(country.getBorderCountryAlphaList()).thenReturn(borders);
 
         return country;
     }

@@ -14,5 +14,8 @@ public interface CountryApi {
     Single<List<Country>> getAllCountries();
 
     @GET("name/{country}")
-    Single<List<Country>> getCountry(@Path("country") String name);
+    Single<List<Country>> getCountryByName(@Path("country") String name);
+
+    @GET("alpha/{countryAlpha}")
+    Single<Country> getCountryByAlpha3(@Path("countryAlpha") String alpha);
 }

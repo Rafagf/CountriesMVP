@@ -6,7 +6,9 @@ import com.rafagarcia.countries.di.providers.ResourcesProvider;
 import com.rafagarcia.countries.model.Country;
 import com.rafagarcia.countries.utilities.FormattingUtils;
 
-import io.reactivex.MaybeObserver;
+import java.util.List;
+
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -39,7 +41,7 @@ public class DetailedCountryPresenter {
         interactor.getCountry(countryName)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new MaybeObserver<Country>() {
+                .subscribe(new SingleObserver<Country>() {
                     @Override
                     public void onSubscribe(Disposable disposable) {
                         compositeDisposable.add(disposable);
@@ -53,11 +55,6 @@ public class DetailedCountryPresenter {
                     @Override
                     public void onError(Throwable e) {
                         //todo fetch
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -140,7 +137,25 @@ public class DetailedCountryPresenter {
     }
 
     private void setBorderCountries() {
-        view.setBorders(countryViewModel.getBorderCountries());
+        interactor.getBorderCountriesName(countryViewModel.getBorderCountryAlphaList()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        compositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> borderCountriesList) {
+                        view.setBordersVisibility(true);
+                        view.setBorders(borderCountriesList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.setBordersVisibility(false);
+                    }
+                });
     }
 
     private void setMap() {
