@@ -3,6 +3,9 @@ package com.rafagarcia.countries.main.detailedview;
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.model.Country;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Rafa on 20/03/2018.
  */

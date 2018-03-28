@@ -10,7 +10,7 @@ import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.components.ApplicationComponent;
 import com.rafagarcia.countries.di.components.DaggerCountryListViewHolderComponent;
 import com.rafagarcia.countries.di.modules.CountryListViewHolderModule;
-import com.rafagarcia.countries.model.Country;
+import com.rafagarcia.countries.main.countrieslist.CountryListViewModel;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -51,7 +51,7 @@ public class CountryListViewHolder extends RecyclerView.ViewHolder implements Co
                 .inject(this);
     }
 
-    public void bind(Country country) {
+    public void bind(CountryListViewModel country) {
         presenter.bind(country);
     }
 

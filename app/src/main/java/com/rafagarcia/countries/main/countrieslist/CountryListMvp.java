@@ -1,5 +1,7 @@
 package com.rafagarcia.countries.main.countrieslist;
 
+import android.support.annotation.ColorRes;
+
 import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
@@ -12,7 +14,9 @@ import io.reactivex.Single;
 
 public interface CountryListMvp {
     interface View {
-        void updateList(List<Country> countries);
+        void setStatusBarColor(@ColorRes int color);
+
+        void updateList(List<CountryListViewModel> countries);
         void goToCountryDetailedView(String countryName);
         void showError();
         void setGoToTopButtonVisibility(boolean visibility);

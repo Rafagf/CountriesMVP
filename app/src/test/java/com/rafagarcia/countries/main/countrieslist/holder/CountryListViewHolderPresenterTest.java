@@ -3,7 +3,7 @@ package com.rafagarcia.countries.main.countrieslist.holder;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.di.providers.FlagProvider;
 import com.rafagarcia.countries.di.providers.ResourcesProvider;
-import com.rafagarcia.countries.model.Country;
+import com.rafagarcia.countries.main.countrieslist.CountryListViewModel;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_then_it_shows_country_name() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getName()).thenReturn("Spain");
         presenter.bind(country);
         verify(view).setName("Spain");
@@ -40,7 +40,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_with_continent_then_it_shows_continent_name() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getContinent()).thenReturn("Europe");
         when(resourcesProvider.getText(R.string.continent)).thenReturn("Continent: ");
         presenter.bind(country);
@@ -49,7 +49,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_with_no_continent_then_it_shows_dash() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(resourcesProvider.getText(R.string.continent)).thenReturn("Continent: ");
         when(country.getContinent()).thenReturn(null);
         presenter.bind(country);
@@ -58,7 +58,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_with_population_greater_than_0_then_it_shows_population() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getPopulation()).thenReturn("500");
         when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
         presenter.bind(country);
@@ -67,7 +67,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_with_population_equal_or_lesser_than_0_then_it_shows_uninhabited() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getPopulation()).thenReturn("0");
         when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
         presenter.bind(country);
@@ -76,7 +76,7 @@ public class CountryListViewHolderPresenterTest {
 
     @Test
     public void given_country_then_it_shows_flag() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getAlpha2Code()).thenReturn("ES");
         when(flagProvider.getFlagUrl("ES")).thenReturn("url");
         presenter.bind(country);

@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.main.detailedview;
+package com.rafagarcia.countries.main.countrieslist;
 
 import com.rafagarcia.countries.model.Country;
 
@@ -8,41 +8,30 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.collection.IsIterableContainingInOrder.contains;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by Rafa on 22/03/2018.
  */
-public class DetailedCountryViewModelMapperTest {
+public class CountryListViewModelMapperTest {
 
-    private DetailedCountryViewModelMapper mapper;
+    private CountryListViewModelMapper mapper;
 
     @Before
     public void setUp() {
-        mapper = new DetailedCountryViewModelMapper();
+        mapper = new CountryListViewModelMapper();
     }
 
     @Test
     public void given_country_then_view_model_fields_are_correct() throws Exception {
         Country country = getMockedCountry();
-        DetailedCountryViewModel viewModel = mapper.mapFrom(country);
+        CountryListViewModel viewModel = mapper.mapFrom(country);
         assertEquals(viewModel.getName(), "Spain");
         assertEquals(viewModel.getAlpha2Code(), "ES");
-        assertEquals(viewModel.getAlpha3Code(), "ESP");
-        assertEquals(viewModel.getCapital(), "Madrid");
         assertEquals(viewModel.getContinent(), "Europe");
-        assertEquals(viewModel.getRegion(), "Southern Europe");
-        assertEquals(viewModel.getArea(), "505992.0");
         assertEquals(viewModel.getPopulation(), "46439864");
-        assertEquals(viewModel.getDemonym(), "Spanish");
-        assertEquals(viewModel.getNativeName(), "España");
-        assertEquals(viewModel.getLatlng().latitude, 40.0, 0);
-        assertEquals(viewModel.getLatlng().longitude, -4.0, 0);
-        assertThat(viewModel.getBorderCountryAlphaList(), contains("AND", "FRA", "GIB", "PRT", "MAR"));
     }
 
     private Country getMockedCountry() {

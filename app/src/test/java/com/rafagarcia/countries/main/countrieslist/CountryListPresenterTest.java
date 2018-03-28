@@ -1,5 +1,6 @@
 package com.rafagarcia.countries.main.countrieslist;
 
+import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.RxImmediateSchedulerRule;
 import com.rafagarcia.countries.model.Country;
 
@@ -59,7 +60,7 @@ public class CountryListPresenterTest {
         presenter.init();
 
         verify(interactor).getCountries();
-        verify(view).updateList(countries);
+        verify(view).updateList(anyList());
         verifyNoMoreInteractions(view, interactor);
     }
 
@@ -92,7 +93,7 @@ public class CountryListPresenterTest {
 
     @Test
     public void when_country_is_selected_then_go_to_detailed_view() throws Exception {
-        Country country = mock(Country.class);
+        CountryListViewModel country = mock(CountryListViewModel.class);
         when(country.getName()).thenReturn("Spain");
         presenter.onCountrySelected(country);
 
@@ -123,6 +124,22 @@ public class CountryListPresenterTest {
         presenter.onRetryClicked();
 
         verify(interactor).getCountries();
+        verifyNoMoreInteractions(view, interactor);
+    }
+
+    @Test
+    public void when_search_is_opened_then_change_status_bar_color() {
+        presenter.onSearchViewShown();
+
+        verify(view).setStatusBarColor(R.color.plain_grey);
+        verifyNoMoreInteractions(view, interactor);
+    }
+
+    @Test
+    public void when_search_is_closed_then_change_status_bar_color() {
+        presenter.onSearchViewClosed();
+
+        verify(view).setStatusBarColor(R.color.color_primary);
         verifyNoMoreInteractions(view, interactor);
     }
 }

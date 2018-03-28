@@ -2,6 +2,7 @@ package com.rafagarcia.countries.main.countrieslist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rafagarcia.countries.MyApplication;
@@ -22,7 +22,6 @@ import com.rafagarcia.countries.di.components.ApplicationComponent;
 import com.rafagarcia.countries.di.components.DaggerCountryListViewComponent;
 import com.rafagarcia.countries.di.modules.CountryListViewModule;
 import com.rafagarcia.countries.main.detailedview.DetailedCountryActivity;
-import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CountryListActivity extends AppCompatActivity implements CountryListMvp.View {
-
 
     @Bind(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
@@ -51,7 +49,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     CountryListPresenter presenter;
 
     private CountryListAdapter adapter;
-    private List<Country> countryList;
+    private List<CountryListViewModel> countryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,20 +101,21 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
         });
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            Window window = getWindow();
-
             @Override
             public void onSearchViewShown() {
-                int color = ContextCompat.getColor(CountryListActivity.this, R.color.plain_grey);
-                window.setStatusBarColor(color);
+                presenter.onSearchViewShown();
             }
 
             @Override
             public void onSearchViewClosed() {
-                int color = ContextCompat.getColor(CountryListActivity.this, R.color.color_primary);
-                window.setStatusBarColor(color);
+                presenter.onSearchViewClosed();
             }
         });
+    }
+
+    @Override
+    public void setStatusBarColor(@ColorRes int color) {
+        getWindow().setStatusBarColor(ContextCompat.getColor(CountryListActivity.this, color));
     }
 
     private void setList() {
@@ -147,7 +146,7 @@ public class CountryListActivity extends AppCompatActivity implements CountryLis
     }
 
     @Override
-    public void updateList(List<Country> countries) {
+    public void updateList(List<CountryListViewModel> countries) {
         countryList.clear();
         countryList.addAll(countries);
         adapter.notifyDataSetChanged();
