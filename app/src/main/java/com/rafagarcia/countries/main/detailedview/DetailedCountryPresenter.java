@@ -117,11 +117,19 @@ public class DetailedCountryPresenter {
     }
 
     private void setPopulation() {
-        view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(countryViewModel.getPopulation()));
+        if (countryViewModel.getPopulation() == null || countryViewModel.getPopulation().isEmpty()) {
+            view.setPopulation(resourcesProvider.getText(R.string.population) + "");
+        } else {
+            view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(countryViewModel.getPopulation()));
+        }
     }
 
     private void setArea() {
-        view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
+        if (countryViewModel.getArea() == null || countryViewModel.getArea().isEmpty()) {
+            view.setArea(resourcesProvider.getText(R.string.area) + "");
+        } else {
+            view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
+        }
     }
 
     private void setDemonym() {

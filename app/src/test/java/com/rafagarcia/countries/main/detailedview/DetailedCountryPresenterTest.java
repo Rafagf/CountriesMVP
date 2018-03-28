@@ -182,6 +182,20 @@ public class DetailedCountryPresenterTest {
     }
 
     @Test
+    public void given_country_successfully_fetched_and_it_does_not_have_population_when_started_then_set_population_to_nothing() {
+        Country country = getMockedCountry();
+        when(country.getPopulation()).thenReturn(null);
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
+        when(resourcesProvider.getText(R.string.population)).thenReturn("Population: ");
+
+        presenter.init("Spain");
+
+        verify(interactor).getCountry("Spain");
+        verify(view).setPopulation("Population: ");
+    }
+
+    @Test
     public void given_country_successfully_fetched_when_started_then_set_area() {
         Country country = getMockedCountry();
         when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
@@ -192,6 +206,20 @@ public class DetailedCountryPresenterTest {
 
         verify(interactor).getCountry("Spain");
         verify(view).setArea("Area: 505.9 km²");
+    }
+
+    @Test
+    public void given_country_successfully_fetched_and_it_does_not_have_area_when_started_then_set_area_to_nothing() {
+        Country country = getMockedCountry();
+        when(country.getArea()).thenReturn(null);
+        when(interactor.getCountry("Spain")).thenReturn(Single.just(country));
+        when(interactor.getBorderCountriesName(anyList())).thenReturn(Single.never());
+        when(resourcesProvider.getText(R.string.area)).thenReturn("Area: ");
+
+        presenter.init("Spain");
+
+        verify(interactor).getCountry("Spain");
+        verify(view).setArea("Area: ");
     }
 
     @Test
