@@ -3,7 +3,9 @@ package com.rafagarcia.countries.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,24 +13,27 @@ import java.util.List;
 /**
  * Created by rafagarcia on 03/07/2016.
  */
-public class Country extends BaseModel implements Comparable<Country>, Parcelable  {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Country extends Object implements Parcelable {
 
     private String name;
     private String nativeName;
     private String alpha2Code;
     private String alpha3Code;
-    private String region;
-    private String subregion;
     private String capital;
     private String population;
     private String area;
     private String demonym;
-    private String flagUrl;
-
-    private List<String> borders;
     private List<Double> latlng;
+    @JsonProperty("region")
+    private String continent;
+    @JsonProperty("subregion")
+    private String region;
+    @JsonProperty("borders")
+    private List<String> borderCountryAlphaList;
 
-    public Country(){
+    public Country() {
 
     }
 
@@ -36,57 +41,48 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         return name;
     }
 
-    public String getPopulation() {
-        return population;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getFlagUrl() {
-        return "http://www.geonames.org/flags/x/" + alpha2Code.toLowerCase() + ".gif";
+    public String getNativeName() {
+        return nativeName;
     }
 
     public String getAlpha2Code() {
         return alpha2Code;
     }
 
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
     public String getCapital() {
         return capital;
     }
 
-    public String getSubregion() {
-        return subregion;
-    }
-
-    public String getDemonym() {
-        return demonym;
+    public String getPopulation() {
+        return population;
     }
 
     public String getArea() {
         return area;
     }
 
-    public String getNativeName() {
-        return nativeName;
+    public String getDemonym() {
+        return demonym;
     }
 
-    public String getAlpha3Code() {
-        return alpha3Code;
+    public List<String> getBorderCountryAlphaList() {
+        return borderCountryAlphaList;
     }
 
-    public List<String> getBorders() {
-        return borders;
-    }
-
-    public LatLng getLatlng() {
-        return new LatLng(this.latlng.get(0), latlng.get(1));
-    }
-
-    @Override
-    public int compareTo(Country another) {
-        return name.compareTo(another.name);
+    public List<Double> getLatlng() {
+        return latlng;
     }
 
     @Override
@@ -100,15 +96,14 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         dest.writeString(this.nativeName);
         dest.writeString(this.alpha2Code);
         dest.writeString(this.alpha3Code);
-        dest.writeString(this.region);
-        dest.writeString(this.subregion);
         dest.writeString(this.capital);
         dest.writeString(this.population);
         dest.writeString(this.area);
         dest.writeString(this.demonym);
-        dest.writeString(this.flagUrl);
-        dest.writeStringList(this.borders);
         dest.writeList(this.latlng);
+        dest.writeString(this.continent);
+        dest.writeString(this.region);
+        dest.writeStringList(this.borderCountryAlphaList);
     }
 
     protected Country(Parcel in) {
@@ -116,16 +111,15 @@ public class Country extends BaseModel implements Comparable<Country>, Parcelabl
         this.nativeName = in.readString();
         this.alpha2Code = in.readString();
         this.alpha3Code = in.readString();
-        this.region = in.readString();
-        this.subregion = in.readString();
         this.capital = in.readString();
         this.population = in.readString();
         this.area = in.readString();
         this.demonym = in.readString();
-        this.flagUrl = in.readString();
-        this.borders = in.createStringArrayList();
         this.latlng = new ArrayList<Double>();
         in.readList(this.latlng, Double.class.getClassLoader());
+        this.continent = in.readString();
+        this.region = in.readString();
+        this.borderCountryAlphaList = in.createStringArrayList();
     }
 
     public static final Creator<Country> CREATOR = new Creator<Country>() {

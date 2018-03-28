@@ -1,18 +1,17 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorRootLayout"
+    android:id="@+id/list_of_countries_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarLayout"
+            android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -24,10 +23,10 @@
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolBar"
+                    android:id="@+id/toolbar"
                     android:fitsSystemWindows="true"
                     android:minHeight="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/color_primary"
                     app:theme="@style/MyToolBar"
                     android:layout_width="match_parent"
                     app:layout_collapseMode="pin"
@@ -44,10 +43,21 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fragment"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/countries_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/go_to_top_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/go_to_top"
+        android:visibility="gone"
+        app:backgroundTint="@color/plain_white"
+        app:fabSize="mini" />
 </android.support.design.widget.CoordinatorLayout>
