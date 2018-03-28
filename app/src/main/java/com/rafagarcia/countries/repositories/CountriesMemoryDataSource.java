@@ -1,4 +1,4 @@
-package com.rafagarcia.countries.main.repositories;
+package com.rafagarcia.countries.repositories;
 
 import com.rafagarcia.countries.model.Country;
 

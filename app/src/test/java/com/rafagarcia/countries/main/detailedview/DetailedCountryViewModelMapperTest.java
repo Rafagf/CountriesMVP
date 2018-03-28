@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  */
 public class DetailedCountryViewModelMapperTest {
 
-    DetailedCountryViewModelMapper mapper;
+    private DetailedCountryViewModelMapper mapper;
 
     @Before
     public void setUp() {
