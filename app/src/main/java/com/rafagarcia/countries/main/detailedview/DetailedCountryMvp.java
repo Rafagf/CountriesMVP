@@ -40,7 +40,7 @@ public interface DetailedCountryMvp {
         void showError();
     }
 
-    public interface Interactor {
+    interface Interactor {
         Single<Country> getCountry(String name);
         Single<List<String>> getBorderCountriesName(List<String> alphaCountryList);
     }
