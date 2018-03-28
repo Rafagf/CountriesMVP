@@ -1,5 +1,6 @@
 package com.rafagarcia.countries.main.countrieslist;
 
+import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.model.Country;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class CountryListPresenter {
 
     private CountryListMvp.View view;
     private CountryListMvp.Interactor interactor;
-    private List<Country> countryList = new ArrayList<>();
+    private List<CountryListViewModel> countryList = new ArrayList<>();
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public CountryListPresenter(CountryListMvp.View view, CountryListMvp.Interactor interactor) {
@@ -65,9 +66,11 @@ public class CountryListPresenter {
     }
 
     private void onFetchingCountriesSucceed(List<Country> countries) {
+        CountryListViewModelMapper mapper = new CountryListViewModelMapper();
+        List<CountryListViewModel> countriesViewModel = mapper.mapFrom(countries);
         countryList.clear();
-        countryList.addAll(countries);
-        view.updateList(countries);
+        countryList.addAll(countriesViewModel);
+        view.updateList(countriesViewModel);
     }
 
     void onQueryTextSubmit(String query) {
@@ -79,8 +82,8 @@ public class CountryListPresenter {
     }
 
     private void search(String query) {
-        List<Country> filteredCountries = new ArrayList<>();
-        for (Country country : countryList) {
+        List<CountryListViewModel> filteredCountries = new ArrayList<>();
+        for (CountryListViewModel country : countryList) {
             if (country.getName().toLowerCase().startsWith(query.toLowerCase())) {
                 filteredCountries.add(country);
             }
@@ -89,11 +92,19 @@ public class CountryListPresenter {
         view.updateList(filteredCountries);
     }
 
-    void onCountrySelected(Country country) {
+    void onCountrySelected(CountryListViewModel country) {
         view.goToCountryDetailedView(country.getName());
     }
 
     void onListScrolled(int firstVisibleItem) {
         view.setGoToTopButtonVisibility(firstVisibleItem > 0);
+    }
+
+    public void onSearchViewShown() {
+        view.setStatusBarColor(R.color.plain_grey);
+    }
+
+    public void onSearchViewClosed() {
+        view.setStatusBarColor(R.color.color_primary);
     }
 }

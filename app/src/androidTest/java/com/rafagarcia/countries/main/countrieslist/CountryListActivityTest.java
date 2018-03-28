@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.TestApplication;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
+import com.rafagarcia.countries.main.detailedview.DetailedCountryActivity;
 import com.rafagarcia.countries.main.espresso.MatcherUtils;
 import com.rafagarcia.countries.main.espresso.RecyclerViewItemCountAssertion;
 import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
@@ -33,6 +34,8 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -98,7 +101,19 @@ public class CountryListActivityTest {
     }
 
     @Test
-    public void given_search_input_spain_when_filtering_countries_then_display_only_spain() {
+    public void when_country_is_clicked_then_go_to_detailed_view() {
+        RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.name_text_view), 0));
+        countryName.perform(click());
+
+        intended(hasComponent(DetailedCountryActivity.class.getName()));
+    }
+
+    @Test
+    public void given_search_input_is_spain_when_filtering_countries_then_display_only_spain() {
         RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
 
         mActivityTestRule.launchActivity(new Intent());
@@ -111,7 +126,7 @@ public class CountryListActivityTest {
     }
 
     @Test
-    public void given_search_input_ge_when_filtering_countries_then_display_germany_and_georgia() {
+    public void given_search_input_is_ge_when_filtering_countries_then_display_germany_and_georgia() {
         RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
 
         mActivityTestRule.launchActivity(new Intent());
@@ -126,7 +141,7 @@ public class CountryListActivityTest {
     }
 
     @Test
-    public void given_search_input_unreadable_when_filtering_countries_then_display_no_countries() {
+    public void given_search_input_is_something_dumb_when_filtering_countries_then_display_no_countries() {
         RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
 
         mActivityTestRule.launchActivity(new Intent());
@@ -134,6 +149,21 @@ public class CountryListActivityTest {
         onView(withId(R.id.action_search)).perform(click());
         onView(withId(R.id.searchTextView)).perform(typeText("dsgdskgs"));
         onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(0));
+    }
+
+    @Test
+    public void when_search_item_is_clicked_then_go_to_detailed_view() {
+        RESTMockServer.whenGET(pathEndsWith("all")).thenReturnFile(200, "json/all_countries.json");
+
+        mActivityTestRule.launchActivity(new Intent());
+
+        onView(withId(R.id.action_search)).perform(click());
+        onView(withId(R.id.searchTextView)).perform(typeText("Spain"));
+        onView(withId(R.id.countries_list_recycler_view)).check(new RecyclerViewItemCountAssertion(1));
+        ViewInteraction countryName = onView(MatcherUtils.withIndex(withId(R.id.name_text_view), 0));
+        countryName.perform(click());
+
+        intended(hasComponent(DetailedCountryActivity.class.getName()));
     }
 
     @Test
