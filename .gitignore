@@ -36,3 +36,5 @@ output.json
 obj/
 .externalNativeBuild
 libs/
+
+.keys.xml
