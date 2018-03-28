@@ -4,9 +4,9 @@ import android.content.SharedPreferences;
 
 import com.rafagarcia.countries.api.request.country.CountryApi;
 import com.rafagarcia.countries.di.providers.CountriesProvider;
-import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.repositories.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.repositories.CountriesRemoteDataSource;
+import com.rafagarcia.countries.repositories.CountriesLocalDataSource;
+import com.rafagarcia.countries.repositories.CountriesMemoryDataSource;
+import com.rafagarcia.countries.repositories.CountriesRemoteDataSource;
 
 import javax.inject.Singleton;
 
@@ -19,9 +19,6 @@ import dagger.Provides;
 
 @Module
 public class CountriesProviderModule {
-
-    public CountriesProviderModule() {
-    }
 
     @Provides
     @Singleton

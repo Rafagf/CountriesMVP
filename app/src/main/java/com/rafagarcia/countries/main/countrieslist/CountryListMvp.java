@@ -17,8 +17,11 @@ public interface CountryListMvp {
         void setStatusBarColor(@ColorRes int color);
 
         void updateList(List<CountryListViewModel> countries);
+
         void goToCountryDetailedView(String countryName);
+
         void showError();
+
         void setGoToTopButtonVisibility(boolean visibility);
     }
 
