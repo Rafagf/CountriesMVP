@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.rafagarcia.countries.R;
 import com.rafagarcia.countries.main.countrieslist.holder.CountryListViewHolder;
-import com.rafagarcia.countries.model.Country;
 
 import java.util.List;
 
@@ -17,13 +16,13 @@ import java.util.List;
 public class CountryListAdapter extends RecyclerView.Adapter {
 
     interface CountriesAdapterInteraction {
-        void onCountrySelected(Country country);
+        void onCountrySelected(CountryListViewModel country);
     }
 
-    private List<Country> countries;
+    private List<CountryListViewModel> countries;
     private CountriesAdapterInteraction listener;
 
-    public CountryListAdapter(List<Country> countries, CountriesAdapterInteraction listener) {
+    public CountryListAdapter(List<CountryListViewModel> countries, CountriesAdapterInteraction listener) {
         this.countries = countries;
         this.listener = listener;
     }
