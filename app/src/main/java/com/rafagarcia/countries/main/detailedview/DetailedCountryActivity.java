@@ -66,6 +66,7 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_in_up, R.anim.stay);
         setContentView(R.layout.activity_country);
         Intent intent = getIntent();
         String country = intent.getStringExtra(COUNTRY_NAME_TAG);
@@ -211,5 +212,11 @@ public class DetailedCountryActivity extends AppCompatActivity implements Detail
         Snackbar.make(findViewById(android.R.id.content), R.string.there_was_an_error, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.retry, view -> presenter.onRetryClicked(getIntent().getStringExtra(COUNTRY_NAME_TAG)))
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.stay, R.anim.slide_out_down);
     }
 }
