@@ -1,8 +1,8 @@
 package com.rafagarcia.countries.main.detailedview;
 
-import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.repositories.CountriesMemoryDataSource;
-import com.rafagarcia.countries.main.repositories.CountriesRemoteDataSource;
+import com.rafagarcia.countries.repositories.CountriesLocalDataSource;
+import com.rafagarcia.countries.repositories.CountriesMemoryDataSource;
+import com.rafagarcia.countries.repositories.CountriesRemoteDataSource;
 import com.rafagarcia.countries.model.Country;
 
 import org.junit.Before;

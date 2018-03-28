@@ -13,8 +13,8 @@ import com.rafagarcia.countries.di.providers.CountriesProvider;
 import com.rafagarcia.countries.main.detailedview.DetailedCountryActivity;
 import com.rafagarcia.countries.main.espresso.MatcherUtils;
 import com.rafagarcia.countries.main.espresso.RecyclerViewItemCountAssertion;
-import com.rafagarcia.countries.main.repositories.CountriesLocalDataSource;
-import com.rafagarcia.countries.main.repositories.CountriesMemoryDataSource;
+import com.rafagarcia.countries.repositories.CountriesLocalDataSource;
+import com.rafagarcia.countries.repositories.CountriesMemoryDataSource;
 import com.rafagarcia.countries.main.utils.FileUtils;
 import com.rafagarcia.countries.model.Country;
 

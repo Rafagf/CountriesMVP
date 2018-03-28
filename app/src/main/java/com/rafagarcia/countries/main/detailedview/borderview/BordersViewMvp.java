@@ -7,7 +7,9 @@ package com.rafagarcia.countries.main.detailedview.borderview;
 public interface BordersViewMvp {
     interface View {
         void setBorderTitleVisibility(boolean visibility);
+
         void addBorder(String country);
+
         void goToCountryDetailedView(String name);
     }
 }

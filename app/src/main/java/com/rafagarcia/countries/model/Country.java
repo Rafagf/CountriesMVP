@@ -14,8 +14,8 @@ import java.util.List;
  * Created by rafagarcia on 03/07/2016.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class Country extends Object implements Parcelable  {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Country extends Object implements Parcelable {
 
     private String name;
     private String nativeName;
@@ -25,7 +25,6 @@ public class Country extends Object implements Parcelable  {
     private String population;
     private String area;
     private String demonym;
-    private String flagUrl;
     private List<Double> latlng;
     @JsonProperty("region")
     private String continent;
@@ -34,7 +33,7 @@ public class Country extends Object implements Parcelable  {
     @JsonProperty("borders")
     private List<String> borderCountryAlphaList;
 
-    public Country(){
+    public Country() {
 
     }
 
@@ -78,10 +77,6 @@ public class Country extends Object implements Parcelable  {
         return demonym;
     }
 
-    public String getFlagUrl() {
-        return flagUrl;
-    }
-
     public List<String> getBorderCountryAlphaList() {
         return borderCountryAlphaList;
     }
@@ -105,7 +100,6 @@ public class Country extends Object implements Parcelable  {
         dest.writeString(this.population);
         dest.writeString(this.area);
         dest.writeString(this.demonym);
-        dest.writeString(this.flagUrl);
         dest.writeList(this.latlng);
         dest.writeString(this.continent);
         dest.writeString(this.region);
@@ -121,7 +115,6 @@ public class Country extends Object implements Parcelable  {
         this.population = in.readString();
         this.area = in.readString();
         this.demonym = in.readString();
-        this.flagUrl = in.readString();
         this.latlng = new ArrayList<Double>();
         in.readList(this.latlng, Double.class.getClassLoader());
         this.continent = in.readString();
