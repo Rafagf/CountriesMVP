@@ -12,6 +12,7 @@ public class DetailedCountryViewModel {
 
     private String name;
     private String alpha2Code;
+    private String alpha3Code;
     private String capital;
     private String continent;
     private String region;
@@ -20,11 +21,12 @@ public class DetailedCountryViewModel {
     private String population;
     private String demonym;
     private LatLng latlng;
-    private List<String> borderCountries;
+    private List<String> borderCountryAlphaList;
 
     public DetailedCountryViewModel(DetailedCountryViewModelBuilder builder) {
         name = builder.name;
         alpha2Code = builder.alpha2Code;
+        alpha3Code = builder.alpha3Code;
         capital = builder.capital;
         continent = builder.continent;
         region = builder.region;
@@ -33,7 +35,7 @@ public class DetailedCountryViewModel {
         population = builder.population;
         demonym = builder.demonym;
         latlng = builder.latlng;
-        borderCountries = builder.borderCountries;
+        borderCountryAlphaList = builder.borderCountryAlphaList;
     }
 
     public String getName() {
@@ -42,6 +44,10 @@ public class DetailedCountryViewModel {
 
     public String getAlpha2Code() {
         return alpha2Code;
+    }
+
+    public String getAlpha3Code() {
+        return alpha3Code;
     }
 
     public String getCapital() {
@@ -76,13 +82,14 @@ public class DetailedCountryViewModel {
         return latlng;
     }
 
-    public List<String> getBorderCountries() {
-        return borderCountries;
+    public List<String> getBorderCountryAlphaList() {
+        return borderCountryAlphaList;
     }
 
     public static class DetailedCountryViewModelBuilder {
         private String name;
         private String alpha2Code;
+        private String alpha3Code;
         private String capital;
         private String continent;
         private String region;
@@ -91,7 +98,7 @@ public class DetailedCountryViewModel {
         private String population;
         private String demonym;
         private LatLng latlng;
-        private List<String> borderCountries;
+        private List<String> borderCountryAlphaList;
 
         public DetailedCountryViewModel build() {
             return new DetailedCountryViewModel(this);
@@ -104,6 +111,11 @@ public class DetailedCountryViewModel {
 
         public DetailedCountryViewModelBuilder setAlpha2Code(String alpha2Code) {
             this.alpha2Code = alpha2Code;
+            return this;
+        }
+
+        public DetailedCountryViewModelBuilder setAlpha3Code(String alpha3Code) {
+            this.alpha3Code = alpha3Code;
             return this;
         }
 
@@ -148,8 +160,8 @@ public class DetailedCountryViewModel {
             return this;
         }
 
-        public DetailedCountryViewModelBuilder setBorderCountries(List<String> borderCountries) {
-            this.borderCountries = borderCountries;
+        public DetailedCountryViewModelBuilder setBorderCountryAlphaList(List<String> borderCountryAlphaList) {
+            this.borderCountryAlphaList = borderCountryAlphaList;
             return this;
         }
     }

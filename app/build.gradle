@@ -13,6 +13,10 @@ android {
         testInstrumentationRunner "com.rafagarcia.countries.main.CustomTestRunner"
     }
 
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -46,6 +50,7 @@ dependencies {
     androidTestCompile('com.android.support.test:runner:1.0.1')
     androidTestCompile('com.android.support.test.espresso:espresso-intents:3.0.1')
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2')
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.1'
 
     //Dependency Injection
     compile 'com.jakewharton:butterknife:7.0.1'

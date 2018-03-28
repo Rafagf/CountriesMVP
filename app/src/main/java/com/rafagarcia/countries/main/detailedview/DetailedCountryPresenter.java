@@ -6,7 +6,9 @@ import com.rafagarcia.countries.di.providers.ResourcesProvider;
 import com.rafagarcia.countries.model.Country;
 import com.rafagarcia.countries.utilities.FormattingUtils;
 
-import io.reactivex.MaybeObserver;
+import java.util.List;
+
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -39,7 +41,7 @@ public class DetailedCountryPresenter {
         interactor.getCountry(countryName)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new MaybeObserver<Country>() {
+                .subscribe(new SingleObserver<Country>() {
                     @Override
                     public void onSubscribe(Disposable disposable) {
                         compositeDisposable.add(disposable);
@@ -52,12 +54,7 @@ public class DetailedCountryPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        //todo fetch
-                    }
-
-                    @Override
-                    public void onComplete() {
-
+                        onFetchingCountryFailed();
                     }
                 });
     }
@@ -77,6 +74,10 @@ public class DetailedCountryPresenter {
         setDemonym();
         setNativeName();
         setBorderCountries();
+    }
+
+    private void onFetchingCountryFailed() {
+        view.showError();
     }
 
     void stop() {
@@ -116,11 +117,19 @@ public class DetailedCountryPresenter {
     }
 
     private void setPopulation() {
-        view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(countryViewModel.getPopulation()));
+        if (countryViewModel.getPopulation() == null || countryViewModel.getPopulation().isEmpty()) {
+            view.setPopulation(resourcesProvider.getText(R.string.population) + "");
+        } else {
+            view.setPopulation(resourcesProvider.getText(R.string.population) + FormattingUtils.formatPopulation(countryViewModel.getPopulation()));
+        }
     }
 
     private void setArea() {
-        view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
+        if (countryViewModel.getArea() == null || countryViewModel.getArea().isEmpty()) {
+            view.setArea(resourcesProvider.getText(R.string.area) + "");
+        } else {
+            view.setArea(resourcesProvider.getText(R.string.area) + FormattingUtils.formatArea(countryViewModel.getArea()));
+        }
     }
 
     private void setDemonym() {
@@ -140,12 +149,32 @@ public class DetailedCountryPresenter {
     }
 
     private void setBorderCountries() {
-        for (String countryName : countryViewModel.getBorderCountries()) {
-            view.addBorderCountry(countryName);
-        }
+        interactor.getBorderCountriesName(countryViewModel.getBorderCountryAlphaList()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new SingleObserver<List<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+                        compositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> borderCountriesList) {
+                        view.setBordersVisibility(true);
+                        view.setBorders(borderCountriesList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        view.setBordersVisibility(false);
+                    }
+                });
     }
 
     private void setMap() {
         view.addMapMarker(countryViewModel.getLatlng(), countryViewModel.getName());
+    }
+
+    void onRetryClicked(String countryName) {
+        fetchCountry(countryName);
     }
 }

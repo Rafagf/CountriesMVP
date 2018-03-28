@@ -32,6 +32,7 @@ public class DetailedCountryViewModelMapperTest {
         DetailedCountryViewModel viewModel = mapper.mapFrom(country);
         assertEquals(viewModel.getName(), "Spain");
         assertEquals(viewModel.getAlpha2Code(), "ES");
+        assertEquals(viewModel.getAlpha3Code(), "ESP");
         assertEquals(viewModel.getCapital(), "Madrid");
         assertEquals(viewModel.getContinent(), "Europe");
         assertEquals(viewModel.getRegion(), "Southern Europe");
@@ -41,13 +42,14 @@ public class DetailedCountryViewModelMapperTest {
         assertEquals(viewModel.getNativeName(), "España");
         assertEquals(viewModel.getLatlng().latitude, 40.0, 0);
         assertEquals(viewModel.getLatlng().longitude, -4.0, 0);
-        assertThat(viewModel.getBorderCountries(), contains("AND", "FRA", "GIB", "PRT", "MAR"));
+        assertThat(viewModel.getBorderCountryAlphaList(), contains("AND", "FRA", "GIB", "PRT", "MAR"));
     }
 
     private Country getMockedCountry() {
         Country country = mock(Country.class);
         when(country.getName()).thenReturn("Spain");
         when(country.getAlpha2Code()).thenReturn("ES");
+        when(country.getAlpha3Code()).thenReturn("ESP");
         when(country.getCapital()).thenReturn("Madrid");
         when(country.getContinent()).thenReturn("Europe");
         when(country.getRegion()).thenReturn("Southern Europe");
@@ -65,7 +67,7 @@ public class DetailedCountryViewModelMapperTest {
         borders.add("GIB");
         borders.add("PRT");
         borders.add("MAR");
-        when(country.getBorders()).thenReturn(borders);
+        when(country.getBorderCountryAlphaList()).thenReturn(borders);
 
         return country;
     }

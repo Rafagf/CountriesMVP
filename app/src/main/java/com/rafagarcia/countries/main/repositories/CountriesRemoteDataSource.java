@@ -23,7 +23,11 @@ public class CountriesRemoteDataSource {
         return countryApi.getAllCountries();
     }
 
-    public Single<Country> getCountry(String name) {
-        return countryApi.getCountry(name).flatMap(countries -> Single.just(countries.get(0)));
+    public Single<Country> getCountryByName(String name) {
+        return countryApi.getCountryByName(name).flatMap(countries -> Single.just(countries.get(0)));
+    }
+
+    public Single<Country> getCountryByAlpha3(String alpha) {
+        return countryApi.getCountryByAlpha3(alpha);
     }
 }

@@ -3,7 +3,9 @@ package com.rafagarcia.countries.main.detailedview;
 import com.google.android.gms.maps.model.LatLng;
 import com.rafagarcia.countries.model.Country;
 
-import io.reactivex.Maybe;
+import java.util.List;
+
+import io.reactivex.Single;
 
 /**
  * Created by rafagarcia on 13/12/2015.
@@ -31,10 +33,15 @@ public interface DetailedCountryMvp {
 
         void addMapMarker(LatLng latLng, String country);
 
-        void addBorderCountry(String name);
+        void setBorders(List<String> borderCountries);
+
+        void setBordersVisibility(boolean visibility);
+
+        void showError();
     }
 
     public interface Interactor {
-        Maybe<Country> getCountry(String name);
+        Single<Country> getCountry(String name);
+        Single<List<String>> getBorderCountriesName(List<String> alphaCountryList);
     }
 }
