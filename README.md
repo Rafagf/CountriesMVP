@@ -1,13 +1,15 @@
-# CountriesMVP
+# Countries
 
-Example app following a MVP architectural pattern (of the many existings) for training purposes. The app can be downloaded in Google Play
+Pet project. The app follows the design pattern MVP (Model-View-Presenter) + the repository pattern with data sources. Dagger, RxJava or Retrofit among other popular libraries is used.
+
+The code is both unit-tested (JUnit + Mockito) and UI tested (Espresso).
 
 https://play.google.com/store/apps/details?id=com.countries.countriesoftheworld
 
-<img src="https://lh3.googleusercontent.com/WIEk6t3RFAKTVHe8qzRKrCbmQ32I79uotptkqU66yFZH0f8ueHOtjHRJKCq3PVykJIw=h900-rw" width="200" height="400" />
-<img src="https://lh3.googleusercontent.com/vc8XtQ_gVrFvLA77M3wIEV67AGfUWa59c1YYYQNKY7oC64EsJFenDi4XPSctaUJpAg=h900-rw" width="200" height="400" />
-<img src="https://lh3.googleusercontent.com/9gNRWKG7UFgB_kQUYFKR_KLFptFXjuTztXL3uekosba1RTH1TM81o8ri5eivhG5CWxg=h900-rw" width="200" height="400" />
-<img src="https://lh3.googleusercontent.com/8ocFMrmB09A45HDiUD44Bhjj7R3lIo-5H2iqDkjskESygA7yDlXSNW-K1fJe6wqOaYU=h900-rw" width="200" height="400" />
+<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot1.png" width="180" height="350" />
+<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot2.png" width="180" height="350" />
+<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot3.png" width="180" height="350" />
+
 
 ## Author
 
