@@ -1,15 +1,16 @@
 # Countries
 
-Pet project. The app follows the design pattern MVP (Model-View-Presenter) + the repository pattern with data sources. Dagger, RxJava or Retrofit among other popular libraries is used.
+Pet project. The app follows the design pattern MVP (Model-View-Presenter) + the repository pattern with data sources (Remote, Local and Memory). Dagger, RxJava or Retrofit among other popular libraries is used.
 
-The code is both unit-tested (JUnit + Mockito) and UI tested (Espresso).
+The code is both unit-tested (JUnit + Mockito) and UI-tested (Espresso).
 
 https://play.google.com/store/apps/details?id=com.countries.countriesoftheworld
 
-<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot1.png" width="180" height="350" />
-<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot2.png" width="180" height="350" />
-<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot3.png" width="180" height="350" />
-
+<p float="left">
+ <img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot1.png" width="200" height="400" />
+<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot2.png" width="200" height="400" />
+<img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot3.png" width="200" height="400" />
+</p>
 
 ## Author
 
