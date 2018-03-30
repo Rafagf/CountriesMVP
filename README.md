@@ -2,7 +2,7 @@
 
 Pet project. The app follows the design pattern MVP (Model-View-Presenter) + the repository pattern with data sources (Remote, Local and Memory). Dagger, RxJava or Retrofit among other popular libraries are used.
 
-The code is both unit-tested (JUnit + Mockito) and UI-tested (Espresso).
+The code is both unit-tested (JUnit + Mockito) and UI-tested (Espresso + RestMock).
 
 https://play.google.com/store/apps/details?id=com.countries.countriesoftheworld
 
