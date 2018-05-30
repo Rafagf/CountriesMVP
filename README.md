@@ -6,6 +6,11 @@ The code is both unit-tested (JUnit + Mockito) and UI-tested (Espresso + RestMoc
 
 https://play.google.com/store/apps/details?id=com.countries.countriesoftheworld
 
+## Other versions
+* Countries MVP (Kotlin): https://github.com/Rafagf/CountriesKotlin
+* Countries Architecture Components: https://github.com/Rafagf/CountriesArchitectureComponents
+
+## Screenshots
 <p float="left">
  <img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot1.png" width="200" height="400" />
 <img src="https://raw.githubusercontent.com/Rafagf/CountriesMVP/868d5130a92c1c828828a89d1e8c06881f5e0050/screenshot2.png" width="200" height="400" />
