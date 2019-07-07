@@ -7,8 +7,8 @@ The code is both unit-tested (JUnit + Mockito) and UI-tested (Espresso + RestMoc
 https://play.google.com/store/apps/details?id=com.countries.countriesoftheworld
 
 ## Other versions
+* Countries MVVM: https://github.com/Rafagf/CountriesMVVM
 * Countries MVP (Kotlin): https://github.com/Rafagf/CountriesKotlin
-* Countries Architecture Components: https://github.com/Rafagf/CountriesArchitectureComponents
 
 ## Screenshots
 <p float="left">
